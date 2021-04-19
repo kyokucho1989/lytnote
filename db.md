@@ -30,11 +30,27 @@
 - 達成できたか
 - 振り返りのコメント
 
-# 問題
-- 日報を登録する際にやったことは複数、コメントはひとつだけ書きたい。
-　DBはどうすればいいか。
 
-- 振り返りのコメントも同じ問題がある。
+## 構造
+
+```
+User
+> daily_comment
+>> done list
+
+> review_comment
+
+
+> plan_list
+
+plan_review_list
+
+
+Type
+
+Status
+```
+
 
 
 ### User
@@ -45,10 +61,11 @@
 |user_name  |string  |null:false    |名前   |
 |password  |string  |null:false   |パスワード   |
 
-- has many: User_Daily_comment
-- has many: User_Review_comment
+- has many: User_Daily_Comment
+- has many: User_Review_Comment
+- has many: User_Plan_List
 
-### User_Daily_comment
+### User_Daily_Comment
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
@@ -56,10 +73,10 @@
 |created_at |datetime |null:false |登録日   |
 |daily_comment   |string  |null:false    |コメント   |
 
-- has many: Done_list
-- belongs_to :user
+- has many: Done_List
+- belongs_to :User
 
-### Done_list
+### Done_List
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
@@ -79,7 +96,7 @@
 |created_at |datetime |null:false |登録日   |
 |review_comment   |string  |null:false    |振り返りコメント   |
 
-- has many: Plan_list
+- belongs_to :User
 
 
 ### Plan_List
@@ -95,6 +112,17 @@
 
 - belongs_to :type
 - belongs_to :status
+
+### Plan_Review_List
+|Colum|type     |Options|memo|
+|-    |-        |-    |-    |
+|id   |integer  |-    |-   |
+|plan_id   |integer  |null:false    |計画のid  |
+|review_id   |integer  |null:false    |振り返りのid  |
+
+
+planとreviewを多対多で関連づけ。
+
 
 ### Type
 |Colum|type     |Options|memo|
