@@ -30,11 +30,27 @@
 - 達成できたか
 - 振り返りのコメント
 
-# 問題
-- 日報を登録する際にやったことは複数、コメントはひとつだけ書きたい。
-　DBはどうすればいいか。
 
-- 振り返りのコメントも同じ問題がある。
+## 構造
+
+```
+User
+> daily_comment
+>> done list
+
+> review_comment
+
+
+> plan_list
+
+plan_review_list
+
+
+Type
+
+Status
+```
+
 
 
 ### User
@@ -45,21 +61,68 @@
 |user_name  |string  |null:false    |名前   |
 |password  |string  |null:false   |パスワード   |
 
-- has many: user_plan
+- has many: User_Daily_Comment
+- has many: User_Review_Comment
+- has many: User_Plan_List
 
-### User_plan
+### User_Daily_Comment
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
 |user_id    |integer  |null:false |-   |
+|created_at |datetime |null:false |登録日   |
+|daily_comment   |string  |null:false    |コメント   |
+
+- has many: Done_List
+- belongs_to :User
+
+### Done_List
+|Colum|type     |Options|memo|
+|-    |-        |-    |-    |
+|id   |integer  |-    |-   |
+|daily_comment_id   |integer  |null:false    |-   |
+|type_id   |integer  |null:false    |種類   |
+|name   |string  |null:false    |やったことの内容   |
+|work_hours   |float  |null:false    |作業時間   |
+
+- belongs_to :user_daily_comment
+- belongs_to :type
+
+### User_Review_comment
+|Colum|type     |Options|memo|
+|-    |-        |-    |-    |
+|id   |integer  |-    |-   |
+|user_id    |integer  |null:false |-   |
+|created_at |datetime |null:false |登録日   |
+|review_comment   |string  |null:false    |振り返りコメント   |
+
+- belongs_to :User
+
+
+### Plan_List
+|Colum|type     |Options|memo|
+|-    |-        |-    |-    |
+|id   |integer  |-    |-   |
 |plan_name   |string  |null:false    |計画の名前   |
-|type_id   |string  |null:false    |種類   |
+|type_id   |integer  |null:false    |種類   |
+|created_at |datetime |null:false |登録日   |
+|update_at |datetime |null:false |更新日   |
 |deadline |datetime |null:false |締め切り   |
-|is_complete |boolean |null:false |終了したかどうか   |
+|status_id |integer |null:false |進行中/完了/取りやめ  |
+
+- belongs_to :type
+- belongs_to :status
+
+### Plan_Review_List
+|Colum|type     |Options|memo|
+|-    |-        |-    |-    |
+|id   |integer  |-    |-   |
+|plan_id   |integer  |null:false    |計画のid  |
+|review_id   |integer  |null:false    |振り返りのid  |
 
 
-- belongs_to :user
-- has_many :growth_record
+planとreviewを多対多で関連づけ。
+
 
 ### Type
 |Colum|type     |Options|memo|
@@ -67,14 +130,16 @@
 |id   |integer  |-    |-   |
 |name   |string  |null:false    |計画/やったことの種類   |
 
-- has_many user_plan
+- has_many done_list
+- has_many plan_list
 
-### User_done_list
+### Status
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
-|record_date |datetime |null:false |登録日   |
-|type_id   |string  |null:false    |種類   |
-|name   |string  |null:false    |やったことの内容   |
-|work_hours   |float  |null:false    |作業時間   |
+|name   |string  |null:false    |Planのステータス　進行中/完了/取りやめ   |
+
+- has_many plan_list
+
+
 
