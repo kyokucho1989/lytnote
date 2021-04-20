@@ -31,26 +31,9 @@
 - 振り返りのコメント
 
 
-## 構造
+## ER図
 
-```
-User
-> daily_comment
->> done list
-
-> review_comment
-
-
-> plan_list
-
-plan_review_list
-
-
-Type
-
-Status
-```
-
+![](https://i.imgur.com/uVqaVKW.png)
 
 
 ### User
@@ -97,12 +80,13 @@ Status
 |review_comment   |string  |null:false    |振り返りコメント   |
 
 - belongs_to :User
-
+- has_many :plan_review_list
 
 ### Plan_List
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
+|user_id    |integer  |null:false |-   |
 |plan_name   |string  |null:false    |計画の名前   |
 |type_id   |integer  |null:false    |種類   |
 |created_at |datetime |null:false |登録日   |
@@ -110,8 +94,10 @@ Status
 |deadline |datetime |null:false |締め切り   |
 |status_id |integer |null:false |進行中/完了/取りやめ  |
 
+- belongs_to :User
 - belongs_to :type
 - belongs_to :status
+- has_many :plan_review_list
 
 ### Plan_Review_List
 |Colum|type     |Options|memo|
@@ -119,9 +105,8 @@ Status
 |id   |integer  |-    |-   |
 |plan_id   |integer  |null:false    |計画のid  |
 |review_id   |integer  |null:false    |振り返りのid  |
-
-
-planとreviewを多対多で関連づけ。
+- belongs_to :plan_list
+- belongs_to :user_review_comment
 
 
 ### Type
@@ -140,6 +125,7 @@ planとreviewを多対多で関連づけ。
 |name   |string  |null:false    |Planのステータス　進行中/完了/取りやめ   |
 
 - has_many plan_list
+
 
 
 
