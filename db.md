@@ -30,11 +30,10 @@
 - 達成できたか
 - 振り返りのコメント
 
-# 問題
-- 日報を登録する際にやったことは複数、コメントはひとつだけ書きたい。
-　DBはどうすればいいか。
 
-- 振り返りのコメントも同じ問題がある。
+## ER図
+
+![](https://i.imgur.com/uVqaVKW.png)
 
 
 ### User
@@ -45,10 +44,11 @@
 |user_name  |string  |null:false    |名前   |
 |password  |string  |null:false   |パスワード   |
 
-- has many: User_Daily_comment
-- has many: User_Review_comment
+- has many: User_Daily_Comment
+- has many: User_Review_Comment
+- has many: User_Plan_List
 
-### User_Daily_comment
+### User_Daily_Comment
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
@@ -56,10 +56,10 @@
 |created_at |datetime |null:false |登録日   |
 |daily_comment   |string  |null:false    |コメント   |
 
-- has many: Done_list
-- belongs_to :user
+- has many: Done_List
+- belongs_to :User
 
-### Done_list
+### Done_List
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
@@ -79,13 +79,14 @@
 |created_at |datetime |null:false |登録日   |
 |review_comment   |string  |null:false    |振り返りコメント   |
 
-- has many: Plan_list
-
+- belongs_to :User
+- has_many :plan_review_list
 
 ### Plan_List
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
+|user_id    |integer  |null:false |-   |
 |plan_name   |string  |null:false    |計画の名前   |
 |type_id   |integer  |null:false    |種類   |
 |created_at |datetime |null:false |登録日   |
@@ -93,8 +94,20 @@
 |deadline |datetime |null:false |締め切り   |
 |status_id |integer |null:false |進行中/完了/取りやめ  |
 
+- belongs_to :User
 - belongs_to :type
 - belongs_to :status
+- has_many :plan_review_list
+
+### Plan_Review_List
+|Colum|type     |Options|memo|
+|-    |-        |-    |-    |
+|id   |integer  |-    |-   |
+|plan_id   |integer  |null:false    |計画のid  |
+|review_id   |integer  |null:false    |振り返りのid  |
+- belongs_to :plan_list
+- belongs_to :user_review_comment
+
 
 ### Type
 |Colum|type     |Options|memo|
@@ -112,6 +125,7 @@
 |name   |string  |null:false    |Planのステータス　進行中/完了/取りやめ   |
 
 - has_many plan_list
+
 
 
 
