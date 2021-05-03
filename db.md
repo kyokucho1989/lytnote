@@ -132,17 +132,18 @@
 
 ```
 日付
- 2021/5/3
+ 2021/5/3 (User_daily_comment/登録日)
 やったこと1
-  種類: JS学習
-  やったこと：　非同期処理の学習
-  工数:1h
+  種類: JS学習 (Done_List/type_id)
+  やったことの内容 ：　非同期処理の学習 (Done_List/name)
+  作業時間:1h(Done_List/work_hours)
+
 やったこと２
 　種類：個人開発
-　やったこと：DB設計
-　工数:0.5h
+　やったことの内容 ：DB設計
+　作業時間:0.5h
 
-コメント
+コメント(User_Daily_Comment/daily_comment)
 　おもったより学習時間がとれなかった。
 ```
 
@@ -151,10 +152,10 @@
 　
 ```
 日付
-2021/5/2
-種類：JS教材
-名前：課題1提出
-期日:2021/5/10 （デフォルトでは登録の1週間後）
+2021/5/2(Plan_List/created_at)
+種類：JS教材(Plan_List/type_id )
+名前：課題1提出(Plan_List/plan_name)
+期日:2021/5/10 (Plan_List/deadline)
 ```
 
 あとから編集できる
@@ -163,14 +164,14 @@
 　
 ```
 振り返りの日付
-2021/5/2
+2021/5/2(User_Review_comment/created_at)
 
 今週が締め切りだった計画の表示
-
-- JS教材　課題2までやる....   できたかどうか　チェック
+(Plan_List)
+- JS教材　課題2までやる....   できたかどうか　チェック (Plan_List/status_id)
 - 個人開発　DB設計までやる....   できたかどうか　チェック
 
-振り返りコメント：
+振り返りコメント：(User_Review_comment/review_comment)
 　週の半ばで体調を崩してペースを落とした。後半は巻き返した。
 
 
