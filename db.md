@@ -53,7 +53,7 @@
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
 |user_id    |integer  |null:false |-   |
-|created_at |datetime |null:false |登録日   |
+|created_commnent_at |datetime |null:false |登録日   |
 |daily_comment   |string  |null:false    |コメント   |
 
 - has many: Done_List

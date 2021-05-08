@@ -1,0 +1,2 @@
+class UserDailyComment < ApplicationRecord
+end
