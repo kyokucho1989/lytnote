@@ -1,0 +1,2 @@
+class DoneListsController < ApplicationController
+end

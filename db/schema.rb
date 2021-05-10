@@ -10,14 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_08_194028) do
+ActiveRecord::Schema.define(version: 2021_05_10_201420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "done_lists", force: :cascade do |t|
+    t.integer "daily_comment_id"
+    t.integer "type_id"
+    t.string "name"
+    t.float "work_hours"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "user_daily_comments", force: :cascade do |t|
     t.integer "user_id"
-    t.datetime "created_comment_at"
+    t.datetime "created_comment_on"
     t.string "daily_comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
