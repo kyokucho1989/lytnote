@@ -1,0 +1,2 @@
+class DoneList < ApplicationRecord
+end
