@@ -1,0 +1,2 @@
+class PlanList < ApplicationRecord
+end
