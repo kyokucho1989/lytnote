@@ -1,9 +1,9 @@
 class CreateUserDailyComments < ActiveRecord::Migration[6.0]
   def change
     create_table :user_daily_comments do |t|
-      t.integer       :user_id
+      t.references       :user, null: false, foreign_key: true
       t.datetime      :created_comment_on
-      t.string        :daily_comment
+      t.string        :daily_comment, null: false
       t.timestamps
     end
   end
