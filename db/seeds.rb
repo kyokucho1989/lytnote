@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE users RESTART IDENTITY CASCADE")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE posts RESTART IDENTITY CASCADE")
+ActiveRecord::Base.connection.execute("TRUNCATE TABLE user_daily_comments RESTART IDENTITY CASCADE")
 
 user1 = User.create!(email: "satou@example.com", password: "password")
 user2 = User.create!(email: "suzuki@example.com", password: "password")
