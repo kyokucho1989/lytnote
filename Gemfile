@@ -60,3 +60,10 @@ gem 'devise'
 # 多言語対応(Rails 6の場合)
 gem 'rails-i18n', '~> 6.0'
 gem 'devise-i18n'
+
+# rspec
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
+end
