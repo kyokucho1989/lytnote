@@ -10,62 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_13_201734) do
+ActiveRecord::Schema.define(version: 2021_08_22_195630) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "done_lists", force: :cascade do |t|
-    t.integer "daily_comment_id"
-    t.integer "type_id"
-    t.string "name"
-    t.float "work_hours"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "plan_lists", force: :cascade do |t|
-    t.integer "user_id"
-    t.string "plan_name"
-    t.integer "type_id"
-    t.datetime "created_on"
-    t.datetime "updated_on"
-    t.datetime "deadline"
-    t.integer "status_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "plan_review_lists", force: :cascade do |t|
-    t.integer "plan_id"
-    t.integer "review_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "statuses", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "types", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "user_daily_comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.datetime "created_comment_on"
-    t.string "daily_comment"
+    t.bigint "user_id", null: false
+    t.string "daily_comment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_daily_comments_on_user_id"
   end
 
   create_table "user_review_comments", force: :cascade do |t|
+    t.string "review_comment", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_user_review_comments_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -80,4 +43,6 @@ ActiveRecord::Schema.define(version: 2021_05_13_201734) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "user_daily_comments", "users"
+  add_foreign_key "user_review_comments", "users"
 end
