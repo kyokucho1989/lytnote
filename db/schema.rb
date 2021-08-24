@@ -10,10 +10,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_22_195630) do
+ActiveRecord::Schema.define(version: 2021_08_24_203328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "done_lists", force: :cascade do |t|
+    t.string "content"
+    t.bigint "user_daily_comment_id", null: false
+    t.bigint "genre_id", null: false
+    t.float "work_hours"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_done_lists_on_genre_id"
+    t.index ["user_daily_comment_id"], name: "index_done_lists_on_user_daily_comment_id"
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "plan_lists", force: :cascade do |t|
+    t.string "plan_name"
+    t.bigint "user_id", null: false
+    t.bigint "genre_id", null: false
+    t.datetime "deadline"
+    t.bigint "status_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_plan_lists_on_genre_id"
+    t.index ["status_id"], name: "index_plan_lists_on_status_id"
+    t.index ["user_id"], name: "index_plan_lists_on_user_id"
+  end
+
+  create_table "plan_review_lists", force: :cascade do |t|
+    t.bigint "plan_list_id", null: false
+    t.bigint "user_review_comment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_list_id"], name: "index_plan_review_lists_on_plan_list_id"
+    t.index ["user_review_comment_id"], name: "index_plan_review_lists_on_user_review_comment_id"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "user_daily_comments", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -44,6 +89,13 @@ ActiveRecord::Schema.define(version: 2021_08_22_195630) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "done_lists", "genres"
+  add_foreign_key "done_lists", "user_daily_comments"
+  add_foreign_key "plan_lists", "genres"
+  add_foreign_key "plan_lists", "statuses"
+  add_foreign_key "plan_lists", "users"
+  add_foreign_key "plan_review_lists", "plan_lists"
+  add_foreign_key "plan_review_lists", "user_review_comments"
   add_foreign_key "user_daily_comments", "users"
   add_foreign_key "user_review_comments", "users"
 end
