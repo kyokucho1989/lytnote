@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2021_08_22_195630) do
   create_table "user_daily_comments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "daily_comment", null: false
+    t.datetime "created_comment_at", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_user_daily_comments_on_user_id"
