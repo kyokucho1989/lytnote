@@ -67,12 +67,12 @@
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
 |daily_comment_id   |integer  |null:false    |-   |
-|type_id   |integer  |null:false    |種類   |
-|name   |string  |null:false    |やったことの内容   |
+|genre_id   |integer  |null:false    |種類   |
+|content   |string  |null:false    |やったことの内容   |
 |work_hours   |float  |null:false    |作業時間   |
 
 - belongs_to :user_daily_comment
-- belongs_to :type
+- belongs_to :genre
 
 ### User_Review_comment
 |Colum|type     |Options|memo|
@@ -82,7 +82,7 @@
 |created_review_at |datetime |null:false |登録日   |
 |review_comment   |string  |null:false    |振り返りコメント   |
 
-- belongs_to :User
+- belongs_to :user
 - has_many :plan_review_list
 
 - 1週間に1個しか投稿できない
@@ -93,28 +93,28 @@
 |id   |integer  |-    |-   |
 |user_id    |integer  |null:false |-   |
 |plan_name   |string  |null:false    |計画の名前   |
-|type_id   |integer  |null:false    |種類   |
+|genre_id   |integer  |null:false    |種類   |
 |created_at |datetime |null:false |登録日   |
-|update_at |datetime |null:false |更新日   |
+|update_at |timestamp |null:false |更新日   |
 |deadline |datetime |null:false |締め切り   |
 |status_id |integer |null:false |進行中/完了/取りやめ  |
 
 - belongs_to :User
-- belongs_to :type
+- belongs_to :genre
 - belongs_to :status
-- has_many :plan_review_list
+- has_many :plan_review_lists
 
 ### Plan_Review_List
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
-|plan_id   |integer  |null:false    |計画のid  |
-|review_id   |integer  |null:false    |振り返りのid  |
+|plan_list_id   |integer  |null:false    |計画のid  |
+|user_review_comment_id   |integer  |null:false    |振り返りのid  |
 - belongs_to :plan_list
 - belongs_to :user_review_comment
 
 
-### Type
+### Genre
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
@@ -129,7 +129,7 @@
 |id   |integer  |-    |-   |
 |name   |string  |null:false    |Planのステータス　進行中/完了/取りやめ   |
 
-- has_many plan_list
+- has_many :plan_list
 
 ## 入力の例
 
