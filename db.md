@@ -59,6 +59,9 @@
 - has many: Done_List
 - belongs_to :User
 
+- 1日1個しか投稿できない
+
+
 ### Done_List
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
@@ -76,11 +79,13 @@
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
 |user_id    |integer  |null:false |-   |
-|created_at |datetime |null:false |登録日   |
+|created_review_at |datetime |null:false |登録日   |
 |review_comment   |string  |null:false    |振り返りコメント   |
 
 - belongs_to :User
 - has_many :plan_review_list
+
+- 1週間に1個しか投稿できない
 
 ### Plan_List
 |Colum|type     |Options|memo|
