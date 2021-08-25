@@ -36,7 +36,7 @@
 ![](https://i.imgur.com/uVqaVKW.png)
 
 
-### User
+### Users
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
@@ -44,92 +44,83 @@
 |user_name  |string  |null:false    |名前   |
 |password  |string  |null:false   |パスワード   |
 
-- has many: User_Daily_Comment
+- has many: reports
 - has many: User_Review_Comment
 - has many: User_Plan_List
 
-### User_Daily_Comment
+### Reports
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
 |user_id    |integer  |null:false |-   |
-|created_commnent_at |datetime |null:false |登録日   |
-|daily_comment   |string  |null:false    |コメント   |
+|created_commnent_on |datetime |null:false |登録日   |
+|content   |string  |null:false    |コメント   |
 
-- has many: Done_List
-- belongs_to :User
+- has many: report_items
+- belongs_to :user
 
 - 1日1個しか投稿できない
 
 
-### Done_List
+### Report_items
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
-|daily_comment_id   |integer  |null:false    |-   |
+|report_id   |integer  |null:false    |-   |
 |genre_id   |integer  |null:false    |種類   |
 |content   |string  |null:false    |やったことの内容   |
 |work_hours   |float  |null:false    |作業時間   |
 
-- belongs_to :user_daily_comment
+- belongs_to :report
 - belongs_to :genre
 
-### User_Review_comment
+### Reviews
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
 |user_id    |integer  |null:false |-   |
-|created_review_at |datetime |null:false |登録日   |
-|review_comment   |string  |null:false    |振り返りコメント   |
+|created_review_on |datetime |null:false |登録日   |
+|content   |string  |null:false    |振り返りコメント   |
 
 - belongs_to :user
-- has_many :plan_review_list
+- has_many :plan_reviews
 
 - 1週間に1個しか投稿できない
 
-### Plan_List
+### Plans
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
 |user_id    |integer  |null:false |-   |
-|plan_name   |string  |null:false    |計画の名前   |
+|name   |string  |null:false    |計画の名前   |
 |genre_id   |integer  |null:false    |種類   |
-|created_at |datetime |null:false |登録日   |
-|update_at |timestamp |null:false |更新日   |
+|created_on |datetime |null:false |登録日   |
 |deadline |datetime |null:false |締め切り   |
-|status_id |integer |null:false |進行中/完了/取りやめ  |
+|status |string |null:false |進行中/完了/取りやめ  |
 
-- belongs_to :User
+- belongs_to :user
 - belongs_to :genre
-- belongs_to :status
-- has_many :plan_review_lists
+- has_many :plan_reviews
 
-### Plan_Review_List
+### Plan_Reviews
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
-|plan_list_id   |integer  |null:false    |計画のid  |
-|user_review_comment_id   |integer  |null:false    |振り返りのid  |
-- belongs_to :plan_list
-- belongs_to :user_review_comment
+|plan_id   |integer  |null:false    |計画のid  |
+|review_id   |integer  |null:false    |振り返りのid  |
+- belongs_to :plan
+- belongs_to :review
 
 
-### Genre
+### Genres
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
 |name   |string  |null:false    |計画/やったことの種類   |
 
-- has_many done_list
-- has_many plan_list
+- has_many :report_items
+- has_many :plans
 
-### Status
-|Colum|type     |Options|memo|
-|-    |-        |-    |-    |
-|id   |integer  |-    |-   |
-|name   |string  |null:false    |Planのステータス　進行中/完了/取りやめ   |
-
-- has_many :plan_list
 
 ## 入力の例
 
