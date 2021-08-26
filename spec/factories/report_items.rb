@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :done_list do
+  factory :report_item do
     content { "MyString" }
-    user_daily_comment { nil }
+    report { nil }
     genre { "" }
     work_hours { 1.5 }
   end

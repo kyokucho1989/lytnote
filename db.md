@@ -44,10 +44,9 @@
 |user_name  |string  |null:false    |名前   |
 |password  |string  |null:false   |パスワード   |
 
-- has many: reports
-- has many: User_Review_Comment
-- has many: User_Plan_List
-
+- has many :reports
+- has many :reviews
+- has many :plans
 ### Reports
 |Colum|type     |Options|memo|
 |-    |-        |-    |-    |
@@ -79,7 +78,7 @@
 |-    |-        |-    |-    |
 |id   |integer  |-    |-   |
 |user_id    |integer  |null:false |-   |
-|created_review_on |datetime |null:false |登録日   |
+|created_on |datetime |null:false |登録日   |
 |content   |string  |null:false    |振り返りコメント   |
 
 - belongs_to :user
