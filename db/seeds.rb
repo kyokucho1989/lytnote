@@ -28,13 +28,15 @@ report_item1_2 = ReportItem.create!(genre_id: genre1.id,report_id:report1.id,con
 report_item2_1 = ReportItem.create!(genre_id: genre2.id,report_id:report2.id,content: "TOEIC学習", work_hours: 1.5) 
 report_item3_1 = ReportItem.create!(genre_id: genre3.id,report_id:report3.id,content: "算出プロパティ学習", work_hours: 3) 
 
+plan1 = Plan.create!(user_id: user1.id, genre_id: genre1.id, name: "Controllerの作成", deadline:Date.new(2021,9,30))
 
 # $rails c　で以下を実行
 # user1,user2,user3 = User.all
 # genre1, genre2, genre3 = Genre.all
+
+# □□□□ 日報の作成 □□□□
 # report1, report2, report3 = Report.all
 # report_item1_1, report_item1_2, report_item2_1, report_item3_1 = ReportItem.all
-
 # user1.reports[0]
 #  -> nil　なにも入ってない 
 # user2.reports[0]
@@ -43,4 +45,8 @@ report_item3_1 = ReportItem.create!(genre_id: genre3.id,report_id:report3.id,con
 #  -> TOEICの学習...
 # user3.reports[1].report_items[0]
 # -> 算出プロパティの学習....
+# user2.reports[0].report_items
+# => レポートがいっぱい出てくる  ok
+
+# □□□□ 計画の作成 □□□□
 puts "初期データの投入に成功しました！"
