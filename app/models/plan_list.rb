@@ -1,2 +1,0 @@
-class PlanList < ApplicationRecord
-end

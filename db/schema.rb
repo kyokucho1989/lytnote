@@ -10,25 +10,66 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_22_195630) do
+ActiveRecord::Schema.define(version: 2021_08_27_185001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "user_daily_comments", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "daily_comment", null: false
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_user_daily_comments_on_user_id"
   end
 
-  create_table "user_review_comments", force: :cascade do |t|
-    t.string "review_comment", null: false
-    t.bigint "user_id", null: false
+  create_table "plan_reviews", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.bigint "review_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_user_review_comments_on_user_id"
+    t.index ["plan_id"], name: "index_plan_reviews_on_plan_id"
+    t.index ["review_id"], name: "index_plan_reviews_on_review_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "genre_id", null: false
+    t.string "name"
+    t.datetime "created_on"
+    t.datetime "deadline"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_plans_on_genre_id"
+    t.index ["user_id"], name: "index_plans_on_user_id"
+  end
+
+  create_table "report_items", force: :cascade do |t|
+    t.string "content"
+    t.bigint "report_id", null: false
+    t.bigint "genre_id", null: false
+    t.float "work_hours"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_report_items_on_genre_id"
+    t.index ["report_id"], name: "index_report_items_on_report_id"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_on"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_reports_on_user_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.string "content"
+    t.bigint "user_id", null: false
+    t.datetime "created_on"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,6 +84,12 @@ ActiveRecord::Schema.define(version: 2021_08_22_195630) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "user_daily_comments", "users"
-  add_foreign_key "user_review_comments", "users"
+  add_foreign_key "plan_reviews", "plans"
+  add_foreign_key "plan_reviews", "reviews"
+  add_foreign_key "plans", "genres"
+  add_foreign_key "plans", "users"
+  add_foreign_key "report_items", "genres"
+  add_foreign_key "report_items", "reports"
+  add_foreign_key "reports", "users"
+  add_foreign_key "reviews", "users"
 end

@@ -1,2 +1,0 @@
-class PlanReviewList < ApplicationRecord
-end
