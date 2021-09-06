@@ -24,7 +24,7 @@ module DailyReportApp
       g.template_engine :erb
       g.javascripts false
       g.stylesheets false
-      g.helper false
+      g.helper true
       g.test_framework :rspec
     end
   end
