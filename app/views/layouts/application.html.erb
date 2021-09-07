@@ -11,15 +11,21 @@
 
   <body>
   <% if user_signed_in? %>
-  <%# ログイン時 %>
-  <%= link_to "アカウント編集", edit_user_registration_path %>
-  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } %>
-  <%= "【ログイン中のアドレス】#{current_user.email}" %>
-<% else %>
-  <%# 非ログイン時 %>
-  <%= link_to "新規登録", new_user_registration_path %>
-  <%= link_to "ログイン", new_user_session_path %>
-<% end %>
-    <%= yield %>
+    <%# ログイン時 %>
+    <%= link_to "アカウント編集", edit_user_registration_path %>
+    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } %>
+    <%= "【ログイン中のアドレス】#{current_user.email}" %>
+  <% else %>
+    <%# 非ログイン時 %>
+    <%= link_to "新規登録", new_user_registration_path %>
+    <%= link_to "ログイン", new_user_session_path %>
+  <% end %>
+    目標一覧
+    目標登録
+    日報一覧
+    日報登録
+    振り返り一覧
+    振り返り登録
+  <%= yield %>
   </body>
 </html>
