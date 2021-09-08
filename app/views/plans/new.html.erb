@@ -1,0 +1,6 @@
+<h1>目標登録</h1>
+<%= form_with model: @plan, local: true do |f| %>
+  <p>目標：<%= f.text_field :name %></p>
+  <p>ジャンル：<%= f.text_field :genre_id %></p>
+  <%= f.submit "登録" %>
+<% end %>
