@@ -20,10 +20,10 @@
     <%= link_to "新規登録", new_user_registration_path %>
     <%= link_to "ログイン", new_user_session_path %>
   <% end %>
-    目標一覧
-    目標登録
-    日報一覧
-    日報登録
+  <%= link_to "目標一覧", plans_path %>
+  <%= link_to "目標登録", new_plan_path %>
+  <%= link_to "日報一覧", reports_path %> 
+  <%= link_to "日報登録", new_report_path %>  
     振り返り一覧
     振り返り登録
   <%= yield %>
