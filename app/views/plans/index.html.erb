@@ -1,7 +1,9 @@
 <h1>目標一覧</h1>
-<%= @plans %>
 <% @plans.each.with_index(1) do |plan, i| %>
   <p>
-  <%= i %> <%= plan.name %>
+  目標： <%= plan.name %>
+  締め切り：<%= plan.deadline %>
+  ステータス：<%= plan.status %>
+  ジャンル：<%= plan.genre_id %>
   </p>
 <% end %>

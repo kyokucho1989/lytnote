@@ -2,5 +2,7 @@
 <%= form_with model: @plan, local: true do |f| %>
   <p>目標：<%= f.text_field :name %></p>
   <p>ジャンル：<%= f.text_field :genre_id %></p>
+  <p>締め切り：<%= f.date_field :deadline %></p>
+  <%= f.hidden_field :status, :value => "進行中" %>
   <%= f.submit "登録" %>
 <% end %>

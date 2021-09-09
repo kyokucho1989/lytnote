@@ -16,6 +16,6 @@ class PlansController < ApplicationController
 
   private
   def plan_params
-    params.require(:plan).permit(:name, :genre_id)
+    params.require(:plan).permit(:name, :genre_id, :deadline, :status)
   end
 end
