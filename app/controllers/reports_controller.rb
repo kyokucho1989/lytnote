@@ -5,10 +5,11 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new
-    @report.report_items.build
+    3.times { @report.report_items.build }
   end
 
   def create
+    binding.pry
     report = Report.new(report_params)
     report.user_id = current_user.id
     report.save!
