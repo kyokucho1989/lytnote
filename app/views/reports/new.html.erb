@@ -1,5 +1,12 @@
 <h1>日報登録</h1>
 <%= form_with model: @report, local: true do |f| %>
   <p>コメント：<%= f.text_field :content %></p>
+  <%= f.fields_for :report_items do |item| %>
+
+    <p>ジャンル：<%= item.collection_select :genre_id, Genre.all, :id, :name, :include_blank => true %></p>
+    <p>やったこと：<%= item.text_field :content %></p>
+    <p>作業時間：<%= item.text_field :work_hours %></p>
+    
+  <% end %>
   <%= f.submit "登録" %>
 <% end %>

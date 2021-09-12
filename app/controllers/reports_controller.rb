@@ -5,13 +5,13 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new
+    @report.report_items.build
   end
 
   def create
     report = Report.new(report_params)
     report.user_id = current_user.id
     report.save!
-    binding.pry
   end
 
   def show
@@ -29,6 +29,7 @@ class ReportsController < ApplicationController
 
   private
   def report_params
-    params.require(:report).permit(:content)
+    params.require(:report).permit(:content,report_items_attributes:[:content,:genre_id,:work_hours])
   end
+
 end
