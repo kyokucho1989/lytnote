@@ -9,8 +9,15 @@ class ReportsController < ApplicationController
   end
 
   def create
+    para = report_params[:report_items_attributes]
+    para.reject!{|key,value| value[:content] == ""}
+    if !para.key?("content") then
+      para[:content]=""
+    end
+    formatted_para = report_params
+    formatted_para[:report_items_attributes] = para
     binding.pry
-    report = Report.new(report_params)
+    report = Report.new(formatted_para)
     report.user_id = current_user.id
     report.save!
   end
@@ -31,6 +38,7 @@ class ReportsController < ApplicationController
   private
   def report_params
     params.require(:report).permit(:content,report_items_attributes:[:content,:genre_id,:work_hours])
+    # params[:report][:report_items_attributes]
   end
 
 end
