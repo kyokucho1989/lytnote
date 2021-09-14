@@ -10,13 +10,14 @@ class ReportsController < ApplicationController
 
   def create
     para = report_params[:report_items_attributes]
+    first_key = para.keys.first
+    first_value = para.values.first
     para.reject!{|key,value| value[:content] == ""}
     if !para.key?("content") then
-      para[:content]=""
+      para[first_key]=first_value
     end
     formatted_para = report_params
     formatted_para[:report_items_attributes] = para
-    binding.pry
     report = Report.new(formatted_para)
     report.user_id = current_user.id
     report.save!
