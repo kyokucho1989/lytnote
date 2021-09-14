@@ -1,2 +1,0 @@
-class UserReviewCommentController < ApplicationController
-end

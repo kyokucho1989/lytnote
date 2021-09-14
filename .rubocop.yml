@@ -1,0 +1,36 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+  - rubocop-performance
+
+AllCops:
+  Exclude:
+    - "assets/**/*"
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "log/**/*"
+    - "node_modules/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+
+# 日本語のコメントを許可
+Style/AsciiComments:
+  Enabled: false
+
+# ドキュメントの無い public class を許可
+Style/Documentation:
+  Enabled: false
+
+
+# frozen_string_literal の指定強制を解除
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# 1行の最大
+Layout/LineLength:
+  Max: 160
+
+# 文字列はダブルクォートに統一
+Style/StringLiterals:
+  EnforcedStyle: double_quotes

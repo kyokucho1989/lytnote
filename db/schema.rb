@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2021_08_27_185001) do
   end
 
   create_table "report_items", force: :cascade do |t|
-    t.string "content"
+    t.string "content", null: false
     t.bigint "report_id", null: false
     t.bigint "genre_id", null: false
     t.float "work_hours"
