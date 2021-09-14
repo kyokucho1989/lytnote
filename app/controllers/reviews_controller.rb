@@ -3,21 +3,15 @@ class ReviewsController < ApplicationController
     @reviews = Review.all
   end
 
-  def show
-  end
+  def show; end
 
-  def new
-  end
+  def new; end
 
-  def create
-  end
+  def create; end
 
-  def edit
-  end
+  def edit; end
 
-  def destroy
-  end
+  def destroy; end
 
-  def update
-  end
+  def update; end
 end

@@ -3,6 +3,7 @@ class PlansController < ApplicationController
     @plans = Plan.all
     @genres = Genre.all
   end
+
   def new
     @plan = Plan.new
 
@@ -17,6 +18,7 @@ class PlansController < ApplicationController
   end
 
   private
+
   def plan_params
     params.require(:plan).permit(:name, :genre_id, :deadline, :status)
   end

@@ -3,5 +3,5 @@ class Report < ApplicationRecord
   has_many :report_items
   accepts_nested_attributes_for :report_items
   validates :created_on, uniqueness: true
-  validates :content, length: { maximum: 200 },presence: true
+  validates :content, length: { maximum: 200 }, presence: true
 end
