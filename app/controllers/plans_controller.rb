@@ -6,8 +6,6 @@ class PlansController < ApplicationController
 
   def new
     @plan = Plan.new
-
-    # binding.pry
   end
 
   def create
