@@ -6,6 +6,7 @@ class ReportsController < ApplicationController
   def new
     @report = Report.new
     3.times { @report.report_items.build }
+    @select_genre = Genre.where(user_id: current_user)
   end
 
   def create
