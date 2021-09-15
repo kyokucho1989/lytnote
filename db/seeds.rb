@@ -19,13 +19,13 @@ genre1_1 = Genre.create!(name: "Rails",user_id: user1.id)
 genre1_2 = Genre.create!(name: "英語",user_id: user1.id)
 genre1_3 = Genre.create!(name: "Vue",user_id: user1.id)
 
-genre2_1 = Genre.create!(name: "Rails",user_id: user2.id)
-genre2_2 = Genre.create!(name: "英語",user_id: user2.id)
-genre2_3 = Genre.create!(name: "Vue",user_id: user2.id)
+genre2_1 = Genre.create!(name: "基本情報",user_id: user2.id)
+genre2_2 = Genre.create!(name: "中国語",user_id: user2.id)
+genre2_3 = Genre.create!(name: "フロントエンド",user_id: user2.id)
 
-genre3_1 = Genre.create!(name: "Rails",user_id: user3.id)
-genre3_2 = Genre.create!(name: "英語",user_id: user3.id)
-genre3_3 = Genre.create!(name: "Vue",user_id: user3.id)
+genre3_1 = Genre.create!(name: "食事",user_id: user3.id)
+genre3_2 = Genre.create!(name: "会話",user_id: user3.id)
+genre3_3 = Genre.create!(name: "プログラミング",user_id: user3.id)
 
 
 report1 = Report.create!(content: "忙しかったけど学習できた。", user_id: user2.id)
