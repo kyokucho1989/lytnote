@@ -24,16 +24,21 @@ class ReportsController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    @report = Report.find(params[:id])
+    @select_genre = Genre.where(user_id: current_user)
+  end
 
   def destroy; end
 
-  def update; end
+  def update
+    report = Report.find(params[:id])
+    report.update_attributes(report_params)
+  end
 
   private
 
   def report_params
-    params.require(:report).permit(:content, report_items_attributes: [:content, :genre_id, :work_hours])
-    # params[:report][:report_items_attributes]
+    params.require(:report).permit(:content, report_items_attributes: [:content, :genre_id, :work_hours, :id])
   end
 end
