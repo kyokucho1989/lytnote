@@ -15,29 +15,28 @@ user1 = User.create!(email: "satou@example.com", password: "password")
 user2 = User.create!(email: "suzuki@example.com", password: "password")
 user3 = User.create!(email: "tanaka@example.com", password: "password")
 
-genre1_1 = Genre.create!(name: "Rails",user_id: user1.id)
-genre1_2 = Genre.create!(name: "英語",user_id: user1.id)
-genre1_3 = Genre.create!(name: "Vue",user_id: user1.id)
+genre1_1 = Genre.create!(name: "Rails", user_id: user1.id)
+genre1_2 = Genre.create!(name: "英語", user_id: user1.id)
+genre1_3 = Genre.create!(name: "Vue", user_id: user1.id)
 
-genre2_1 = Genre.create!(name: "基本情報",user_id: user2.id)
-genre2_2 = Genre.create!(name: "中国語",user_id: user2.id)
-genre2_3 = Genre.create!(name: "フロントエンド",user_id: user2.id)
+genre2_1 = Genre.create!(name: "基本情報", user_id: user2.id)
+genre2_2 = Genre.create!(name: "中国語", user_id: user2.id)
+genre2_3 = Genre.create!(name: "フロントエンド", user_id: user2.id)
 
-genre3_1 = Genre.create!(name: "食事",user_id: user3.id)
-genre3_2 = Genre.create!(name: "会話",user_id: user3.id)
-genre3_3 = Genre.create!(name: "プログラミング",user_id: user3.id)
-
+genre3_1 = Genre.create!(name: "食事", user_id: user3.id)
+genre3_2 = Genre.create!(name: "会話", user_id: user3.id)
+genre3_3 = Genre.create!(name: "プログラミング", user_id: user3.id)
 
 report1 = Report.create!(content: "忙しかったけど学習できた。", user_id: user2.id)
 report2 = Report.create!(content: "こんにちは", user_id: user3.id)
 report3 = Report.create!(content: "こんばんは", user_id: user3.id)
 
-report_item1_1 = ReportItem.create!(genre_id: genre2_1.id,report_id:report1.id,content: "DB設計", work_hours: 4.5) 
-report_item1_2 = ReportItem.create!(genre_id: genre2_2.id,report_id:report1.id,content: "コントローラー作成", work_hours: 2.5) 
-report_item2_1 = ReportItem.create!(genre_id: genre3_1.id,report_id:report2.id,content: "TOEIC学習", work_hours: 1.5) 
-report_item3_1 = ReportItem.create!(genre_id: genre3_3.id,report_id:report3.id,content: "算出プロパティ学習", work_hours: 3) 
+report_item1_1 = ReportItem.create!(genre_id: genre2_1.id, report_id: report1.id, content: "DB設計", work_hours: 4.5)
+report_item1_2 = ReportItem.create!(genre_id: genre2_2.id, report_id: report1.id, content: "コントローラー作成", work_hours: 2.5)
+report_item2_1 = ReportItem.create!(genre_id: genre3_1.id, report_id: report2.id, content: "TOEIC学習", work_hours: 1.5)
+report_item3_1 = ReportItem.create!(genre_id: genre3_3.id, report_id: report3.id, content: "算出プロパティ学習", work_hours: 3)
 
-plan1 = Plan.create!(user_id: user1.id, genre_id: genre1_1.id, name: "Controllerの作成", deadline:Date.new(2021,9,30))
+plan1 = Plan.create!(user_id: user1.id, genre_id: genre1_1.id, name: "Controllerの作成", deadline: Date.new(2021, 9, 30))
 
 # $rails c　で以下を実行
 # user1,user2,user3 = User.all
@@ -47,7 +46,7 @@ plan1 = Plan.create!(user_id: user1.id, genre_id: genre1_1.id, name: "Controller
 # report1, report2, report3 = Report.all
 # report_item1_1, report_item1_2, report_item2_1, report_item3_1 = ReportItem.all
 # user1.reports[0]
-#  -> nil　なにも入ってない 
+#  -> nil　なにも入ってない
 # user2.reports[0]
 #  -> あり
 # user3.reports[0].report_items[0]
