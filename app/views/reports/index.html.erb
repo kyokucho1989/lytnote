@@ -14,6 +14,7 @@
   <% end %>
   コメント： <%= report.content %>
   <%= link_to "編集", edit_report_path(report) %>
+  <%= link_to "この日の日報を削除", report_path(report), method: :delete, data: {confirm: "削除しますか?"} %>
   </p>
   <hr>
 <% end %>
