@@ -4,6 +4,7 @@
     <p>ジャンル：<%= item.collection_select :genre_id, @select_genre, :id, :name, :include_blank => true %></p>
     <p>やったこと：<%= item.text_field :content %></p>
     <p>作業時間：<%= item.text_field :work_hours %></p>
+    <%= link_to "この項目を削除", report_item_path(item.object.id), method: :delete, data: {confirm: "削除しますか?"} %>
   <% end %>
   <p>コメント：<%= f.text_field :content %></p>
   <%= f.submit "登録" %>

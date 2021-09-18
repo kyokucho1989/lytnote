@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   root "plans#index"
   resources :plans
   resources :reports
+  resources :report_items, only: :destroy
   resources :reviews
 end

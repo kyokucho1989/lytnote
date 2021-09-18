@@ -29,7 +29,10 @@ class ReportsController < ApplicationController
     @select_genre = Genre.where(user_id: current_user)
   end
 
-  def destroy; end
+  def destroy
+    report = Report.find(params[:id])
+    report.destroy
+  end
 
   def update
     report = Report.find(params[:id])
