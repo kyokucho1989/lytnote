@@ -38,9 +38,12 @@ report_item3_1 = ReportItem.create!(genre_id: genre3_3.id, report_id: report3.id
 
 plan1 = Plan.create!(user_id: user1.id, genre_id: genre1_1.id, name: "Controllerの作成", deadline: Date.new(2021, 9, 30))
 
+review1 = Review.create!(user_id: user1.id, content: "テスト")
+
+plan2.plan_reviews.create!(review_id: review1.id)
 # $rails c　で以下を実行
 # user1,user2,user3 = User.all
-# genre1, genre2, genre3 = Genre.all
+# genre1_1, genre1_2, genre1_3 ,genre2_1, genre2_2, genre2_3 ,genre3_1, genre3_2, genre3_3 = Genre.all
 
 # □□□□ 日報の作成 □□□□
 # report1, report2, report3 = Report.all

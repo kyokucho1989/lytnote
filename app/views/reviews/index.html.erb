@@ -1,2 +1,7 @@
-<h1>Reviews#index</h1>
-<p>Find me in app/views/reviews/index.html.erb</p>
+<h1>振り返り一覧</h1>
+<% @reviews.each.with_index(1) do |review, i| %>
+  <p>
+  作成日： <%= review.created_at %>
+  内容：<%= review.content %>
+  </p>
+<% end %>
