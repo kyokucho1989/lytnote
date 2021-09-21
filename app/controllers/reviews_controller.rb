@@ -5,9 +5,15 @@ class ReviewsController < ApplicationController
 
   def show; end
 
-  def new; end
+  def new
+    @review = Review.new
+    @plans = Plan.all
+    binding.pry
+  end
 
-  def create; end
+  def create
+    binding.pry
+  end
 
   def edit; end
 
