@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_27_185001) do
+ActiveRecord::Schema.define(version: 2021_09_22_202606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,22 @@ ActiveRecord::Schema.define(version: 2021_08_27_185001) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_genres_on_user_id"
+  end
+
+  create_table "plan_review_records", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.bigint "review_id", null: false
+    t.bigint "genre_id", null: false
+    t.string "name"
+    t.string "status"
+    t.datetime "deadline"
+    t.string "status_after_review", null: false
+    t.datetime "deadline_after_review"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_plan_review_records_on_genre_id"
+    t.index ["plan_id"], name: "index_plan_review_records_on_plan_id"
+    t.index ["review_id"], name: "index_plan_review_records_on_review_id"
   end
 
   create_table "plan_reviews", force: :cascade do |t|
@@ -87,6 +103,9 @@ ActiveRecord::Schema.define(version: 2021_08_27_185001) do
   end
 
   add_foreign_key "genres", "users"
+  add_foreign_key "plan_review_records", "genres"
+  add_foreign_key "plan_review_records", "plans"
+  add_foreign_key "plan_review_records", "reviews"
   add_foreign_key "plan_reviews", "plans"
   add_foreign_key "plan_reviews", "reviews"
   add_foreign_key "plans", "genres"
