@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2021_09_22_202606) do
     t.bigint "user_id", null: false
     t.bigint "genre_id", null: false
     t.string "name"
-    t.datetime "created_on"
+    t.datetime "set_on"
     t.datetime "deadline"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 2021_09_22_202606) do
 
   create_table "reports", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.datetime "created_on"
+    t.datetime "reported_on"
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 2021_09_22_202606) do
   create_table "reviews", force: :cascade do |t|
     t.string "content"
     t.bigint "user_id", null: false
-    t.datetime "created_on"
+    t.datetime "reviewed_on"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_reviews_on_user_id"
