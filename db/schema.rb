@@ -26,15 +26,13 @@ ActiveRecord::Schema.define(version: 2021_09_22_202606) do
   create_table "plan_review_records", force: :cascade do |t|
     t.bigint "plan_id", null: false
     t.bigint "review_id", null: false
-    t.bigint "genre_id", null: false
     t.string "name"
     t.string "status"
     t.datetime "deadline"
-    t.string "status_after_review", null: false
+    t.string "status_after_review"
     t.datetime "deadline_after_review"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["genre_id"], name: "index_plan_review_records_on_genre_id"
     t.index ["plan_id"], name: "index_plan_review_records_on_plan_id"
     t.index ["review_id"], name: "index_plan_review_records_on_review_id"
   end
@@ -52,7 +50,7 @@ ActiveRecord::Schema.define(version: 2021_09_22_202606) do
     t.bigint "user_id", null: false
     t.bigint "genre_id", null: false
     t.string "name"
-    t.datetime "created_on"
+    t.datetime "set_on"
     t.datetime "deadline"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -74,7 +72,7 @@ ActiveRecord::Schema.define(version: 2021_09_22_202606) do
 
   create_table "reports", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.datetime "created_on"
+    t.datetime "reported_on"
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -84,7 +82,7 @@ ActiveRecord::Schema.define(version: 2021_09_22_202606) do
   create_table "reviews", force: :cascade do |t|
     t.string "content"
     t.bigint "user_id", null: false
-    t.datetime "created_on"
+    t.datetime "reviewed_on"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_reviews_on_user_id"
@@ -103,7 +101,6 @@ ActiveRecord::Schema.define(version: 2021_09_22_202606) do
   end
 
   add_foreign_key "genres", "users"
-  add_foreign_key "plan_review_records", "genres"
   add_foreign_key "plan_review_records", "plans"
   add_foreign_key "plan_review_records", "reviews"
   add_foreign_key "plan_reviews", "plans"
