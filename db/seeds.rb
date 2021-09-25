@@ -9,7 +9,7 @@ ActiveRecord::Base.connection.execute("TRUNCATE TABLE users RESTART IDENTITY CAS
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE genres RESTART IDENTITY CASCADE")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE reports RESTART IDENTITY CASCADE")
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE report_items RESTART IDENTITY CASCADE")
-ActiveRecord::Base.connection.execute("TRUNCATE TABLE plan_reviews RESTART IDENTITY CASCADE")
+# ActiveRecord::Base.connection.execute("TRUNCATE TABLE plan_reviews RESTART IDENTITY CASCADE")
 
 user1 = User.create!(email: "satou@example.com", password: "password")
 user2 = User.create!(email: "suzuki@example.com", password: "password")
@@ -47,10 +47,10 @@ review3 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021,9,23), co
 review4 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021,9,25), content: "テスト")
 
 
-review1.plan_reviews.create!(plan_id:plan1.id)
-review2.plan_reviews.create!(plan_id:plan2.id)
-review3.plan_reviews.create!(plan_id:plan3.id)
-review4.plan_reviews.create!(plan_id:plan4.id)
+# review1.plan_reviews.create!(plan_id:plan1.id)
+# review2.plan_reviews.create!(plan_id:plan2.id)
+# review3.plan_reviews.create!(plan_id:plan3.id)
+# review4.plan_reviews.create!(plan_id:plan4.id)
 
 
 # plan1.plan_reviews.create!(review_id: review1.id)
