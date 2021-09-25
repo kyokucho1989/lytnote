@@ -2,6 +2,7 @@ class Plan < ApplicationRecord
   belongs_to :user
   belongs_to :genre
   has_many :plan_reviews
+  has_many :review_items
   has_many :linked_reviews, through: :plan_reviews, source: :review
   validate :deadline_cannot_set_in_past
   validates :name, length: { maximum: 20 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_27_185001) do
+ActiveRecord::Schema.define(version: 2021_09_25_135339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,22 @@ ActiveRecord::Schema.define(version: 2021_08_27_185001) do
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
+  create_table "review_items", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.bigint "review_id", null: false
+    t.bigint "genre_id", null: false
+    t.string "copied_plan_name"
+    t.datetime "copied_plan_deadline"
+    t.string "copied_plan_status"
+    t.datetime "deadline_after_review"
+    t.string "status_after_review"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["genre_id"], name: "index_review_items_on_genre_id"
+    t.index ["plan_id"], name: "index_review_items_on_plan_id"
+    t.index ["review_id"], name: "index_review_items_on_review_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.string "content"
     t.bigint "user_id", null: false
@@ -83,5 +99,8 @@ ActiveRecord::Schema.define(version: 2021_08_27_185001) do
   add_foreign_key "report_items", "genres"
   add_foreign_key "report_items", "reports"
   add_foreign_key "reports", "users"
+  add_foreign_key "review_items", "genres"
+  add_foreign_key "review_items", "plans"
+  add_foreign_key "review_items", "reviews"
   add_foreign_key "reviews", "users"
 end
