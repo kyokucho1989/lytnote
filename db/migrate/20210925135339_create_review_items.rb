@@ -3,7 +3,6 @@ class CreateReviewItems < ActiveRecord::Migration[6.0]
     create_table :review_items do |t|
       t.references :plan, null: false, foreign_key: true
       t.references :review, null: false, foreign_key: true
-      t.references :genre, null: false, foreign_key: true
       t.string :copied_plan_name
       t.datetime :copied_plan_deadline
       t.string :copied_plan_status

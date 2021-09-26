@@ -46,6 +46,8 @@ review2 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021,9,22), co
 review3 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021,9,23), content: "いいかんじ")
 review4 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021,9,25), content: "テスト")
 
+review_item1 = plan1.review_items.create!(review_id: review1.id)
+
 
 # review1.plan_reviews.create!(plan_id:plan1.id)
 # review2.plan_reviews.create!(plan_id:plan2.id)
