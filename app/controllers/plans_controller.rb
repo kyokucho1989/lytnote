@@ -5,8 +5,8 @@ class PlansController < ApplicationController
       @plans = Plan.where(user_id: current_user.id)
       @genres = Genre.where(user_id: current_user.id)
     else
-      @plans = Plan.where(user_id:0)
-      @genres = Genre.where(user_id:0)
+      @plans = Plan.where(user_id: 0)
+      @genres = Genre.where(user_id: 0)
     end
   end
 

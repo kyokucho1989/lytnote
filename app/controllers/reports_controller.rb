@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   before_action :authenticate_user!
   def index
-      @reports = Report.where(user_id: current_user.id)
+    @reports = Report.where(user_id: current_user.id)
   end
 
   def new
