@@ -1,7 +1,13 @@
 class PlansController < ApplicationController
+  before_action :authenticate_user!, except: :index
   def index
-    @plans = Plan.all
-    @genres = Genre.all
+    if user_signed_in?
+      @plans = Plan.where(user_id: current_user.id)
+      @genres = Genre.where(user_id: current_user.id)
+    else
+      @plans = Plan.where(user_id:0)
+      @genres = Genre.where(user_id:0)
+    end
   end
 
   def new
