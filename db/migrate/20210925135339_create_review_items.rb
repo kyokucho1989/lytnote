@@ -8,7 +8,6 @@ class CreateReviewItems < ActiveRecord::Migration[6.0]
       t.string :copied_plan_status
       t.datetime :deadline_after_review
       t.string :status_after_review
-      
 
       t.timestamps
     end

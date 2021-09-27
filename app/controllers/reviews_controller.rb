@@ -1,14 +1,14 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!
   def index
-    @reviews = Review.all
+    @reviews = Review.where(user_id: current_user.id)
   end
 
   def show; end
 
   def new
     @review = Review.new
-    @plans = Plan.all
-    binding.pry
+    @plans = Plan.where(user_id: current_user.id)
   end
 
   def create
@@ -17,9 +17,7 @@ class ReviewsController < ApplicationController
 
   def edit; end
 
-  def destroy
-
-  end
+  def destroy; end
 
   def update; end
 end
