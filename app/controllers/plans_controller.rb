@@ -12,6 +12,7 @@ class PlansController < ApplicationController
 
   def new
     @plan = Plan.new
+    @select_genre = Genre.where(user_id: current_user)
   end
 
   def create
