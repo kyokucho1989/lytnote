@@ -1,13 +1,16 @@
-<h1>Reviews#new</h1>
-<p>Find me in app/views/reviews/new.html.erb</p>
-<% @plans.each.with_index(1) do |plan, i| %>
-  <p>
-  目標： <%= plan.name %>
-  締め切り：<%= plan.deadline %>
-  ステータス：<%= plan.status %>
-  ジャンル：<%= plan.genre_id %>
-  </p>
+<h1>振り返り登録</h1>
+<%= form_with model: @plan, local: true do |f| %>
+  <% @plans.each.with_index(1) do |plan, i| %>
+    <p>
+    目標： <%= plan.name %>
+    締め切り：<%= plan.deadline %>
+    ステータス：<%= plan.status %>
+    ジャンル：<%= plan.genre_id %>
+    </p>
+  <% end %>
+  <%= f.submit "登録" %>
 <% end %>
+
 
 <%= form_with model: @review, local: true do |f| %>
   <%= f.check_box 'agreement', {:content => true}, true, false %>
