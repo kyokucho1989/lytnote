@@ -9,6 +9,8 @@ class ReviewsController < ApplicationController
   def new
     @review = Review.new
     @plans = Plan.where(user_id: current_user.id)
+    @plans.each {|pl| pl.review_items.build }
+    binding.pry
   end
 
   def create
