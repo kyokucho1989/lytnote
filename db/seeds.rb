@@ -37,9 +37,9 @@ report_item2_1 = ReportItem.create!(genre_id: genre3_1.id, report_id: report2.id
 report_item3_1 = ReportItem.create!(genre_id: genre3_3.id, report_id: report3.id, content: "算出プロパティ学習", work_hours: 3)
 
 plan1 = Plan.create!(user_id: user1.id, genre_id: genre1_1.id, name: "Controllerの作成", set_on: Date.new(2021, 9, 20), deadline: Date.new(2021, 10, 30))
-plan2 = Plan.create!(user_id: user1.id, genre_id: genre1_2.id, name: "TOEIC", set_on: Date.new(2021, 9, 20), deadline: Date.new(2021, 9, 30))
-plan3 = Plan.create!(user_id: user1.id, genre_id: genre1_3.id, name: "レンダリング", set_on: Date.new(2021, 9, 20), deadline: Date.new(2021, 9, 30))
-plan4 = Plan.create!(user_id: user1.id, genre_id: genre1_1.id, name: "MVC学習", set_on: Date.new(2021, 9, 20), deadline: Date.new(2021, 9, 30))
+plan2 = Plan.create!(user_id: user1.id, genre_id: genre1_2.id, name: "TOEIC", set_on: Date.new(2021, 9, 20), deadline: Date.new(2021, 10, 30))
+plan3 = Plan.create!(user_id: user1.id, genre_id: genre1_3.id, name: "レンダリング", set_on: Date.new(2021, 9, 20), deadline: Date.new(2021,11, 30))
+plan4 = Plan.create!(user_id: user1.id, genre_id: genre1_1.id, name: "MVC学習", set_on: Date.new(2021, 9, 20), deadline: Date.new(2021, 10, 30))
 
 review1 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 21), content: "よくできた")
 review2 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 22), content: "よくなかった")
