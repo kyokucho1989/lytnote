@@ -21,13 +21,11 @@ class ReviewsController < ApplicationController
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
-    binding.pry
     plan_keys.each_with_index do |id,i|
       review_item_attribute = item[i].values.first["0"]
       review_item_attribute[:review_id] = review.id
-      Plan.find(id).review_items.create!(review_item_attribute)
+      Plan.find(id).review_items.update(review_item_attribute)
     end
-    binding.pry
   end
 
   def edit; end
