@@ -24,11 +24,8 @@ class ReviewsController < ApplicationController
     plan_keys.each_with_index do |id,i|
       review_item_attribute = item[i].values.first["0"]
       review_item_attribute[:review_id] = review.id
-      Plan.find(id).review_items.update_attributes(review_item_attribute)
+      Plan.find(id).review_items.update(review_item_attribute)
     end
-
-    #find or createをやる
-    binding.pry
   end
 
   def edit; end
