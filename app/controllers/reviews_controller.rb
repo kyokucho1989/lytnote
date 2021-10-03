@@ -17,6 +17,7 @@ class ReviewsController < ApplicationController
     review = Review.new(review_params)
     review.user_id = current_user.id
     review.save!
+    binding.pry
     #つぎにPlanに対応したreviw_itemsを保存していく
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
@@ -27,7 +28,10 @@ class ReviewsController < ApplicationController
       Plan.find(id).review_items.update(review_item_attribute)
     end
   end
-
+  
+  def select_plan
+  
+  end
   def edit; end
 
   def destroy; end

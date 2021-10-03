@@ -3,6 +3,7 @@
     <% @plans.each do |plan| %>
       <%= form.fields_for 'plans[]', plan do |f| %>
       <p>
+      <%= check_box_tag :plan_check %>
       目標： <%= plan.name %>
       締め切り：<%= plan.deadline %>
       ステータス：<%= plan.status %>

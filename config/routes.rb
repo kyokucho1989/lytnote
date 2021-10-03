@@ -5,5 +5,9 @@ Rails.application.routes.draw do
   resources :plans
   resources :reports
   resources :report_items, only: :destroy
-  resources :reviews
+  resources :reviews do
+    collection do
+      get 'select_plan'
+    end
+  end
 end

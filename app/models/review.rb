@@ -3,5 +3,5 @@ class Review < ApplicationRecord
   has_many :plan_reviews
   has_many :review_items
   # validates :reviewd_on, uniqueness: true
-  validates :content, length: { maximum: 200 }
+  validates :content, length: { maximum: 200 }, presence: true
 end
