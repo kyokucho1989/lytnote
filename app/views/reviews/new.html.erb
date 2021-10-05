@@ -3,14 +3,13 @@
     <% @plans.each do |plan| %>
       <%= form.fields_for 'plans[]', plan do |f| %>
       <p>
-      <%= check_box_tag :plan_check %>
       目標： <%= plan.name %>
       締め切り：<%= plan.deadline %>
       ステータス：<%= plan.status %>
       ジャンル：<%= plan.genre_id %>
       </p>
 
-      <%= f.fields_for :review_items do |item| %>
+      <%= f.fields_for @review_items do |item| %>
         <p>変更後の締め切り：<%= item.date_field :deadline_after_review %></p>
         <p>変更後のステータス：<%= item.select :status_after_review, ["進行中","中止","完了"] %></p>
       <% end %>

@@ -8,8 +8,12 @@ class ReviewsController < ApplicationController
 
   def new
     @review = Review.new
-    @plans = Plan.where(user_id: current_user.id)
-    @plans.each {|pl| pl.review_items.build }
+    selected_plan_ids = select_plan_params[:checked_plan].map(&:to_i)
+    @plans = Plan.where(id: selected_plan_ids)
+    @plans.each do |pl| 
+      pl.review_items.build
+      
+    end
     binding.pry
   end
 
@@ -45,8 +49,12 @@ class ReviewsController < ApplicationController
     # params.require(:review).permit(:content, :reviewed_on, review_items_attributes: [:copied_plan_name, :copied_plan_deadline, :copied_plan_status, :deadline_after_review, :status_after_review])
     params.require(:review).permit(:content,:reviewed_on)
   end
+
   def add_plan_params
-    # params.require(:review).permit(:content, :reviewed_on, review_items_attributes: [:copied_plan_name, :copied_plan_deadline, :copied_plan_status, :deadline_after_review, :status_after_review])
-    params.require(:review).permit(:content, plans: {})
+   params.require(:review).permit(:content, plans: {})
   end
+
+  def select_plan_params
+    params.permit(checked_plan: [])
+   end
 end
