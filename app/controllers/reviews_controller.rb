@@ -10,11 +10,11 @@ class ReviewsController < ApplicationController
     @review = Review.new
     selected_plan_ids = select_plan_params[:checked_plan].map(&:to_i)
     @plans = Plan.where(id: selected_plan_ids)
-    @plans.each do |pl| 
-      pl.review_items.build
+    @review_item_array = Array.new(@plans.size, ReviewItem.new)
+    # @plans.each do |pl| 
+    #   pl.review_items.build
       
-    end
-    binding.pry
+    # end
   end
 
   def create
@@ -22,13 +22,13 @@ class ReviewsController < ApplicationController
     review = Review.new(review_params)
     review.user_id = current_user.id
     review.save!
-    binding.pry
+    # binding.pry
     #つぎにPlanに対応したreviw_itemsを保存していく
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
     plan_keys.each_with_index do |id,i|
-      review_item_attribute = item[i].values.first["0"]
+      review_item_attribute = item[i].values.first
       review_item_attribute[:review_id] = review.id
       Plan.find(id).review_items.update(review_item_attribute)
     end
@@ -51,7 +51,7 @@ class ReviewsController < ApplicationController
   end
 
   def add_plan_params
-   params.require(:review).permit(:content, plans: {})
+   params.require(:review).permit(plans: {})[:plans]
   end
 
   def select_plan_params
