@@ -11,10 +11,6 @@ class ReviewsController < ApplicationController
     selected_plan_ids = select_plan_params[:checked_plan].map(&:to_i)
     @plans = Plan.where(id: selected_plan_ids)
     @review_item_array = Array.new(@plans.size, ReviewItem.new)
-    # @plans.each do |pl| 
-    #   pl.review_items.build
-      
-    # end
   end
 
   def create
