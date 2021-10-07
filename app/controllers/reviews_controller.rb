@@ -26,14 +26,21 @@ class ReviewsController < ApplicationController
     plan_keys.each_with_index do |id,i|
       review_item_attribute = item[i].values.first
       review_item_attribute[:review_id] = review.id
-      Plan.find(id).review_items.update(review_item_attribute)
+      Plan.find(id).review_items.create(review_item_attribute)
+      # binding.pry
     end
   end
   
   def select_plan
     @plans = Plan.where(user_id: current_user.id)
   end
-  def edit; end
+  def edit
+    @review = Review.find(params[:id])
+    @review_item_array = ReviewItem.where(review_id:@review.id)
+    # binding.pry
+    @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
+    
+  end
 
 
   def update; end
