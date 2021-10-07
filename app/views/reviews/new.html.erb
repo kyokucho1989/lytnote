@@ -1,5 +1,6 @@
 <h1>振り返り登録</h1>
 <%= form_with model: @review, local: true do |form| %>
+  <p>振り返り日：<%= form.date_field :review_on %></p>
     <% @plans.each do |plan| %>
       <%= form.fields_for 'plans[]', plan do |f| %>
       <p>
