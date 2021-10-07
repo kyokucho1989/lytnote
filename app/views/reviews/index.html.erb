@@ -3,5 +3,6 @@
   <p>
   作成日： <%= review.created_at %>
   内容：<%= review.content %>
+  <%= link_to "削除", review_path(review), method: :delete, data: {confirm: "削除しますか?"} %>
   </p>
 <% end %>
