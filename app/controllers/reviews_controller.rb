@@ -36,14 +36,18 @@ class ReviewsController < ApplicationController
   end
   def edit
     @review = Review.find(params[:id])
-    @review_item_array = ReviewItem.where(review_id:@review.id)
+    @review_item_array = ReviewItem.where(review_id:@review.id).to_a
     # binding.pry
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
-    
+    # binding.pry
   end
 
 
-  def update; end
+  def update
+    binding.pry
+    review = Review.find(params[:id])
+    review.update_attributes(review_update_params)
+  end
 
   def destroy
     review = Review.find(params[:id])
@@ -63,5 +67,9 @@ class ReviewsController < ApplicationController
 
   def select_plan_params
     params.permit(checked_plan: [])
-   end
+  end
+
+  def review_update_params
+    params.require(:review).permit(:content, :reviewed_on,plans: {},review_items_attributes:[:deadline_after_review, :status_after_review, :id])
+  end
 end
