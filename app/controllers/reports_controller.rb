@@ -36,6 +36,7 @@ class ReportsController < ApplicationController
   end
 
   def update
+    binding.pry
     report = Report.find(params[:id])
     report.update_attributes(report_params)
   end
