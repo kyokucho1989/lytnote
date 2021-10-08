@@ -26,18 +26,33 @@ class ReviewsController < ApplicationController
     plan_keys.each_with_index do |id,i|
       review_item_attribute = item[i].values.first
       review_item_attribute[:review_id] = review.id
-      Plan.find(id).review_items.update(review_item_attribute)
+      Plan.find(id).review_items.create(review_item_attribute)
+      # binding.pry
     end
   end
   
   def select_plan
     @plans = Plan.where(user_id: current_user.id)
   end
-  def edit; end
+  def edit
+    @review = Review.find(params[:id])
+    @review_item_array = ReviewItem.where(review_id:@review.id).to_a
+    # binding.pry
+    @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
+    # binding.pry
+  end
 
-  def destroy; end
 
-  def update; end
+  def update
+    binding.pry
+    review = Review.find(params[:id])
+    review.update_attributes(review_update_params)
+  end
+
+  def destroy
+    review = Review.find(params[:id])
+    review.destroy
+  end
 
   private
 
@@ -52,5 +67,9 @@ class ReviewsController < ApplicationController
 
   def select_plan_params
     params.permit(checked_plan: [])
-   end
+  end
+
+  def review_update_params
+    params.require(:review).permit(:content, :reviewed_on,plans: {},review_items_attributes:[:deadline_after_review, :status_after_review, :id])
+  end
 end
