@@ -1,2 +1,15 @@
-<h1>Reviews#show</h1>
-<p>Find me in app/views/reviews/show.html.erb</p>
+<h1>振り返り詳細</h1>
+  <p>振り返り日：<%= @review.reviewed_on %></p>
+    <% @plans.each do |plan| %>
+      <p>
+      目標： <%= plan.name %>
+      締め切り：<%= plan.deadline %>
+      ステータス：<%= plan.status %>
+      ジャンル：<%= plan.genre_id %>
+      </p>
+      <% @review_item_array.each do |item| %>
+        <p>変更後の締め切り：<%= item.deadline_after_review %></p>
+        <p>変更後のステータス：<%= item.status_after_review %></p>
+      <% end %>
+    <% end %>
+  <p>コメント：<%= @review.content %></p>

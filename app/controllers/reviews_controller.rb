@@ -4,7 +4,11 @@ class ReviewsController < ApplicationController
     @reviews = Review.where(user_id: current_user.id)
   end
 
-  def show; end
+  def show
+    @review = Review.find(params[:id])
+    @review_item_array = ReviewItem.where(review_id:@review.id).to_a
+    @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
+  end
 
   def new
     @review = Review.new
@@ -54,7 +58,6 @@ class ReviewsController < ApplicationController
       selected_plan_id = item.keys.first
       update_review_item_content = item.values.first.values.first
       review_item = ReviewItem.where(review_id:params[:id],plan_id:selected_plan_id).first
-
       review_item.update(update_review_item_content)
 
     end
