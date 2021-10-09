@@ -16,12 +16,25 @@ class PlansController < ApplicationController
   end
 
   def create
-    binding.pry
     plan = Plan.new(plan_params)
     plan.user_id = current_user.id
     plan.save!
   end
 
+  def edit
+    @plan = Plan.find(params[:id])
+    @select_genre = Genre.where(user_id: current_user)
+  end
+
+  def update
+    plan = Plan.find(params[:id])
+    plan.update(plan_params)
+  end
+
+  def destroy
+    plan = Plan.find(params[:id])
+    plan.destroy
+  end
   private
 
   def plan_params
