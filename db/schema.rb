@@ -10,31 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_27_185001) do
+ActiveRecord::Schema.define(version: 2021_09_25_135339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "genres", force: :cascade do |t|
     t.string "name"
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "plan_reviews", force: :cascade do |t|
-    t.bigint "plan_id", null: false
-    t.bigint "review_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["plan_id"], name: "index_plan_reviews_on_plan_id"
-    t.index ["review_id"], name: "index_plan_reviews_on_review_id"
+    t.index ["user_id"], name: "index_genres_on_user_id"
   end
 
   create_table "plans", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "genre_id", null: false
     t.string "name"
-    t.datetime "created_on"
+    t.datetime "set_on"
     t.datetime "deadline"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -56,17 +49,31 @@ ActiveRecord::Schema.define(version: 2021_08_27_185001) do
 
   create_table "reports", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.datetime "created_on"
+    t.datetime "reported_on"
     t.string "content"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_reports_on_user_id"
   end
 
+  create_table "review_items", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.bigint "review_id", null: false
+    t.string "copied_plan_name"
+    t.datetime "copied_plan_deadline"
+    t.string "copied_plan_status"
+    t.datetime "deadline_after_review"
+    t.string "status_after_review"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id"], name: "index_review_items_on_plan_id"
+    t.index ["review_id"], name: "index_review_items_on_review_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.string "content"
     t.bigint "user_id", null: false
-    t.datetime "created_on"
+    t.datetime "reviewed_on"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_reviews_on_user_id"
@@ -84,12 +91,13 @@ ActiveRecord::Schema.define(version: 2021_08_27_185001) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "plan_reviews", "plans"
-  add_foreign_key "plan_reviews", "reviews"
+  add_foreign_key "genres", "users"
   add_foreign_key "plans", "genres"
   add_foreign_key "plans", "users"
   add_foreign_key "report_items", "genres"
   add_foreign_key "report_items", "reports"
   add_foreign_key "reports", "users"
+  add_foreign_key "review_items", "plans"
+  add_foreign_key "review_items", "reviews"
   add_foreign_key "reviews", "users"
 end

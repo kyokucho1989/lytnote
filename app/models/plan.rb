@@ -1,7 +1,8 @@
 class Plan < ApplicationRecord
   belongs_to :user
   belongs_to :genre
-  has_many :plan_reviews
+  has_many :review_items,dependent: :destroy
+  accepts_nested_attributes_for :review_items
   validate :deadline_cannot_set_in_past
   validates :name, length: { maximum: 20 }
   def deadline_cannot_set_in_past

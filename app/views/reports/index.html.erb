@@ -3,16 +3,18 @@
   <p>
   日報ID：<%= report.id %>
   </p>
-  <p>日付：<%= report.created_on %></p>
+  <p>日付：<%= report.reported_on %></p>
   <% report.report_items.each do |item| %>
     <p>
     ID：<%= item.id %>
-    ジャンル：<%= item.genre_id %>
+    ジャンル：<%= get_genre_name(item.genre_id ) %>
     やったこと：<%= item.content %>
     時間：<%= item.work_hours %>
     </p>
   <% end %>
   コメント： <%= report.content %>
+  <%= link_to "編集", edit_report_path(report) %>
+  <%= link_to "この日の日報を削除", report_path(report), method: :delete, data: {confirm: "削除しますか?"} %>
   </p>
   <hr>
 <% end %>

@@ -24,13 +24,13 @@ Layout/EmptyLines:
 # Cop supports --auto-correct.
 Layout/SpaceAfterColon:
   Exclude:
-    - 'db/seeds.rb'
+    # - 'db/seeds.rb'
 
 # Offense count: 10
 # Cop supports --auto-correct.
 Layout/SpaceAfterComma:
   Exclude:
-    - 'db/seeds.rb'
+    # - 'db/seeds.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -48,14 +48,14 @@ Layout/SpaceInsideArrayLiteralBrackets:
 Layout/TrailingEmptyLines:
   Exclude:
     - 'config/initializers/generators.rb'
-    - 'db/seeds.rb'
+    # - 'db/seeds.rb'
 
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: AllowInHeredoc.
 Layout/TrailingWhitespace:
   Exclude:
-    - 'db/seeds.rb'
+    # - 'db/seeds.rb'
 
 # Offense count: 1
 # Configuration parameters: DebuggerReceivers, DebuggerMethods.
@@ -66,7 +66,7 @@ Lint/Debugger:
 # Offense count: 5
 Lint/UselessAssignment:
   Exclude:
-    - 'db/seeds.rb'
+    # - 'db/seeds.rb'
 
 # Offense count: 1
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes.
@@ -85,7 +85,7 @@ Metrics/BlockLength:
 # AllowedIdentifiers: capture3, iso8601, rfc1123_date, rfc822, rfc2822, rfc3339
 Naming/VariableNumber:
   Exclude:
-    - 'db/seeds.rb'
+    # - 'db/seeds.rb'
 
 # Offense count: 1
 # Configuration parameters: EnforcedStyle, AllowToTime.
@@ -117,7 +117,7 @@ Rails/HasManyOrHasOneDependent:
 # Include: app/**/*.rb, config/**/*.rb, db/**/*.rb, lib/**/*.rb
 Rails/Output:
   Exclude:
-    - 'db/seeds.rb'
+    # - 'db/seeds.rb'
 
 # Offense count: 2
 # Configuration parameters: Include.

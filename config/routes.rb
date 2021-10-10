@@ -4,5 +4,10 @@ Rails.application.routes.draw do
   root "plans#index"
   resources :plans
   resources :reports
-  resources :reviews
+  resources :report_items, only: :destroy
+  resources :reviews do
+    collection do
+      get 'select_plan'
+    end
+  end
 end

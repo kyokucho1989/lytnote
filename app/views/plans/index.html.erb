@@ -4,6 +4,8 @@
   目標： <%= plan.name %>
   締め切り：<%= plan.deadline %>
   ステータス：<%= plan.status %>
-  ジャンル：<%= plan.genre_id %>
+  ジャンル：<%= get_genre_name(plan.genre_id) %>
+  <%= link_to "編集", edit_plan_path(plan) %>
+  <%= link_to "削除", plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} %>
   </p>
 <% end %>

@@ -1,0 +1,15 @@
+<h1>振り返り登録-目標選択</h1>
+<%= form_with url: new_review_path, method: :get, local: true do |form| %>
+  <% @plans.each do |plan| %>
+    <%= form.fields_for 'plans[]', plan do |f| %>
+      <p>
+      <%= check_box_tag 'checked_plan[]',"#{plan.id}" %>
+      目標： <%= plan.name %>
+      締め切り：<%= plan.deadline %>
+      ステータス：<%= plan.status %>
+      ジャンル：<%= plan.genre_id %>
+      </p>
+    <% end %>
+  <% end %>
+  <%= form.submit "登録" %>
+<% end %>
