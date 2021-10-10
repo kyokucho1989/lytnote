@@ -1,0 +1,5 @@
+<h1>ジャンル編集</h1>
+<%= form_with model: @genre, local: true do |form| %>
+  <p>名前：<%= form.text_field :name %></p>
+  <%= form.submit "登録" %>
+<% end %>
