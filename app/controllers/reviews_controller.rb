@@ -17,6 +17,12 @@ class ReviewsController < ApplicationController
     @review_item_array = Array.new(@plans.size, ReviewItem.new)
   end
 
+  def get_genre_name(id)
+    @genres = Genre.where(user_id: current_user.id)
+    @genres.where(id:id).first[:name]
+  end
+  helper_method :get_genre_name
+  
   def create
     #まずはReview.newをする。
     review = Review.new(review_params)
@@ -38,12 +44,11 @@ class ReviewsController < ApplicationController
   def select_plan
     @plans = Plan.where(user_id: current_user.id)
   end
+
   def edit
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id:@review.id).to_a
-    # binding.pry
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
-    # binding.pry
   end
 
 
