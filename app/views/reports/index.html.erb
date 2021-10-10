@@ -7,7 +7,7 @@
   <% report.report_items.each do |item| %>
     <p>
     ID：<%= item.id %>
-    ジャンル：<%= item.genre_id %>
+    ジャンル：<%= get_genre_name(item.genre_id ) %>
     やったこと：<%= item.content %>
     時間：<%= item.work_hours %>
     </p>
