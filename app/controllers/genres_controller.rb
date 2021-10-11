@@ -1,6 +1,6 @@
 class GenresController < ApplicationController
   before_action :authenticate_user!
-  before_destroy :has_no_child
+
   def index
     @genres = Genre.where(user_id: current_user.id)
   end
@@ -20,10 +20,6 @@ class GenresController < ApplicationController
     genre.destroy
   end
 
-  def has_no_child
-    has_plan = Plan.where(genre_id: params[:id],user_id: current_user.id).exists?
-    # has_report_item = ReportItem.where(genre_id: params[:id]).exists?
-  end
 
   private
   def genre_params
