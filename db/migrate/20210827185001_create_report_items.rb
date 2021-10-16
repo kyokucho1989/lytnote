@@ -4,7 +4,7 @@ class CreateReportItems < ActiveRecord::Migration[6.0]
       t.string :content, null: false
       t.references :report, null: false, foreign_key: true
       t.references :genre, null: false, foreign_key: true
-      t.float :work_hours
+      t.float :work_hours, null: false
 
       t.timestamps
     end
