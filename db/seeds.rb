@@ -27,9 +27,9 @@ genre3_1 = Genre.create!(name: "食事", user_id: user3.id)
 genre3_2 = Genre.create!(name: "会話", user_id: user3.id)
 genre3_3 = Genre.create!(name: "プログラミング", user_id: user3.id)
 
-report1 = Report.create!(content: "忙しかったけど学習できた。", user_id: user2.id)
-report2 = Report.create!(content: "こんにちは", user_id: user3.id)
-report3 = Report.create!(content: "こんばんは", user_id: user3.id)
+report1 = Report.create!(content: "忙しかったけど学習できた。", user_id: user2.id, reported_on: Date.new(2021, 9, 21))
+report2 = Report.create!(content: "こんにちは", user_id: user3.id, reported_on: Date.new(2021, 9, 21))
+report3 = Report.create!(content: "こんばんは", user_id: user3.id, reported_on: Date.new(2021, 9, 22))
 
 report_item1_1 = ReportItem.create!(genre_id: genre2_1.id, report_id: report1.id, content: "DB設計", work_hours: 4.5)
 report_item1_2 = ReportItem.create!(genre_id: genre2_2.id, report_id: report1.id, content: "コントローラー作成", work_hours: 2.5)
