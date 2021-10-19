@@ -22,5 +22,4 @@ RSpec.describe Review, type: :model do
       expect(review.errors.messages[:content]).to include "は200文字以内で入力してください"
     end
   end
-
 end
