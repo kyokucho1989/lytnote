@@ -39,11 +39,11 @@ Layout/LineLength:
 # Cop supports --auto-correct.
 Layout/SpaceAfterComma:
   Exclude:
-    - 'app/models/genre.rb'
-    - 'app/models/plan.rb'
-    - 'app/models/report.rb'
-    - 'config/routes.rb'
-    - 'db/seeds.rb'
+    # - 'app/models/genre.rb'
+    # - 'app/models/plan.rb'
+    # - 'app/models/report.rb'
+    # - 'config/routes.rb'
+    # - 'db/seeds.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -96,7 +96,7 @@ Metrics/MethodLength:
 # AllowedIdentifiers: capture3, iso8601, rfc1123_date, rfc822, rfc2822, rfc3339
 Naming/VariableNumber:
   Exclude:
-    - 'db/seeds.rb'
+    # - 'db/seeds.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
