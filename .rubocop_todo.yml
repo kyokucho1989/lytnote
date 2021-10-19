@@ -19,14 +19,14 @@ Bundler/OrderedGems:
 # Configuration parameters: EmptyLineBetweenMethodDefs, EmptyLineBetweenClassDefs, EmptyLineBetweenModuleDefs, AllowAdjacentOneLineDefs, NumberOfEmptyLines.
 Layout/EmptyLineBetweenDefs:
   Exclude:
-    - 'app/controllers/reviews_controller.rb'
+    # - 'app/controllers/reviews_controller.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
 Layout/EmptyLines:
   Exclude:
-    - 'app/controllers/genres_controller.rb'
-    - 'app/controllers/reviews_controller.rb'
+    # - 'app/controllers/genres_controller.rb'
+    # - 'app/controllers/reviews_controller.rb'
     - 'db/migrate/20210806180405_devise_create_users.rb'
 
 # Offense count: 2
@@ -35,8 +35,8 @@ Layout/EmptyLines:
 # SupportedStyles: around, only_before
 Layout/EmptyLinesAroundAccessModifier:
   Exclude:
-    - 'app/controllers/genres_controller.rb'
-    - 'app/controllers/plans_controller.rb'
+    # - 'app/controllers/genres_controller.rb'
+    # - 'app/controllers/plans_controller.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -44,8 +44,8 @@ Layout/EmptyLinesAroundAccessModifier:
 # SupportedStyles: empty_lines, no_empty_lines
 Layout/EmptyLinesAroundBlockBody:
   Exclude:
-    - 'app/controllers/reviews_controller.rb'
-    - 'spec/models/review_spec.rb'
+    # - 'app/controllers/reviews_controller.rb'
+    # - 'spec/models/review_spec.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -60,14 +60,14 @@ Layout/EmptyLinesAroundClassBody:
 # Configuration parameters: Width, IgnoredPatterns.
 Layout/IndentationWidth:
   Exclude:
-    - 'app/controllers/reviews_controller.rb'
+    # - 'app/controllers/reviews_controller.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: AllowDoxygenCommentStyle, AllowGemfileRubyComment.
 Layout/LeadingCommentSpace:
   Exclude:
-    - 'app/controllers/reviews_controller.rb'
+    # - 'app/controllers/reviews_controller.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -80,15 +80,15 @@ Layout/LineLength:
 # Cop supports --auto-correct.
 Layout/SpaceAfterColon:
   Exclude:
-    - 'app/controllers/plans_controller.rb'
-    - 'app/controllers/reports_controller.rb'
-    - 'app/controllers/reviews_controller.rb'
+    # - 'app/controllers/plans_controller.rb'
+    # - 'app/controllers/reports_controller.rb'
+    # - 'app/controllers/reviews_controller.rb'
 
 # Offense count: 11
 # Cop supports --auto-correct.
 Layout/SpaceAfterComma:
   Exclude:
-    - 'app/controllers/reviews_controller.rb'
+    # - 'app/controllers/reviews_controller.rb'
     - 'app/models/genre.rb'
     - 'app/models/plan.rb'
     - 'app/models/report.rb'
@@ -117,21 +117,21 @@ Layout/TrailingEmptyLines:
 # Configuration parameters: AllowInHeredoc.
 Layout/TrailingWhitespace:
   Exclude:
-    - 'app/controllers/plans_controller.rb'
-    - 'app/controllers/reports_controller.rb'
-    - 'app/controllers/reviews_controller.rb'
+    # - 'app/controllers/plans_controller.rb'
+    # - 'app/controllers/reports_controller.rb'
+    # - 'app/controllers/reviews_controller.rb'
 
 # Offense count: 3
 # Configuration parameters: DebuggerReceivers, DebuggerMethods.
 Lint/Debugger:
   Exclude:
-    - 'app/controllers/reports_controller.rb'
+    # - 'app/controllers/reports_controller.rb'
 
 # Offense count: 16
 Lint/UselessAssignment:
   Exclude:
     - 'db/seeds.rb'
-    - 'spec/models/report_spec.rb'
+    # - 'spec/models/report_spec.rb'
 
 # Offense count: 3
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes.
@@ -161,7 +161,7 @@ Naming/VariableNumber:
 # Cop supports --auto-correct.
 Rails/ActiveRecordAliases:
   Exclude:
-    - 'app/controllers/reports_controller.rb'
+    # - 'app/controllers/reports_controller.rb'
 
 # Offense count: 1
 # Configuration parameters: EnforcedStyle, AllowToTime.
