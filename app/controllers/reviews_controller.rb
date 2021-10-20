@@ -14,7 +14,7 @@ class ReviewsController < ApplicationController
     @review = Review.new
     selected_plan_ids = select_plan_params[:checked_plan].map(&:to_i)
     @plans = Plan.where(id: selected_plan_ids)
-    @review_item_array = Array.new(@plans.size, ReviewItem.new)
+    # @review_item_array = Array.new(@plans.size, ReviewItem.new)
   end
 
   def get_genre_name(id)
@@ -28,16 +28,19 @@ class ReviewsController < ApplicationController
     review = Review.new(review_params)
     review.user_id = current_user.id
     review.save!
-    # binding.pry
+    binding.pry
     # つぎにPlanに対応したreviw_itemsを保存していく
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
     plan_keys.each_with_index do |id, i|
-      review_item_attribute = item[i].values.first
-      review_item_attribute[:review_id] = review.id
-      Plan.find(id).review_items.create(review_item_attribute)
-      # binding.pry
+      # review_item_attribute = item[i].values.first
+      # review_item_attribute[:review_id] = review.id
+      plan_item = item[i]
+      # Plan.find(id).review_items.create(review_item_attribute)
+      update_plan = Plan.find(id)
+      binding.pry
+      # Plan.find(id).update!(plan_item)
     end
   end
 
