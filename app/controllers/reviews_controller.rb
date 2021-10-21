@@ -37,7 +37,6 @@ class ReviewsController < ApplicationController
       review_item_attribute = item[i].values.first
       review_item_attribute[:review_id] = review.id
       Plan.find(id).review_items.create(review_item_attribute)
-      # binding.pry
     end
   end
 
