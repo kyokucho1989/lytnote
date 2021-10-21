@@ -14,7 +14,7 @@ class ReviewsController < ApplicationController
     @review = Review.new
     selected_plan_ids = select_plan_params[:checked_plan].map(&:to_i)
     @plans = Plan.where(id: selected_plan_ids)
-    # @review_item_array = Array.new(@plans.size, ReviewItem.new)
+    @review_item_array = Array.new(@plans.size, ReviewItem.new)
   end
 
   def get_genre_name(id)
@@ -28,19 +28,14 @@ class ReviewsController < ApplicationController
     review = Review.new(review_params)
     review.user_id = current_user.id
     review.save!
-    binding.pry
+    
     # つぎにPlanに対応したreviw_itemsを保存していく
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
     plan_keys.each_with_index do |id, i|
-      # review_item_attribute = item[i].values.first
-      # review_item_attribute[:review_id] = review.id
-      plan_item = item[i]
-      # Plan.find(id).review_items.create(review_item_attribute)
-      update_plan = Plan.find(id)
-      binding.pry
-      # Plan.find(id).update!(plan_item)
+      Plan.find(id).update!(item[i])
+      review.review_items.create!(plan_id:id)
     end
   end
 
@@ -59,13 +54,20 @@ class ReviewsController < ApplicationController
     review = Review.find(params[:id])
     review.update(review_params)
     # review_item_ids = ReviewItem.where(review_id:params[:id]).ids
-    review_item_array = params[:review].permit(plans: {}).values
-    review_item_array.each do |item|
-      selected_plan_id = item.keys.first
+    review_item_params = params[:review].permit(plans: {}).values.first
+    # review_item_array.each do |item|
+
+    # selected_plan_id = item.keys.first
+    selected_plan_ids = review_item_params.keys
+    selected_plan_ids.each do |plan_id|
+      update_review_item = review_item_params[plan_id]
+    end
       update_review_item_content = item.values.first.values.first
+      binding.pry
       review_item = ReviewItem.where(review_id: params[:id], plan_id: selected_plan_id).first
       review_item.update(update_review_item_content)
-    end
+    # end
+
   end
 
   def destroy
