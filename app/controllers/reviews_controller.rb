@@ -54,13 +54,20 @@ class ReviewsController < ApplicationController
     review = Review.find(params[:id])
     review.update(review_params)
     # review_item_ids = ReviewItem.where(review_id:params[:id]).ids
-    review_item_array = params[:review].permit(plans: {}).values
-    review_item_array.each do |item|
-      selected_plan_id = item.keys.first
+    review_item_params = params[:review].permit(plans: {}).values.first
+    # review_item_array.each do |item|
+
+    # selected_plan_id = item.keys.first
+    selected_plan_ids = review_item_params.keys
+    selected_plan_ids.each do |plan_id|
+      update_review_item = review_item_params[plan_id]
+    end
       update_review_item_content = item.values.first.values.first
+      binding.pry
       review_item = ReviewItem.where(review_id: params[:id], plan_id: selected_plan_id).first
       review_item.update(update_review_item_content)
-    end
+    # end
+
   end
 
   def destroy
