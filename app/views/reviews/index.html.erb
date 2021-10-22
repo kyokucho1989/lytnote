@@ -4,6 +4,7 @@
   作成日： <%= review.created_at %>
   内容：<%= review.content %>
   <%= link_to "編集", edit_review_path(review) %>
+  <%= link_to "目標再選択", re_select_plan_review_path(review) %>
   <%= link_to "詳細", review_path(review) %>
   <%= link_to "削除", review_path(review), method: :delete, data: {confirm: "削除しますか?"} %>
   </p>
