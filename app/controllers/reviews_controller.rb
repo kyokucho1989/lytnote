@@ -43,6 +43,10 @@ class ReviewsController < ApplicationController
     @plans = Plan.where(user_id: current_user.id)
   end
 
+  def re_select_plan
+    @plans = Plan.where(user_id: current_user.id)
+  end
+
   def edit
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id: @review.id).to_a
