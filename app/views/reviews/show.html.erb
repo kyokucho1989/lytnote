@@ -3,13 +3,10 @@
     <% @plans.each do |plan| %>
       <p>
       目標： <%= plan.name %>
+      ジャンル： <%= get_genre_name(plan.genre_id) %>
       締め切り：<%= plan.deadline %>
       ステータス：<%= plan.status %>
-      ジャンル：<%= plan.genre_id %>
       </p>
-      <% @review_item_array.each do |item| %>
-        <p>変更後の締め切り：<%= item.deadline_after_review %></p>
-        <p>変更後のステータス：<%= item.status_after_review %></p>
-      <% end %>
     <% end %>
   <p>コメント：<%= @review.content %></p>
+  <%= link_to "目標再選択/編集", re_select_plan_review_path(@review) %>
