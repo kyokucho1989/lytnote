@@ -28,14 +28,14 @@ class ReviewsController < ApplicationController
     review = Review.new(review_params)
     review.user_id = current_user.id
     review.save!
-    
+
     # つぎにPlanに対応したreviw_itemsを保存していく
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
     plan_keys.each_with_index do |id, i|
       Plan.find(id).update!(item[i])
-      review.review_items.create!(plan_id:id)
+      review.review_items.create!(plan_id: id)
     end
   end
 
