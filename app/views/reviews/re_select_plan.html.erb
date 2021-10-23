@@ -3,7 +3,7 @@
   <% @plans.each do |plan| %>
     <%= form.fields_for 'plans[]', plan do |f| %>
       <p>
-      <%= check_box_tag 'checked_plan[]',"#{plan.id}" %>
+      <%= check_box_tag 'checked_plan[]',"#{plan.id}" ,@selected_plan_ids.include?(plan.id)%>
       目標： <%= plan.name %>
       締め切り：<%= plan.deadline %>
       ステータス：<%= plan.status %>
