@@ -1,5 +1,5 @@
 class PlansController < ApplicationController
-  before_action :authenticate_user!, except: :index 
+  before_action :authenticate_user!, except: :index
   def index
     if user_signed_in?
       @plans = Plan.where(user_id: current_user.id).page(params[:page])
