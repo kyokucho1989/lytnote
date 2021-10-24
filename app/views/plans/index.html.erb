@@ -9,3 +9,4 @@
   <%= link_to "削除", plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} %>
   </p>
 <% end %>
+<%= paginate @plans %>
