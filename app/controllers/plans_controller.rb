@@ -2,21 +2,18 @@ class PlansController < ApplicationController
   before_action :authenticate_user!, except: :index
   def index
     if user_signed_in?
-      @plans = Plan.where(user_id: current_user.id)
+      @plans = Plan.where(user_id: current_user.id).page(params[:page])
       @genres = Genre.where(user_id: current_user.id)
-      
       @genre_name = Array.new(@genres.size, 0)
-      # @genre_name = [{id:1,},{}
     else
       @plans = Plan.where(user_id: 0)
       @genres = Genre.where(user_id: 0)
     end
-    # binding.pry
   end
 
   def get_genre_name(id)
     @genres = Genre.where(user_id: current_user.id)
-    @genres.where(id:id).first[:name]
+    @genres.where(id: id).first[:name]
     # binding.pry
   end
 
@@ -47,6 +44,7 @@ class PlansController < ApplicationController
     plan = Plan.find(params[:id])
     plan.destroy
   end
+
   private
 
   def plan_params

@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   before_action :authenticate_user!
   def index
-    @reports = Report.where(user_id: current_user.id)
+    @reports = Report.where(user_id: current_user.id).page(params[:page])
   end
 
   def new
@@ -23,15 +23,14 @@ class ReportsController < ApplicationController
     report = Report.new(formatted_para)
     report.user_id = current_user.id
     report.save!
-    
   end
 
   def get_genre_name(id)
     @genres = Genre.where(user_id: current_user.id)
-    @genres.where(id:id).first[:name]
+    @genres.where(id: id).first[:name]
   end
   helper_method :get_genre_name
-  
+
   def show; end
 
   def edit
