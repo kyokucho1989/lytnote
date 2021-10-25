@@ -2,8 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Review, type: :model do
   before do
-    @user = User.create!(email: "sasaki@example.com", password: "password")
-    # @review = Review.create!(reviewed_on Date.new(2021, 9, 20), content: "忙しかったけど学習できた。", user_id: @user.id)
+    @user = create(:user)
   end
 
   context "contentがない" do
@@ -21,5 +20,9 @@ RSpec.describe Review, type: :model do
       review.valid?
       expect(review.errors.messages[:content]).to include "は200文字以内で入力してください"
     end
+  end
+
+  after do
+    @user.destroy
   end
 end
