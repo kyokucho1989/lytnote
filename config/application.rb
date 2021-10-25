@@ -1,6 +1,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require 'faker'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -18,6 +19,8 @@ module DailyReportApp
 
     # デフォルトのロケールを日本（ja）に設定
     config.i18n.default_locale = :ja
+
+    Faker::Config.locale = 'ja'
     
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
