@@ -1,7 +1,7 @@
 <h1>振り返り一覧</h1>
 <% @reviews.each.with_index(1) do |review, i| %>
   <p>
-  振り返り日： <%= review.reviewed_on %>
+  振り返り日： <%= l review.reviewed_on %>
   内容：<%= review.content %>
   <%= link_to "詳細", review_path(review) %>
   <%= link_to "削除", review_path(review), method: :delete, data: {confirm: "削除しますか?"} %>
