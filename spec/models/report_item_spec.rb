@@ -2,9 +2,10 @@ require 'rails_helper'
 
 RSpec.describe ReportItem, type: :model do
   before do
-    @user = User.create!(email: "sasaki@example.com", password: "password")
-    @report = Report.create!(reported_on: Date.new(2021, 9, 20), content: "忙しかったけど学習できた。", user_id: @user.id)
-    @genre = Genre.create!(name: "英語学習", user_id: @user.id)
+    @user = create(:user)
+    @genre = create(:genre, user_id: @user.id)
+    @report = create(:report, user_id: @user.id)
+    
   end
 
   context "contentがない" do
@@ -46,5 +47,10 @@ RSpec.describe ReportItem, type: :model do
       report_item.valid?
       expect(report_item.errors.messages[:work_hours]).to include "は4文字以内で入力してください"
     end
+  end
+  after do
+    @user.destroy
+    @report.destroy
+    @genre.destroy
   end
 end
