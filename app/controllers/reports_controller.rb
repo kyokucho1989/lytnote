@@ -21,6 +21,8 @@ class ReportsController < ApplicationController
     report = Report.new(formatted_para)
     report.user_id = current_user.id
     report.save!
+    share_content = Report.convert_content_shared(formatted_para)
+    binding.pry
   end
 
   def get_genre_name(id)
