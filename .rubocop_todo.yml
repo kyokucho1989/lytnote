@@ -19,13 +19,13 @@ Bundler/OrderedGems:
 # Configuration parameters: EmptyLineBetweenMethodDefs, EmptyLineBetweenClassDefs, EmptyLineBetweenModuleDefs, AllowAdjacentOneLineDefs, NumberOfEmptyLines.
 Layout/EmptyLineBetweenDefs:
   Exclude:
-    - 'app/controllers/reports_controller.rb'
+    # - 'app/controllers/reports_controller.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
 Layout/EmptyLines:
   Exclude:
-    - 'app/controllers/reports_controller.rb'
+    # - 'app/controllers/reports_controller.rb'
     - 'app/models/report.rb'
     - 'db/migrate/20210806180405_devise_create_users.rb'
 
@@ -35,14 +35,14 @@ Layout/EmptyLines:
 # SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines, beginning_only, ending_only
 Layout/EmptyLinesAroundClassBody:
   Exclude:
-    - 'app/models/report.rb'
+    # - 'app/models/report.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.
 Layout/ExtraSpacing:
   Exclude:
-    - 'app/models/report.rb'
+    # - 'app/models/report.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -61,8 +61,8 @@ Layout/SpaceAfterColon:
 # Cop supports --auto-correct.
 Layout/SpaceAfterComma:
   Exclude:
-    - 'app/controllers/reports_controller.rb'
-    - 'app/models/report.rb'
+    # - 'app/controllers/reports_controller.rb'
+    # - 'app/models/report.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -70,7 +70,7 @@ Layout/SpaceAfterComma:
 # SupportedStylesForExponentOperator: space, no_space
 Layout/SpaceAroundOperators:
   Exclude:
-    - 'app/models/report.rb'
+    # - 'app/models/report.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -88,7 +88,7 @@ Layout/SpaceInsideArrayLiteralBrackets:
 # SupportedStylesForEmptyBraces: space, no_space
 Layout/SpaceInsideBlockBraces:
   Exclude:
-    - 'spec/factories/reports.rb'
+    # - 'spec/factories/reports.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -103,7 +103,7 @@ Layout/TrailingEmptyLines:
 # Configuration parameters: AllowInHeredoc.
 Layout/TrailingWhitespace:
   Exclude:
-    - 'app/models/report.rb'
+    # - 'app/models/report.rb'
     - 'config/application.rb'
     - 'spec/models/report_item_spec.rb'
 
@@ -116,7 +116,7 @@ Lint/Debugger:
 # Offense count: 17
 Lint/UselessAssignment:
   Exclude:
-    - 'app/controllers/reports_controller.rb'
+    # - 'app/controllers/reports_controller.rb'
     - 'db/seeds.rb'
     - 'spec/models/report_spec.rb'
 

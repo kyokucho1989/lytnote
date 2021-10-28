@@ -26,10 +26,9 @@ class ReportsController < ApplicationController
     share_content = Report.convert_content_shared(formatted_para, genres_set)
   end
 
-
   def get_genre_nameset
     genres = Genre.where(user_id: current_user.id)
-    genres.pluck(:id,:name)
+    genres.pluck(:id, :name)
   end
   helper_method :get_genre_nameset
 
