@@ -2,6 +2,7 @@ class ReportsController < ApplicationController
   before_action :authenticate_user!
   def index
     @reports = Report.where(user_id: current_user.id).page(params[:page])
+    @genres_set = get_genre_nameset
   end
 
   def new
@@ -21,15 +22,22 @@ class ReportsController < ApplicationController
     report = Report.new(formatted_para)
     report.user_id = current_user.id
     report.save!
-    share_content = Report.convert_content_shared(formatted_para)
-    binding.pry
+    genres_set = get_genre_nameset
+    share_content = Report.convert_content_shared(formatted_para, genres_set)
   end
 
-  def get_genre_name(id)
-    @genres = Genre.where(user_id: current_user.id)
-    @genres.where(id: id).first[:name]
+
+  def get_genre_nameset
+    genres = Genre.where(user_id: current_user.id)
+    genres.pluck(:id,:name)
   end
-  helper_method :get_genre_name
+  helper_method :get_genre_nameset
+
+  # def get_genre_name(id)
+  #   @genres = Genre.where(user_id: current_user.id)
+  #   @genres.where(id: id).first[:name]
+  # end
+  # helper_method :get_genre_name
 
   def show; end
 

@@ -3,7 +3,8 @@
   <p>日付：<%= l report.reported_on %></p>
   <% report.report_items.each do |item| %>
     <p>
-    ジャンル：<%= get_genre_name(item.genre_id ) %>
+    ジャンル：
+    <%= @genres_set.assoc(item.genre_id).last %>
     やったこと：<%= item.content %>
     時間：<%= item.work_hours %>
     </p>
