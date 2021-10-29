@@ -27,7 +27,6 @@ class ReportsController < ApplicationController
     report.content_for_share = share_content
     report.save!
     binding.pry
-    
   end
 
   def get_genre_nameset
@@ -57,12 +56,12 @@ class ReportsController < ApplicationController
     report.update_attributes(report_params)
     genres_set = get_genre_nameset
     share_content = Report.convert_content_shared(report_params, genres_set)
-    report.update_attributes(:content_for_share =>  share_content)
+    report.update_attributes(content_for_share: share_content)
   end
 
   private
 
   def report_params
-    params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :work_hours, :content_for_share,:id])
+    params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :work_hours, :content_for_share, :id])
   end
 end
