@@ -10,6 +10,7 @@ class Report < ApplicationRecord
   def self.convert_content_shared(formatted_para, genres_set)
     date = formatted_para[:reported_on]
     items = formatted_para[:report_items_attributes].values
+    binding.pry
     formatted_items = ""
     items.each do |item|
       genre_name = genres_set.assoc(item[:genre_id].to_i).last
