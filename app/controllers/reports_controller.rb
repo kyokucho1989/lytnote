@@ -19,26 +19,27 @@ class ReportsController < ApplicationController
     para[first_key] = first_value unless para.key?("content")
     formatted_para = report_params
     formatted_para[:report_items_attributes] = para
-    report = Report.new(formatted_para)
-    report.user_id = current_user.id
-    report.save!
     genres_set = get_genre_nameset
     share_content = Report.convert_content_shared(formatted_para, genres_set)
+
+    report = Report.new(formatted_para)
+    report.user_id = current_user.id
+    report.content_for_share = share_content
+    report.save!
+    binding.pry
   end
 
   def get_genre_nameset
     genres = Genre.where(user_id: current_user.id)
     genres.pluck(:id, :name)
   end
-  helper_method :get_genre_nameset
+  # helper_method :get_genre_nameset
 
-  # def get_genre_name(id)
-  #   @genres = Genre.where(user_id: current_user.id)
-  #   @genres.where(id: id).first[:name]
-  # end
-  # helper_method :get_genre_name
-
-  def show; end
+  def show
+    @report = Report.find(params[:id])
+    @report_item_array = ReportItem.where(report_id: @report.id).to_a
+    @genres = get_genre_nameset
+  end
 
   def edit
     @report = Report.find(params[:id])
@@ -53,11 +54,14 @@ class ReportsController < ApplicationController
   def update
     report = Report.find(params[:id])
     report.update_attributes(report_params)
+    genres_set = get_genre_nameset
+    share_content = Report.convert_content_shared(report_params, genres_set)
+    report.update_attributes(content_for_share: share_content)
   end
 
   private
 
   def report_params
-    params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :work_hours, :id])
+    params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :work_hours, :content_for_share, :id])
   end
 end

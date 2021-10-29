@@ -1,2 +1,10 @@
-<h1>Reports#show</h1>
-<p>Find me in app/views/reports/show.html.erb</p>
+<h1>日報詳細</h1>
+  <p>登録日：<%= l @report.reported_on %></p>
+    <% @report_item_array.each do |item| %>
+      ジャンル： <%= @genres.assoc(item.genre_id).last %>
+      <p>やったこと：<%= item.content %></p>
+      <p>作業時間：<%= item.work_hours %></p>
+    <% end %>
+  <p>コメント：<%= @report.content %></p>
+  <p>共有用文章：<%= simple_format(@report.content_for_share) %></p>
+  <%= link_to "日報一覧", reports_path %> 
