@@ -29,6 +29,10 @@ class ReviewsController < ApplicationController
     review.user_id = current_user.id
     review.save!
 
+    # 変更前の計画の状態を保存しておく
+
+    before_plan_state=Hash.new
+    binding.pry
     # つぎにPlanに対応したreviw_itemsを保存していく
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
@@ -37,6 +41,10 @@ class ReviewsController < ApplicationController
       Plan.find(id).update!(item[i])
       review.review_items.create!(plan_id: id)
     end
+
+    genres_set = get_genre_nameset
+    share_content = Review.convert_content_shared(formatted_para, genres_set)
+
   end
 
   def select_plan
