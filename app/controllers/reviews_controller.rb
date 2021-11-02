@@ -31,17 +31,28 @@ class ReviewsController < ApplicationController
 
     # 変更前の計画の状態を保存しておく
 
-    before_plan_state=Hash.new
-    binding.pry
+
     # つぎにPlanに対応したreviw_itemsを保存していく
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
+    before_plan_state = Plan.find(plan_keys)
     plan_keys.each_with_index do |id, i|
+      binding.pry
       Plan.find(id).update!(item[i])
       review.review_items.create!(plan_id: id)
     end
+    after_plan_state = Plan.find(plan_keys)
 
+    # 文章の例
+
+    # 2021/10/2
+    # 目標1:【英語】 TOEIC参考書20P 期日10/1　→ 完了
+    # 目標2:【Ruby】 チェリー本2章 期日9/28　→ 未完了　期日 10/4に延長
+    # 目標3:【Python】 環境構築 期日9/25　→ 中止　
+    # 振り返り：
+    # いろいろできた。
+    binding.pry
     genres_set = get_genre_nameset
     share_content = Review.convert_content_shared(formatted_para, genres_set)
 
