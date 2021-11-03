@@ -6,9 +6,9 @@ class Review < ApplicationRecord
   # validates :reviewd_on, uniqueness: true
   validates :content, length: { maximum: 200 }, presence: true
 
-  def self.convert_content_shared(formatted_para, genres_set)
-    date = formatted_para[:reported_on]
-    items = formatted_para[:report_items_attributes].values
+  def self.convert_content_shared(before_plan_state,after_plan_state,review_params, genres_set)
+    date = review_params[:reviewed_on]
+    
     binding.pry
     formatted_items = ""
     items.each do |item|

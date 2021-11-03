@@ -16,6 +16,11 @@ class ReviewsController < ApplicationController
     @plans = Plan.where(id: selected_plan_ids)
     @review_item_array = Array.new(@plans.size, ReviewItem.new)
   end
+  
+  def get_genre_nameset
+    genres = Genre.where(user_id: current_user.id)
+    genres.pluck(:id, :name)
+  end
 
   def get_genre_name(id)
     @genres = Genre.where(user_id: current_user.id)
@@ -54,7 +59,7 @@ class ReviewsController < ApplicationController
     # いろいろできた。
     binding.pry
     genres_set = get_genre_nameset
-    share_content = Review.convert_content_shared(formatted_para, genres_set)
+    share_content = Review.convert_content_shared(before_plan_state,after_plan_state,review_params, genres_set)
 
   end
 
