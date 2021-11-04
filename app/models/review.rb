@@ -19,7 +19,12 @@ class Review < ApplicationRecord
       after_state = after_plan_state[i].status
       after_deadline = after_plan_state[i].deadline.strftime("%m月%d日")
       binding.pry
-      formatted_items = formatted_items + "【" + genre_name + "】" + name + " " + before_deadline + "→" + after_state + " " + after_deadline + " \n"
+      if after_state == "未完了" then
+        formatted_items = formatted_items + "【" + genre_name + "】" + name + " " + before_deadline + "→" + after_state + " \n"
+      else
+        formatted_items = formatted_items + "【" + genre_name + "】" + name + " " + before_deadline + "→" + after_state + " 期日 " + after_deadline + "に延長" + " \n"
+      end
+      
     end
     
     date + "\n" + formatted_items + "\n" + content

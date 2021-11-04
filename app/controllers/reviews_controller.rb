@@ -37,6 +37,7 @@ class ReviewsController < ApplicationController
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
+    binding.pry
     before_plan_state = Plan.find(plan_keys)
     plan_keys.each_with_index do |id, i|
       Plan.find(id).update!(item[i])
