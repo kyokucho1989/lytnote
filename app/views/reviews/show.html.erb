@@ -9,4 +9,5 @@
       </p>
     <% end %>
   <p>コメント：<%= @review.content %></p>
+  <p>共有用文章：<%= simple_format(@review.content_for_share) %></p>
   <%= link_to "目標再選択/編集", re_select_plan_review_path(@review) %>
