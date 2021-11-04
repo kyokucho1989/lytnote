@@ -43,7 +43,7 @@ class ReviewsController < ApplicationController
     item = param_plans.values
     before_plan_state = Plan.find(plan_keys)
     plan_keys.each_with_index do |id, i|
-      binding.pry
+      # binding.pry
       Plan.find(id).update!(item[i])
       review.review_items.create!(plan_id: id)
     end
@@ -57,10 +57,10 @@ class ReviewsController < ApplicationController
     # 目標3:【Python】 環境構築 期日9/25　→ 中止　
     # 振り返り：
     # いろいろできた。
-    binding.pry
+    # binding.pry
     genres_set = get_genre_nameset
     share_content = Review.convert_content_shared(before_plan_state,after_plan_state,review_params, genres_set)
-
+binding.pry
   end
 
   def select_plan
