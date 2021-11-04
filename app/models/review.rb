@@ -8,14 +8,21 @@ class Review < ApplicationRecord
 
   def self.convert_content_shared(before_plan_state,after_plan_state,review_params, genres_set)
     date = review_params[:reviewed_on]
-    
-    binding.pry
+    content = review_params[:content]
+    # binding.pry
     formatted_items = ""
-    items.each do |item|
-      genre_name = genres_set.assoc(item[:genre_id].to_i).last
-      formatted_items = formatted_items + "【" + genre_name + "】" + item[:content] + "   " + item[:work_hours] + "時間 \n"
+    for i in 0...before_plan_state.size
+      genre_id = before_plan_state[i].genre_id
+      genre_name = genres_set.assoc(genre_id).last
+      name = before_plan_state[i].name
+      before_state = before_plan_state[i].status
+      before_deadline = before_plan_state[i].deadline.strftime("%m月%d日")
+      after_state = after_plan_state[i].status
+      after_deadline = after_plan_state[i].deadline.strftime("%m月%d日")
+      binding.pry
+      formatted_items = formatted_items + "【" + genre_name + "】" + name + " " + before_deadline + "→" + after_state + " " + after_deadline + " \n"
     end
-    content = formatted_para[:content]
+    
     date + "\n" + formatted_items + "\n" + content
   end
 end
