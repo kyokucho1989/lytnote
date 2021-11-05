@@ -1,5 +1,6 @@
 <h1>日報編集</h1>
 <%= form_with model: @report, local: true do |f| %>
+  <p>登録日：<%= f.date_field :reported_on %></p>
   <%= f.fields_for :report_items do |item| %>
     <p>ジャンル：<%= item.collection_select :genre_id, @select_genre, :id, :name, :include_blank => true %></p>
     <p>やったこと：<%= item.text_field :content %></p>
@@ -9,3 +10,5 @@
   <p>コメント：<%= f.text_field :content %></p>
   <%= f.submit "登録" %>
 <% end %>
+
+<%= link_to "編集キャンセル（日報一覧へ戻る）", reports_path %> 

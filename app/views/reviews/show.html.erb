@@ -1,5 +1,5 @@
 <h1>振り返り詳細</h1>
-  <p>振り返り日：<%= @review.reviewed_on %></p>
+  <p>振り返り日：<%= l @review.reviewed_on %></p>
     <% @plans.each do |plan| %>
       <p>
       目標： <%= plan.name %>
@@ -9,4 +9,7 @@
       </p>
     <% end %>
   <p>コメント：<%= @review.content %></p>
+  <p>共有用文章：<%= simple_format(@review.content_for_share) %></p>
   <%= link_to "目標再選択/編集", re_select_plan_review_path(@review) %>
+
+  <%= link_to "振り返り一覧", reviews_path %>

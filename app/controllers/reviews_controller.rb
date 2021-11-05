@@ -17,6 +17,11 @@ class ReviewsController < ApplicationController
     @review_item_array = Array.new(@plans.size, ReviewItem.new)
   end
 
+  def get_genre_nameset
+    genres = Genre.where(user_id: current_user.id)
+    genres.pluck(:id, :name)
+  end
+
   def get_genre_name(id)
     @genres = Genre.where(user_id: current_user.id)
     @genres.where(id: id).first[:name]
@@ -24,19 +29,26 @@ class ReviewsController < ApplicationController
   helper_method :get_genre_name
 
   def create
-    # まずはReview.newをする。
     review = Review.new(review_params)
     review.user_id = current_user.id
     review.save!
 
-    # つぎにPlanに対応したreviw_itemsを保存していく
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
+
+    before_plan_state = Plan.find(plan_keys)
     plan_keys.each_with_index do |id, i|
       Plan.find(id).update!(item[i])
       review.review_items.create!(plan_id: id)
     end
+    after_plan_state = Plan.find(plan_keys)
+
+    genres_set = get_genre_nameset
+    share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
+
+    review.content_for_share = share_content
+    review.save!
   end
 
   def select_plan
@@ -60,11 +72,17 @@ class ReviewsController < ApplicationController
     review.update(review_params)
     plan_params = params[:review].permit(plans: {}).values.first
     selected_plan_ids = plan_params.keys
+    before_plan_state = Plan.find(selected_plan_ids)
     selected_plan_ids.each do |plan_id|
       update_plan_params = plan_params[plan_id]
       plan = Plan.find(plan_id)
       plan.update!(update_plan_params)
     end
+    after_plan_state = Plan.find(selected_plan_ids)
+    genres_set = get_genre_nameset
+    share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
+    review.content_for_share = share_content
+    review.save!
   end
 
   def destroy
