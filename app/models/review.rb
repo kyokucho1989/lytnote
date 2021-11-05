@@ -5,12 +5,12 @@ class Review < ApplicationRecord
   validates :reviewed_on, presence: true, uniqueness: { scope: :user }
   validates :content, length: { maximum: 200 }, presence: true
 
-  def self.convert_content_shared(before_plan_state,after_plan_state,review_params, genres_set)
+  def self.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
     date = review_params[:reviewed_on]
     content = review_params[:content]
     # binding.pry
     formatted_items = ""
-    for i in 0...before_plan_state.size
+    (0...before_plan_state.size).each do |i|
       genre_id = before_plan_state[i].genre_id
       genre_name = genres_set.assoc(genre_id).last
       name = before_plan_state[i].name
@@ -18,14 +18,13 @@ class Review < ApplicationRecord
       before_deadline = before_plan_state[i].deadline.strftime("%m月%d日")
       after_state = after_plan_state[i].status
       after_deadline = after_plan_state[i].deadline.strftime("%m月%d日")
-      if after_state == "進行中" then
-        formatted_items = formatted_items + "【" + genre_name + "】" + name + " 締め切り" + before_deadline + "→" + after_state + " 期日 " + after_deadline + "に延長" + " \n"
-      else
-        formatted_items = formatted_items + "【" + genre_name + "】" + name + " 締め切り" + before_deadline + "→" + after_state + " \n"
-      end
-      
+      formatted_items = if after_state == "進行中"
+                          formatted_items + "【" + genre_name + "】" + name + " 締め切り" + before_deadline + "→" + after_state + " 期日 " + after_deadline + "に延長" + " \n"
+                        else
+                          formatted_items + "【" + genre_name + "】" + name + " 締め切り" + before_deadline + "→" + after_state + " \n"
+                        end
     end
-    
+
     date + "\n" + formatted_items + "\n" + content
   end
 end

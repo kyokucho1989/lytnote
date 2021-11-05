@@ -16,7 +16,7 @@ class ReviewsController < ApplicationController
     @plans = Plan.where(id: selected_plan_ids)
     @review_item_array = Array.new(@plans.size, ReviewItem.new)
   end
-  
+
   def get_genre_nameset
     genres = Genre.where(user_id: current_user.id)
     genres.pluck(:id, :name)
@@ -45,7 +45,7 @@ class ReviewsController < ApplicationController
     after_plan_state = Plan.find(plan_keys)
 
     genres_set = get_genre_nameset
-    share_content = Review.convert_content_shared(before_plan_state,after_plan_state,review_params, genres_set)
+    share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
 
     review.content_for_share = share_content
     review.save!
@@ -80,7 +80,7 @@ class ReviewsController < ApplicationController
     end
     after_plan_state = Plan.find(selected_plan_ids)
     genres_set = get_genre_nameset
-    share_content = Review.convert_content_shared(before_plan_state,after_plan_state,review_params, genres_set)
+    share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
     review.content_for_share = share_content
     review.save!
   end
