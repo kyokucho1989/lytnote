@@ -6,6 +6,10 @@ class Plan < ApplicationRecord
   validate :deadline_cannot_set_in_past
   validates :name, length: { maximum: 20 }
   def deadline_cannot_set_in_past
-    errors.add(:deadline, ": 過去の日付は使えません") if deadline.present? && deadline < Date.today
+    if status == "進行中" then
+      errors.add(:deadline, ": 過去の日付は使えません") if deadline.present? && deadline < Date.today
+    else
+
+    end
   end
 end

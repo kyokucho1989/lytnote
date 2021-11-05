@@ -1,5 +1,5 @@
 <h1>振り返り詳細</h1>
-  <p>振り返り日：<%= @review.reviewed_on %></p>
+  <p>振り返り日：<%= l @review.reviewed_on %></p>
     <% @plans.each do |plan| %>
       <p>
       目標： <%= plan.name %>
