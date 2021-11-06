@@ -4,7 +4,7 @@ class Plan < ApplicationRecord
   has_many :review_items, dependent: :restrict_with_error
   accepts_nested_attributes_for :review_items
   validate :deadline_cannot_set_in_past
-  validates :name, length: { maximum: 20 }
+  validates :name, length: { maximum: 20 }, presence: true
   def deadline_cannot_set_in_past
     errors.add(:deadline, ": 過去の日付は使えません") if status == "進行中" && (deadline.present? && deadline < Date.today)
   end
