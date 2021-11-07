@@ -8,8 +8,8 @@ RSpec.describe Plan, type: :model do
 
   context "nameが空白" do
     it "エラーが出る" do
-      plan =  Plan.new(name: nil, user_id: @user.id, genre_id: @genre.id,\
-              deadline: Date.today + 1, status: "進行中")
+      plan = Plan.new(name: nil, user_id: @user.id, genre_id: @genre.id,\
+                      deadline: Date.today + 1, status: "進行中")
       plan.valid?
       expect(plan.errors.messages[:name]).to include "を入力してください"
     end
@@ -17,8 +17,8 @@ RSpec.describe Plan, type: :model do
 
   context "nameが21文字以上" do
     it "エラーが出る" do
-      plan =  Plan.new(name: "a"*21, user_id: @user.id, genre_id: @genre.id,\
-              deadline: Date.today + 1, status: "進行中")
+      plan = Plan.new(name: "a" * 21, user_id: @user.id, genre_id: @genre.id,\
+                      deadline: Date.today + 1, status: "進行中")
       plan.valid?
       expect(plan.errors.messages[:name]).to include "は20文字以内で入力してください"
     end
@@ -26,8 +26,8 @@ RSpec.describe Plan, type: :model do
 
   context "deadlineが今日より前　かつ　statusが進行中" do
     it "エラーが出る" do
-      plan =  Plan.new(name: "参考書20ページ進める", user_id: @user.id, genre_id: @genre.id,\
-              deadline: Date.today - 1, status: "進行中")
+      plan = Plan.new(name: "参考書20ページ進める", user_id: @user.id, genre_id: @genre.id,\
+                      deadline: Date.today - 1, status: "進行中")
       plan.valid?
       expect(plan.errors.messages[:deadline]).to include "過去の日付は使えません"
     end
@@ -35,8 +35,8 @@ RSpec.describe Plan, type: :model do
 
   context "deadlineが今日より前　かつ　statusが進行中以外" do
     it "エラーが出ない" do
-      plan =  Plan.new(name: "参考書20ページ進める", user_id: @user.id, genre_id: @genre.id,\
-              deadline: Date.today - 1, status: "完了")
+      plan = Plan.new(name: "参考書20ページ進める", user_id: @user.id, genre_id: @genre.id,\
+                      deadline: Date.today - 1, status: "完了")
       plan.valid?
       expect(plan.valid?).to eq true
     end
