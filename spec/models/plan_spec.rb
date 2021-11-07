@@ -3,9 +3,7 @@ require 'rails_helper'
 RSpec.describe Plan, type: :model do
   before do
     @user = create(:user)
-    @user2 = create(:user)
     @genre = create(:genre, user: @user)
-    @genre2 = create(:genre, user: @user2)
   end
 
   context "nameが空白" do
@@ -42,5 +40,10 @@ RSpec.describe Plan, type: :model do
       plan.valid?
       expect(plan.valid?).to eq true
     end
+  end
+
+  after do
+    @user.destroy
+    @genre.destroy
   end
 end

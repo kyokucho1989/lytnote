@@ -5,7 +5,6 @@ RSpec.describe ReportItem, type: :model do
     @user = create(:user)
     @genre = create(:genre, user_id: @user.id)
     @report = create(:report, user_id: @user.id)
-    
   end
 
   context "contentがない" do
