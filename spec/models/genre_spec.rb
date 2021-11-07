@@ -18,7 +18,7 @@ RSpec.describe Genre, type: :model do
     it "エラーが出る" do
       genre = Genre.new(name: "a" * 21, user_id: @user.id)
       genre.valid?
-      
+
       expect(genre.errors.messages[:name]).to include "は20文字以内で入力してください"
     end
   end
