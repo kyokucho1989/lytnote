@@ -52,7 +52,8 @@ class ReviewsController < ApplicationController
   end
 
   def select_plan
-    @plans = Plan.where(user_id: current_user.id)
+    @plans_all = Plan.where(user_id: current_user.id)
+    @plans = Plan.left_joins(:review_items).where(review_items: {id:nil}, user_id: current_user.id, status: "進行中")
   end
 
   def re_select_plan
