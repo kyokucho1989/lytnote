@@ -29,10 +29,15 @@ class ReviewsController < ApplicationController
   helper_method :get_genre_name
 
   def create
-    review = Review.new(review_params)
-    review.user_id = current_user.id
-    review.save!
-
+    @review = Review.new(review_params)
+    @review.user_id = current_user.id
+    
+    if !@review.save
+      flash.now[:alert] = "投稿に失敗しました"
+      @plans = Plan.where(id: selected_plan_ids)
+      @review_item_array = Array.new(@plans.size, ReviewItem.new)
+      render :new
+    end
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
@@ -48,7 +53,16 @@ class ReviewsController < ApplicationController
     share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
 
     review.content_for_share = share_content
-    review.save!
+    # review.save!
+    if @review.save
+      flash[:notice] = "振り返りを投稿しました"
+      # redirect_to @report
+    else
+      flash.now[:alert] = "投稿に失敗しました"
+      @plans = Plan.where(id: selected_plan_ids)
+      @review_item_array = Array.new(@plans.size, ReviewItem.new)
+      render :new
+    end
   end
 
   def select_plan

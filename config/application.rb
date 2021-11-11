@@ -22,6 +22,7 @@ module DailyReportApp
 
     Faker::Config.locale = 'ja'
     
+    config.count_add_report_item = 3
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
