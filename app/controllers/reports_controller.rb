@@ -7,7 +7,8 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new
-    3.times { @report.report_items.build }
+    count_to_add = DailyReportApp::Application.config.count_add_report_item
+    count_to_add.times { @report.report_items.build }
     @select_genre = Genre.where(user_id: current_user)
   end
 
@@ -22,11 +23,21 @@ class ReportsController < ApplicationController
     genres_set = get_genre_nameset
     share_content = Report.convert_content_shared(formatted_para, genres_set)
 
-    report = Report.new(formatted_para)
-    report.user_id = current_user.id
-    report.content_for_share = share_content
-    report.save!
-    binding.pry
+    @report = Report.new(formatted_para)
+    @report.user_id = current_user.id
+    @report.content_for_share = share_content
+    
+    if @report.save
+      flash[:notice] = "日報を投稿しました"
+      # redirect_to @report
+    else
+      flash.now[:alert] = "投稿に失敗しました"
+      @select_genre = Genre.where(user_id: current_user)
+      count_to_add = DailyReportApp::Application.config.count_add_report_item
+      add_count = count_to_add - @report.report_items.size
+      add_count.times { @report.report_items.build }
+      render :new
+    end
   end
 
   def get_genre_nameset

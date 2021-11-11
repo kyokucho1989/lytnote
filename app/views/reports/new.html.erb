@@ -1,4 +1,12 @@
 <h1>日報登録</h1>
+<% if @report.errors.any? %>
+  <h2>エラー</h2>
+  <ul>
+    <% @report.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 <%= form_with model: @report, local: true do |f| %>
   <p>登録日：<%= f.date_field :reported_on , value:Date.today%></p>
   <%= f.fields_for :report_items do |item| %>
