@@ -1,4 +1,19 @@
 <h1>振り返り編集</h1>
+
+<% if @plan.errors.any? || @review.errors.any?%>
+  <h2>エラー</h2>
+  <ul>
+    <% @plan.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+  <ul>
+  <% @review.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
+
 <%= form_with model: @review, local: true do |form| %>
   <p>振り返り日：<%= form.date_field :reviewed_on %></p>
     <% @plans.each do |plan| %>

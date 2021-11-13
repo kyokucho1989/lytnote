@@ -63,11 +63,27 @@ class ReportsController < ApplicationController
   end
 
   def update
-    report = Report.find(params[:id])
-    report.update_attributes(report_params)
+    @report = Report.find(params[:id])
+    @report.update_attributes(report_params)
+
+    if !@report.update_attributes(report_params)
+      flash.now[:alert] = "修正に失敗しました"
+      @select_genre = Genre.where(user_id: current_user)
+      render :edit
+      return
+    end
+
     genres_set = get_genre_nameset
     share_content = Report.convert_content_shared(report_params, genres_set)
-    report.update_attributes(content_for_share: share_content)
+    @report.update_attributes(content_for_share: share_content)
+
+    if @report.update_attributes(content_for_share: share_content)
+      flash[:notice] = "日報を修正しました"
+    else
+      flash.now[:alert] = "修正に失敗しました"
+      @select_genre = Genre.where(user_id: current_user)
+      render :edit
+    end
   end
 
   private

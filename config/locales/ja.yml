@@ -20,3 +20,9 @@ ja:
         content: やったこと
         genre: ジャンル
         work_hours: 作業時間
+      review: 
+        content: コメント
+        genre: ジャンル
+        reviewed_on: 振り返り日
+      genre: 
+        name: 名前
