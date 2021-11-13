@@ -68,7 +68,6 @@ class ReviewsController < ApplicationController
     @review.content_for_share = share_content
     if @review.save
       flash[:notice] = "振り返りを投稿しました"
-      # redirect_to @report
     else
       flash.now[:alert] = "投稿に失敗しました"
       @plans = Plan.where(id: selected_plan_ids)
@@ -93,24 +92,46 @@ class ReviewsController < ApplicationController
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id: @review.id).to_a
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
+    @plan = Plan.new
   end
 
   def update
-    review = Review.find(params[:id])
-    review.update(review_params)
+    @review = Review.find(params[:id])
+    if !@review.update(review_params)
+      flash.now[:alert] = "投稿に失敗しました"
+      @review_item_array = ReviewItem.where(review_id: @review.id).to_a
+      @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
+      @plan = Plan.new
+      render :edit
+      return
+    end
+    
     plan_params = params[:review].permit(plans: {}).values.first
     selected_plan_ids = plan_params.keys
     before_plan_state = Plan.find(selected_plan_ids)
     selected_plan_ids.each do |plan_id|
       update_plan_params = plan_params[plan_id]
-      plan = Plan.find(plan_id)
-      plan.update!(update_plan_params)
+      @plan = Plan.find(plan_id)
+      if !@plan.update(update_plan_params)
+        flash.now[:alert] = "投稿に失敗しました"
+        @review_item_array = ReviewItem.where(review_id: @review.id).to_a
+        @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
+        render :edit
+        return
+      end
     end
     after_plan_state = Plan.find(selected_plan_ids)
     genres_set = get_genre_nameset
     share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
-    review.content_for_share = share_content
-    review.save!
+    @review.content_for_share = share_content
+    if @review.save
+      flash[:notice] = "振り返りを投稿しました"
+    else
+      flash.now[:alert] = "投稿に失敗しました"
+      @plans = Plan.where(id: selected_plan_ids)
+      @review_item_array = Array.new(@plans.size, ReviewItem.new)
+      render :edit
+    end
   end
 
   def destroy
