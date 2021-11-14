@@ -78,7 +78,9 @@ class ReviewsController < ApplicationController
 
   def select_plan
     @plans_all = Plan.where(user_id: current_user.id)
-    @plans = Plan.left_joins(:review_items).where(review_items: {id:nil}, user_id: current_user.id, status: "進行中")
+    plans1 = Plan.left_joins(:review_items).where(review_items: {id:nil}).where(user_id: current_user.id)
+    plans2 = Plan.left_joins(:review_items).where(status: "進行中").where(user_id: current_user.id)
+    @plans= plans1.or(plans2)
     @review = Review.new
   end
 
