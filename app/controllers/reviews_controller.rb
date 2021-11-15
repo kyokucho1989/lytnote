@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
   def create
     @review = Review.new(review_params)
     @review.user_id = current_user.id
-  
+
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
@@ -59,7 +59,7 @@ class ReviewsController < ApplicationController
       end
       @review.review_items.create!(plan_id: id)
     end
-    
+
     after_plan_state = Plan.find(plan_keys)
 
     genres_set = get_genre_nameset
@@ -78,9 +78,9 @@ class ReviewsController < ApplicationController
 
   def select_plan
     @plans_all = Plan.where(user_id: current_user.id)
-    plans1 = Plan.left_joins(:review_items).where(review_items: {id:nil}).where(user_id: current_user.id)
+    plans1 = Plan.left_joins(:review_items).where(review_items: { id: nil }).where(user_id: current_user.id)
     plans2 = Plan.left_joins(:review_items).where(status: "進行中").where(user_id: current_user.id)
-    @plans= plans1.or(plans2)
+    @plans = plans1.or(plans2)
     @review = Review.new
   end
 
@@ -107,7 +107,7 @@ class ReviewsController < ApplicationController
       render :edit
       return
     end
-    
+
     plan_params = params[:review].permit(plans: {}).values.first
     selected_plan_ids = plan_params.keys
     before_plan_state = Plan.find(selected_plan_ids)

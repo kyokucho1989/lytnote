@@ -26,7 +26,7 @@ class GenresController < ApplicationController
   def create
     @genre = Genre.new(genre_params)
     @genre.user_id = current_user.id
-    
+
     if @genre.save
       flash[:notice] = "ジャンルを追加しました"
     else
