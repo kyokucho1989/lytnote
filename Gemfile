@@ -82,3 +82,5 @@ gem 'pry-rails'
 # ページネーション追加
 gem 'kaminari'
 gem 'kaminari-i18n'
+
+
