@@ -23,8 +23,11 @@
       ステータス：<%= plan.status %>
      
       </p>
-      <p>変更後の締め切り：<%= f.date_field :deadline %></p>
+      
       <p>変更後のステータス：<%= f.select :status, ["進行中","中止","完了"] %></p>
+      <%= render "reviews/deadline" %>
+      <p>変更後の締め切り：<%= f.date_field :deadline %></p>
+      
     <% end %>
   <% end %>
   <p>コメント：<%= form.text_field :content %></p>

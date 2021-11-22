@@ -12,5 +12,8 @@ if( addButton !== null ){
 }
 
 $(function () {
-  $("h1").css("color", "#0000FF");
+  var selectB = $('select[id^="review"]');
+  $('select[id^="review"]').change(function(){
+    console.log("キーボードを入力した時に発生");
+  })
 });
