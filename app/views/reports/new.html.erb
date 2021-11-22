@@ -10,12 +10,7 @@
 <%= form_with model: @report, local: true do |f| %>
   <p>登録日：<%= f.date_field :reported_on , value:Date.today%></p>
   <%= f.fields_for :report_items do |item| %>
-    <p>ジャンル：<%= item.collection_select :genre_id, @select_genre, :id, :name, :include_blank => true %></p>
-    <% if user_signed_in? %>
-      <% item %>
-    <% else %>
-     　テスト
-    <% end %>
+    <p>ジャンル：<%= item.collection_select :genre_id, @select_genre, :id, :name, {:include_blank => true ,:onchange => "alertDisp()" }%></p>
     <p>やったこと：<%= item.text_field :content %></p>
     <p>作業時間：<%= item.text_field :work_hours %></p>
   <% end %>
