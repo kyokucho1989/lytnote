@@ -25,7 +25,7 @@
       </p>
       
       <p>変更後のステータス：<%= f.select :status, ["進行中","中止","完了"] %></p>
-      <%= render "reviews/deadline" %>
+      <%= render 'plan', plan: plan %>
       <p>変更後の締め切り：<%= f.date_field :deadline %></p>
       
     <% end %>

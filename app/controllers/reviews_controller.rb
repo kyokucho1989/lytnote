@@ -141,6 +141,10 @@ class ReviewsController < ApplicationController
     review.destroy
   end
 
+  def change_state
+    binding.pry
+  end
+
   private
 
   def review_params
