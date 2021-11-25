@@ -12,16 +12,16 @@ if( addButton !== null ){
 }
 
 $(function () {
-  var content = $('select[id^="review"]');
-  $('select[id^="review"]').change(function(){
-    console.log(content);
+  var select_field = $('select[id^="review"]');
+  $(select_field).change(function(){
+    console.log(this);
+    // console.log(this.value);
+    let content = this.value;
     $.ajax({
       type: 'GET', // リクエストのタイプ
-      url: '/reviews/chantate', // リクエストを送信するURL
-      data:  { content: content }, // サーバーに送信するデータ
+      url: '/reviews/change_state', // リクエストを送信するURL
+      data:  { 'content' : content }, // サーバーに送信するデータ
       dataType: 'json' // サーバーから返却される型
     })
   });
-
-
 });

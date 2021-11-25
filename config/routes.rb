@@ -14,5 +14,9 @@ Rails.application.routes.draw do
     collection do
       get 'select_plan'
     end
+
+    collection do
+      get 'change_state'
+    end
   end
 end
