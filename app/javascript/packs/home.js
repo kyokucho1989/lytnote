@@ -22,6 +22,9 @@ $(function () {
       url: '/reviews/change_state', // リクエストを送信するURL
       data:  { 'content' : content }, // サーバーに送信するデータ
       dataType: 'json' // サーバーから返却される型
+    }).done(function(data){ // dataにはレスポンスされたデータが入る
+      //通信に成功した際の処理
+      console.log(done);
     })
   });
 });
