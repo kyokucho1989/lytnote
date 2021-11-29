@@ -21,13 +21,13 @@
       ジャンル：<%= plan.genre_id %>
       締め切り：<%=l plan.deadline %>
       ステータス：<%= plan.status %>
-     
       </p>
-      
       <p>変更後のステータス：<%= f.select :status, ["進行中","中止","完了"] %></p>
-      <%= render 'plan', plan: plan %>
-      <p>変更後の締め切り：<%= f.date_field :deadline %></p>
-      
+      <p id="plan-<%= plan.id %>">
+        <%= render 'plan', plan: plan ,messages: @messages %>
+        <%= @messages %>
+        <p>変更後の締め切り：<%= f.date_field :deadline %></p>
+      </p>
     <% end %>
   <% end %>
   <p>コメント：<%= form.text_field :content %></p>

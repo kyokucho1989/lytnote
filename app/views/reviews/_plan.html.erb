@@ -1,8 +1,9 @@
 <p>部分テンプレート</p>
 <% if plan.status == "進行中" %>
-  <%= plan.name %>
-  <%= plan.status %>
   <%= l plan.deadline %>
 <% else %>
 　なし
+<% end %>
+<% if !@messages.nil? %>
+<% @messages %>
 <% end %>
