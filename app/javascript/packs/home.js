@@ -16,15 +16,19 @@ $(function () {
   $(select_field).change(function(){
     console.log(this);
     // console.log(this.value);
-    let content = this.value;
+    let state = this.value;
+    let state_id = this.id;
     $.ajax({
       type: 'GET', // リクエストのタイプ
       url: '/reviews/change_state', // リクエストを送信するURL
-      data:  { 'content' : content }, // サーバーに送信するデータ
+      data:  { 'state' : state, 'id' : state_id }, // サーバーに送信するデータ
       dataType: 'json' // サーバーから返却される型
-    }).done(function(data){ // dataにはレスポンスされたデータが入る
-      //通信に成功した際の処理
-      console.log(done);
+    })
+    .done(function(data){ // dataにはレスポンスされたデータが入る
+      // $('.test').remove();
+      // $('.test').append(
+      //   `${data.state}"---"${data.id}`
+      // );
     })
   });
 });

@@ -30,6 +30,7 @@ class ReviewsController < ApplicationController
   helper_method :get_genre_name
 
   def create
+    binding.pry
     @review = Review.new(review_params)
     @review.user_id = current_user.id
 
@@ -143,6 +144,12 @@ class ReviewsController < ApplicationController
 
   def change_state
     binding.pry
+    @messages = params
+    # respond_to do |format| # リクエスト形式によって処理を切り分ける
+    #   format.html { redirect_to :root } # html形式の場合
+    #   # format.json { render json: @messages } # json形式の場合
+    #   format.json { @messages }
+    # end
   end
 
   private
