@@ -23,11 +23,15 @@
       ステータス：<%= plan.status %>
       </p>
       <p>変更後のステータス：<%= f.select :status, ["進行中","中止","完了"] %></p>
-      <p id="plan-<%= plan.id %>">
+ 
+      <% if plan.status == "進行中" %>
+        <p id = "review_plans_<%= plan.id %>_status_disp" style="display:none">  
+      <% else %>
+        <p id = "review_plans_<%= plan.id %>_status_disp" style="display:inline"> 
+      <% end %>
+          <p>変更後の締め切り：<%= f.date_field :deadline %></p>
+        </p>
         <%= render 'plan', plan: plan ,messages: @messages %>
-        <%= @messages %>
-        <p>変更後の締め切り：<%= f.date_field :deadline %></p>
-      </p>
     <% end %>
   <% end %>
   <p>コメント：<%= form.text_field :content %></p>
