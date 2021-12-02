@@ -143,13 +143,11 @@ class ReviewsController < ApplicationController
   end
 
   def change_state
-    binding.pry
     @messages = params
-    # respond_to do |format| # リクエスト形式によって処理を切り分ける
-    #   format.html { redirect_to :root } # html形式の場合
-    #   # format.json { render json: @messages } # json形式の場合
-    #   format.json { @messages }
-    # end
+    respond_to do |format| # リクエスト形式によって処理を切り分ける
+      format.html { redirect_to :root } # html形式の場合
+      format.json { render json: @messages } # json形式の場合
+    end
   end
 
   private

@@ -14,7 +14,6 @@ if( addButton !== null ){
 $(function () {
   var select_field = $('select[id^="review"]');
   $(select_field).change(function(){
-    console.log(this);
     // console.log(this.value);
     let state = this.value;
     let state_id = this.id;
@@ -25,8 +24,15 @@ $(function () {
       dataType: 'json' // サーバーから返却される型
     })
     .done(function(data){ // dataにはレスポンスされたデータが入る
-      // $('.test').remove();
-      // $('.test').append(
+      // const select_plan_id = "." + data.id;
+      // $(select_plan_id).empty();
+      const p1 = document.getElementById(`${data.id}_disp`);
+      if(p1.style.display != "none"){
+        p1.style.display = "none";
+      }else{
+        p1.style.display = "inline";
+      }
+      // $("." + data.id).append(
       //   `${data.state}"---"${data.id}`
       // );
     })
