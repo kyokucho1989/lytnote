@@ -27,10 +27,11 @@ $(function () {
       // const select_plan_id = "." + data.id;
       // $(select_plan_id).empty();
       const p1 = document.getElementById(`${data.id}_disp`);
-      if(p1.style.display != "none"){
-        p1.style.display = "none";
+      p1.classList.remove('visible','imvisible');
+      if (data.state == "進行中"){
+        p1.classList.add('visible');
       }else{
-        p1.style.display = "inline";
+        p1.classList.add('imvisible');
       }
       // $("." + data.id).append(
       //   `${data.state}"---"${data.id}`
