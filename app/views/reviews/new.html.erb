@@ -1,4 +1,17 @@
 <h1>振り返り登録</h1>
+<% if @plan.errors.any? || @review.errors.any?%>
+  <h2>エラー</h2>
+  <ul>
+    <% @plan.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+  <ul>
+  <% @review.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+</ul>
+<% end %>
 <%= form_with model: @review, local: true do |form| %>
   <p>振り返り日：<%= form.date_field :reviewed_on %></p>
     <% @plans.each do |plan| %>
@@ -6,12 +19,18 @@
       <p>
       目標： <%= plan.name %>
       ジャンル：<%= plan.genre_id %>
-      締め切り：<%= plan.deadline %>
+      締め切り：<%=l plan.deadline %>
       ステータス：<%= plan.status %>
-     
       </p>
-      <p>変更後の締め切り：<%= f.date_field :deadline %></p>
       <p>変更後のステータス：<%= f.select :status, ["進行中","中止","完了"] %></p>
+ 
+      <% if plan.status == "進行中" %>
+        <p id = "review_plans_<%= plan.id %>_status_disp" class ="visible">  
+      <% else %>
+        <p id = "review_plans_<%= plan.id %>_status_disp" class ="imvisible"> 
+      <% end %>
+          変更後の締め切り：<%= f.date_field :deadline %>
+        </p>
     <% end %>
   <% end %>
   <p>コメント：<%= form.text_field :content %></p>
@@ -19,3 +38,5 @@
 <% end %>
 
 <%= link_to "登録キャンセル（振り返り一覧へ戻る）", reviews_path %>
+
+<%= link_to "パス", change_state_reviews_path %>

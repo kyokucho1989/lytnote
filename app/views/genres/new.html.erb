@@ -1,4 +1,12 @@
 <h1>ジャンル登録</h1>
+<% if @genre.errors.any? %>
+  <h2>エラー</h2>
+  <ul>
+    <% @genre.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 <%= form_with model: @genre, local: true do |form| %>
   <p>名前：<%= form.text_field :name %></p>
   <%= form.submit "登録" %>

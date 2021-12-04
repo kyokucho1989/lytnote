@@ -7,9 +7,12 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'home' , 'defer':'true' %>
   </head>
 
   <body>
+  
+  <%= render "layouts/flash" %>
   <% if user_signed_in? %>
     <%# ログイン時 %>
     <%= link_to "アカウント編集", edit_user_registration_path %>

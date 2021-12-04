@@ -25,9 +25,16 @@ class PlansController < ApplicationController
   end
 
   def create
-    plan = Plan.new(plan_params)
-    plan.user_id = current_user.id
-    plan.save!
+    @plan = Plan.new(plan_params)
+    @plan.user_id = current_user.id
+    if @plan.save
+      flash[:notice] = "目標を投稿しました"
+      # redirect_to @plan
+    else
+      flash.now[:alert] = "投稿に失敗しました"
+      @select_genre = Genre.where(user_id: current_user)
+      render :new
+    end
   end
 
   def edit
@@ -36,8 +43,15 @@ class PlansController < ApplicationController
   end
 
   def update
-    plan = Plan.find(params[:id])
-    plan.update(plan_params)
+    @plan = Plan.find(params[:id])
+    if @plan.update(plan_params)
+      flash[:notice] = "目標を修正しました"
+      # redirect_to @plan
+    else
+      flash.now[:alert] = "修正に失敗しました"
+      @select_genre = Genre.where(user_id: current_user)
+      render :edit
+    end
   end
 
   def destroy
