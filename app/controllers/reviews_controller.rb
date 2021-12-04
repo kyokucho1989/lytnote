@@ -30,7 +30,6 @@ class ReviewsController < ApplicationController
   helper_method :get_genre_name
 
   def create
-    binding.pry
     @review = Review.new(review_params)
     @review.user_id = current_user.id
 
