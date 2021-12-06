@@ -7,21 +7,19 @@
     <% end %>
   </ul>
 <% end %>
-<%= form_with model: @report, local: true do |f| %>
-  <p>登録日：<%= f.date_field :reported_on , value:Date.today%></p>
-  <%= f.fields_for :report_items do |item| %>
-<!-- 
 
-
-
--->
-    <%= render "report_item_fields", f: item %>
+  <%= form_with model: @report, local: true do |f| %>
+    <p>登録日：<%= f.date_field :reported_on , value:Date.today%></p>
+    <div class="container">
+      <%= f.fields_for :report_items do |item| %>
+        <%= render "report_item_fields", f: item %>
+      <% end %>
+      <div class="links">
+        <%= link_to_add_association "追加", f, :report_items %>
+      </div>
+    </div>
+    <p>コメント：<%= f.text_field :content %></p>
+    <%= f.submit "登録" %>
   <% end %>
-  <div class="links">
-    <%= link_to_add_association "追加", f, :report_items %>
-  </div>
-  <p>コメント：<%= f.text_field :content %></p>
-  <%= f.submit "登録" %>
-<% end %>
 
 <%= link_to "登録キャンセル（日報一覧へ戻る）", reports_path %> 
