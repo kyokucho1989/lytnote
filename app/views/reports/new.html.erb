@@ -10,14 +10,18 @@
 <%= form_with model: @report, local: true do |f| %>
   <p>登録日：<%= f.date_field :reported_on , value:Date.today%></p>
   <%= f.fields_for :report_items do |item| %>
-    <p>ジャンル：<%= item.collection_select :genre_id, @select_genre, :id, :name, {:include_blank => true ,:onchange => "alertDisp()" }%></p>
-    <p>やったこと：<%= item.text_field :content %></p>
-    <p>作業時間：<%= item.text_field :work_hours %></p>
+<!-- 
+
+
+
+-->
+    <%= render "report_item_fields", f: item %>
   <% end %>
+  <div class="links">
+    <%= link_to_add_association "追加", f, :report_items %>
+  </div>
   <p>コメント：<%= f.text_field :content %></p>
   <%= f.submit "登録" %>
 <% end %>
-<button class="todo-button">追加</button>
-
 
 <%= link_to "登録キャンセル（日報一覧へ戻る）", reports_path %> 

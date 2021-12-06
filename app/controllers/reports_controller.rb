@@ -7,8 +7,9 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new
-    count_to_add = DailyReportApp::Application.config.count_add_report_item
-    count_to_add.times { @report.report_items.build }
+    # count_to_add = DailyReportApp::Application.config.count_add_report_item
+    # count_to_add.times { @report.report_items.build }
+    @report.report_items.build
     @select_genre = Genre.where(user_id: current_user)
   end
 
