@@ -1,3 +1,5 @@
+
+
 const addButton = document.querySelector('.todo-button');
 const addTodo = () => {
   alert('追加');
@@ -12,6 +14,13 @@ if( addButton !== null ){
 }
 
 $(function () {
+  $('#container').on('cocoon:before-insert', function(event, insertedItem) {
+    var confirmation = confirm("Are you sure?");
+    if( confirmation === false ){
+      event.preventDefault();
+    }
+  });
+  
   var select_field = $('select[id^="review"]');
   $(select_field).change(function(){
     // console.log(this.value);
