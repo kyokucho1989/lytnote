@@ -10,7 +10,7 @@
 
   <%= form_with model: @report, local: true do |f| %>
     <p>登録日：<%= f.date_field :reported_on , value:Date.today%></p>
-    <div class="container">
+    <div id="container">
       <%= f.fields_for :report_items do |item| %>
         <%= render "report_item_fields", f: item %>
       <% end %>
