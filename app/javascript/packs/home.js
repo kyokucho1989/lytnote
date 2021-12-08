@@ -12,15 +12,27 @@ function alertDisp(){
 if( addButton !== null ){
   addButton.addEventListener('click', addTodo);
 }
+$(document).on("page:load turbolinks:load", function() {
+  console.log("aaaa");
+
+  $('#report_items').on('cocoon:before-insert', function() {
+    console.log("aqq");
+  })
+  .on('cocoon:after-insert', function() {
+    /* ... do something ... */    
+    console.log("aqq");
+  })
+  .on("cocoon:before-remove", function() {
+    console.log("aqq");
+  })
+  .on("cocoon:after-remove", function() {
+    /* e.g. recalculate order of child items */    
+    console.log("aqq");
+  });
+
+});
 
 $(function () {
-  $('#container').on('cocoon:before-insert', function(event, insertedItem) {
-    var confirmation = confirm("Are you sure?");
-    if( confirmation === false ){
-      event.preventDefault();
-    }
-  });
-  
   var select_field = $('select[id^="review"]');
   $(select_field).change(function(){
     // console.log(this.value);
