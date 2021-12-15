@@ -1,19 +1,36 @@
 $(document).on("page:load turbolinks:load", function() {
 // cocoon callback
-
-  $('#report_items').on('cocoon:before-insert', function() {
-    console.log("before-insert");
+  let size = $('#report_items .nested-fields').length;
+  if (size == 1) {
+    $("a.remove_fields").hide();
+  }
+  const max_field_items = 5;
+  $('#report_items').on('cocoon:before-insert', function(event) {
+    let size = $('#report_items .nested-fields').length;
+    if (size == max_field_items) {
+      event.preventDefault();
+    }
+    console.log(size);
   })
   .on('cocoon:after-insert', function() {
-    /* ... do something ... */    
-    console.log("after-insert");
+    $("a.remove_fields").show();
+    let size = $('#report_items .nested-fields').length;
+    if (size == max_field_items) {
+      $("#report_items .links").hide();
+    }
   })
-  .on("cocoon:before-remove", function() {
-    console.log("before-remove");
+  .on("cocoon:before-remove", function(event) {
+    let size = $('#report_items .nested-fields').length;
+    if (size == 1) {
+      event.preventDefault();
+    }
   })
-  .on("cocoon:after-remove", function() {
-    /* e.g. recalculate order of child items */    
-    console.log("after-remove");
+  .on("cocoon:after-remove", function() {   
+    $("#report_items .links").show();
+    let size = $('#report_items .nested-fields').length;
+    if (size == 1) {
+      $("a.remove_fields").hide();
+    }
   });
 
 
