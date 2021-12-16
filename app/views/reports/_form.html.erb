@@ -1,0 +1,26 @@
+<% if @report.errors.any? %>
+  <h2>エラー</h2>
+  <ul>
+    <% @report.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @report, local: true do |f| %>
+  <% if @report.reported_on.nil? %>
+    <p>登録日:<%= f.date_field :reported_on , value:Date.today%></p>
+  <% else %>
+    <p>登録日:<%= f.date_field :reported_on %></p>
+  <% end %>
+  <div id="report_items">
+    <%= f.fields_for :report_items do |item| %>
+      <%= render "report_item_fields", f: item %>
+    <% end %>
+    <div class="links">
+      <%= link_to_add_association "追加", f, :report_items %>
+    </div>
+  </div>
+  <p>コメント:<%= f.text_field :content %></p>
+  <%= f.submit "登録" %>
+<% end %>
