@@ -7,8 +7,6 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new
-    # count_to_add = DailyReportApp::Application.config.count_add_report_item
-    # count_to_add.times { @report.report_items.build }
     @report.report_items.build
     @select_genre = Genre.where(user_id: current_user)
   end
@@ -30,13 +28,9 @@ class ReportsController < ApplicationController
 
     if @report.save
       flash[:notice] = "日報を投稿しました"
-      # redirect_to @report
     else
       flash.now[:alert] = "投稿に失敗しました"
       @select_genre = Genre.where(user_id: current_user)
-      count_to_add = DailyReportApp::Application.config.count_add_report_item
-      add_count = count_to_add - @report.report_items.size
-      add_count.times { @report.report_items.build }
       render :new
     end
   end
@@ -45,7 +39,6 @@ class ReportsController < ApplicationController
     genres = Genre.where(user_id: current_user.id)
     genres.pluck(:id, :name)
   end
-  # helper_method :get_genre_nameset
 
   def show
     @report = Report.find(params[:id])
@@ -65,8 +58,6 @@ class ReportsController < ApplicationController
 
   def update
     @report = Report.find(params[:id])
-    @report.update_attributes(report_params)
-
     if !@report.update_attributes(report_params)
       flash.now[:alert] = "修正に失敗しました"
       @select_genre = Genre.where(user_id: current_user)
