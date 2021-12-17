@@ -24,12 +24,12 @@ RSpec.describe Plan, type: :model do
     end
   end
 
-  context "deadlineが今日より前　かつ　statusが進行中" do
+  context "deadlineが今日より前かつstatusが進行中" do
     it "エラーが出る" do
       plan = Plan.new(name: "参考書20ページ進める", user_id: @user.id, genre_id: @genre.id,\
                       deadline: Date.today - 1, status: "進行中")
       plan.valid?
-      expect(plan.errors.messages[:deadline]).to include "過去の日付は使えません"
+      expect(plan.errors.messages[:deadline]).to include ":ステータスが「進行中」の場合、過去の日付は使えません"
     end
   end
 

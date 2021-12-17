@@ -5,10 +5,10 @@ class Report < ApplicationRecord
   validates :reported_on, presence: true, uniqueness: { scope: :user }
   validates :content, length: { maximum: 200 }, presence: true
   validates :content_for_share, length: { maximum: 200 }
-  validate :report_items_donot_have_one_also
-  def report_items_donot_have_one_also
-    errors.add(:report_items, "やったことは少なくてもひとつ必要です") if report_items.size < 1 
-  end
+  # validate :report_items_donot_have_one_also
+  # def report_items_donot_have_one_also
+  #   errors.add(:report_items, "やったことは少なくてもひとつ必要です") if report_items.size < 1 
+  # end
 
   def self.convert_content_shared(formatted_para, genres_set)
     date = formatted_para[:reported_on]
