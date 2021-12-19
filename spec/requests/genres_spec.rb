@@ -9,15 +9,21 @@ require 'rails_helper'
 #             DELETE  /genres/:id(.:format)       genres#destroy
 
 RSpec.describe "Genres", type: :request do
+  let(:user) { create(:user) }
+  let(:genre_count){3}
+  before do
+    sign_in user
+    # genre_count = 3
+    create_list(:genre, genre_count, user: user)
+  end
+
   describe "GET /genres" do
-    subject { get(genres_path) }
-    before do
-      @user = create(:user)
-      sign_in @user
-    end
+    subject { get(genres_path( :format => :json )) }
     it "ジャンル一覧が取得できる" do
       subject
-      binding.pry
+      res = JSON.parse(response.body)
+      got_genre_count = res["genres"].size
+      expect(got_genre_count).to eq genre_count
     end
   end
 
@@ -34,5 +40,9 @@ RSpec.describe "Genres", type: :request do
   describe "DELETE/genres/:id" do
     it "任意のレコードを削除できる" do
     end
+  end
+
+  after do
+    user.destroy
   end
 end
