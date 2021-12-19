@@ -13,7 +13,6 @@ RSpec.describe "Genres", type: :request do
   let(:genre_count){3}
   before do
     sign_in user
-    # genre_count = 3
     create_list(:genre, genre_count, user: user)
   end
 
@@ -22,8 +21,10 @@ RSpec.describe "Genres", type: :request do
     it "ジャンル一覧が取得できる" do
       subject
       res = JSON.parse(response.body)
-      got_genre_count = res["genres"].size
-      expect(got_genre_count).to eq genre_count
+      # binding.pry
+      expect(res["genres"].size).to eq genre_count
+      expect(res["genres"].first.keys).to eq ["id", "name"]
+      expect(response).to have_http_status(200) 
     end
   end
 
