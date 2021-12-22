@@ -9,8 +9,6 @@ require 'rails_helper'
 #             DELETE  /genres/:id(.:format)       genres#destroy
 
 RSpec.describe "Genres", type: :request do
-  # let(:user) { create(:user) }
-
   before(:context) do
     @user = create(:user)
     create_list(:genre, 3, user: @user)
@@ -62,7 +60,11 @@ RSpec.describe "Genres", type: :request do
   end
 
   describe "DELETE/genres/:id" do
+    subject { delete(genre_path(genre.id)) }
+    let!(:genre) { create(:genre, user: @user) }
     it "任意のレコードを削除できる" do
+      expect { subject }.to change { Genre.count }.by(-1)
+      expect(response).to have_http_status(200)
     end
   end
 
