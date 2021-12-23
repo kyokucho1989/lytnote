@@ -4,7 +4,8 @@ require 'rails_helper'
 #             POST    /plans(.:format)           plans#create
 # new_plan    GET     /plans/new(.:format)       plans#new
 # edit_plan   GET     /plans/:id/edit(.:format)  plans#edit
-# plan        PATCH   /plans/:id(.:format)       plans#update
+# plan        GET     /plans/:id(.:format)       plans#show
+#             PATCH   /plans/:id(.:format)       plans#update
 #             PUT     /plans/:id(.:format)       plans#update
 #             DELETE  /plans/:id(.:format)       plans#destroy
 
@@ -57,4 +58,17 @@ RSpec.describe "Plans", type: :request do
       expect(response).to have_http_status(200) 
     end
   end
+
+  describe "GET /plans/:id" do
+    subject { get(plan_path(plan.id, :format => :json )}
+    context "指定した id の目標が存在する場合" do
+      let(:plan) { create(:plan, user: @user, genre_id: @genre.id) }
+      it "目標の値が取得できる" do
+      end
+    end
+
+    context "指定した id の目標が存在しない場合" do
+      it "目標が見つからない" do
+      end
+    end
 end
