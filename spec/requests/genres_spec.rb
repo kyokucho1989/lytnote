@@ -47,7 +47,6 @@ RSpec.describe "Genres", type: :request do
   end
 
   describe "PUT /genres/:id" do
-
     subject { put(genre_path(genre.id, :format => :json ), params: params) }
     let(:params) { { genre: { name: Faker::Name.name, created_at: Time.current } } }
     let(:genre) { create(:genre, user: @user) }
