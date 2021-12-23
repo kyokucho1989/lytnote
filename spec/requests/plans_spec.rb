@@ -12,7 +12,7 @@ RSpec.describe "Plans", type: :request do
   before(:context) do
     @user = create(:user)
     @genre = create(:genre, user: @user)
-    create_list(:plan, 3, user: @user, genre: @genre)
+    create_list(:plan, 3, user: @user, genre_id: @genre.id)
   end
 
   before(:example) do
@@ -26,6 +26,7 @@ RSpec.describe "Plans", type: :request do
   after(:context) do
     @user.destroy
   end
+
   describe "GET /index" do
     subject { get(plans_path( :format => :json )) }
     it "目標一覧が取得できる" do
@@ -33,6 +34,15 @@ RSpec.describe "Plans", type: :request do
       res = JSON.parse(response.body)
       expect(res["plans"].size).to eq 3
       expect(res["plans"].first.keys).to eq ["id", "name", "genre", "deadline", "status"]
+      expect(response).to have_http_status(200) 
+    end
+  end
+
+  describe "POST /plans" do
+    subject { post(plans_path( :format => :json ), params: params) }
+    let(:params) { {plan: attributes_for(:plan, genre_id:@genre.id) }}
+    it "目標のレコードが作成できる" do
+      expect { subject }.to change { Plan.count }.by(1)
       expect(response).to have_http_status(200) 
     end
   end

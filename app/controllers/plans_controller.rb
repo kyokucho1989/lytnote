@@ -27,6 +27,7 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new(plan_params)
     @plan.user_id = current_user.id
+    binding.pry
     if @plan.save
       flash[:notice] = "目標を投稿しました"
       # redirect_to @plan
