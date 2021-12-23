@@ -46,4 +46,15 @@ RSpec.describe "Plans", type: :request do
       expect(response).to have_http_status(200) 
     end
   end
+
+  describe "PUT /plans/:id" do
+    subject { put(plan_path(plan.id, :format => :json ), params: params) }
+    let(:params) { { plan: { name: Faker::Name.name, created_at: Time.current } } }
+    let(:plan) { create(:plan, user: @user, genre_id: @genre.id) }
+    it "任意のレコードを更新できる" do
+      expect { subject }.to change { Plan.find(plan.id).name }.from(plan.name).to(params[:plan][:name]) &
+      not_change { Plan.find(plan.id).created_at }
+      expect(response).to have_http_status(200) 
+    end
+  end
 end
