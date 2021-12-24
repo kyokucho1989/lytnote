@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :report do
-    reported_on { Faker::Date.between(from: 2.days.ago, to: Date.today) }
+    sequence(:reported_on) { |i| Date.today.since(i.days) }
     content { "MyString" }
   end
 end

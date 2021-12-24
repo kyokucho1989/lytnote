@@ -3,6 +3,6 @@ FactoryBot.define do
     user { nil }
     review { nil }
     genre { nil }
-    deadline { "2021-09-25 22:53:39" }
+    deadline { Faker::Date.between(from: 2.days.later, to: 10.days.later) }
   end
 end
