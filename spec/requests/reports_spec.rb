@@ -12,7 +12,15 @@ require 'rails_helper'
 RSpec.describe "Reports", type: :request do
   before(:context) do
     @user = create(:user)
-    create_list(:report, 3, user: @user)
+    @genre = create(:genre, user: @user)
+    @report_list = create_list(:report, 3, user: @user)
+    @report_list.each do |report|
+      FactoryBot.create(:report_item,report_id:report.id,genre_id:@genre.id)
+    end
+    # after(:build) do |report|
+    #   report.report_items << FactoryBot.create(:report_item, content: "織田信長")
+    #   report.report_items << FactoryBot.create(:report_items, content: "葛飾北斎")
+    # end
   end
 
   before(:example) do
@@ -42,6 +50,7 @@ RSpec.describe "Reports", type: :request do
     subject { post(reports_path( :format => :json ), params: params) }
     let(:params) { {report: attributes_for(:report, user_id:@user.id) }}
     it "日報のレコードが作成できる" do
+      binding.pry
       expect { subject }.to change { Report.count }.by(1)
       expect(response).to have_http_status(200) 
     end

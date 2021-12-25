@@ -13,6 +13,7 @@ class ReportsController < ApplicationController
 
   def create
     para = report_params[:report_items_attributes]
+    binding.pry
     first_key = para.keys.first
     first_value = para.values.first
     para.reject! { |_key, value| value[:content] == "" }
