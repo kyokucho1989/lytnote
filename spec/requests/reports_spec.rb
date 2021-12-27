@@ -17,10 +17,6 @@ RSpec.describe "Reports", type: :request do
     @report_list.each do |report|
       FactoryBot.create(:report_item,report_id:report.id,genre_id:@genre.id)
     end
-    # after(:build) do |report|
-    #   report.report_items << FactoryBot.create(:report_item, content: "織田信長")
-    #   report.report_items << FactoryBot.create(:report_items, content: "葛飾北斎")
-    # end
   end
 
   before(:example) do
@@ -48,9 +44,11 @@ RSpec.describe "Reports", type: :request do
 
   describe "POST /reports" do
     subject { post(reports_path( :format => :json ), params: params) }
-    let(:params) { {report: attributes_for(:report, user_id:@user.id) }}
+    let(:report_item) { attributes_for(:report_item, genre_id:@genre.id)}
+    let(:params) { {report: attributes_for(:report)}}
+  
     it "日報のレコードが作成できる" do
-      binding.pry
+      params[:report]["report_items_attributes"] = {0 => report_item}
       expect { subject }.to change { Report.count }.by(1)
       expect(response).to have_http_status(200) 
     end
