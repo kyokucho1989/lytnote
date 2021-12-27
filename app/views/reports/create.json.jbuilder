@@ -1,5 +1,3 @@
 json.id @report.id
-json.name @report.name
-json.genre @report.genre
-json.deadline @report.deadline
-json.status @report.status
+json.content @report.content
+json.reported_on @report.reported_on
