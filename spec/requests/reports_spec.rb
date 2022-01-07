@@ -80,6 +80,7 @@ RSpec.describe "Reports", type: :request do
     let(:report_item) { attributes_for(:report_item, genre_id:@genre.id)}
     let(:params) { { report: { reported_on:report.reported_on, content: Faker::Name.name, created_at: Time.current } } }
     let(:report) { create(:report, user: @user) }
+
     it "任意のレコードを更新できる" do
       params[:report]["report_items_attributes"] = {0 => report_item}
       expect { subject }.to change { Report.find(report.id).content }.from(report.content).to(params[:report][:content]) &
@@ -88,12 +89,12 @@ RSpec.describe "Reports", type: :request do
     end
   end
 
-
-  describe "GET /destroy" do
-    it "returns http success" do
-      sign_in @user
-      get "/reports/destroy"
-      expect(response).to have_http_status(:success)
+  describe "DELETE/reports/:id" do
+    subject { delete(report_path(report.id)) }
+    let!(:report) { create(:report, user: @user) }
+    it "任意のレコードを削除できる" do
+      expect { subject }.to change { Report.count }.by(-1)
+      expect(response).to have_http_status(200)
     end
   end
 
