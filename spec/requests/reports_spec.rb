@@ -54,32 +54,40 @@ RSpec.describe "Reports", type: :request do
     end
   end
 
+  describe "GET /reports/:id" do
+    subject { get(report_path(report_id, :format => :json ))}
+    context "指定した id の日報が存在する場合" do
+      let(:report) { create(:report, user: @user) }
+      let(:report_id) { report.id }
+      it "日報の値が取得できる" do
+        subject
+        res = JSON.parse(response.body)
+        expect(response).to have_http_status(200)
+        expect(res["content"]).to eq report.content
+      end
+    end
 
-  describe "GET /show" do
-    it "returns http success" do
-      sign_in @user
-      get "/reports/show"
-      expect(response).to have_http_status(:success)
+    context "指定した id の日報が存在しない場合" do
+      let(:report_id) { 0 }
+      it "日報が見つからない" do
+        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+      end
     end
   end
 
-  describe "GET /new" do
-    it "returns http success" do
-      sign_in @user
-      get "/reports/new"
-      expect(response).to have_http_status(:success)
+  describe "PUT /reports/:id" do
+    subject { put(report_path(report.id, :format => :json ), params: params) }
+    let(:report_item) { attributes_for(:report_item, genre_id:@genre.id)}
+    let(:params) { { report: { reported_on:report.reported_on, content: Faker::Name.name, created_at: Time.current } } }
+    let(:report) { create(:report, user: @user) }
+    it "任意のレコードを更新できる" do
+      params[:report]["report_items_attributes"] = {0 => report_item}
+      expect { subject }.to change { Report.find(report.id).content }.from(report.content).to(params[:report][:content]) &
+      not_change { Report.find(report.id).created_at }
+      expect(response).to have_http_status(200) 
     end
   end
 
-
-
-  describe "GET /edit" do
-    it "returns http success" do
-      sign_in @user
-      get "/reports/edit"
-      expect(response).to have_http_status(:success)
-    end
-  end
 
   describe "GET /destroy" do
     it "returns http success" do
@@ -89,11 +97,4 @@ RSpec.describe "Reports", type: :request do
     end
   end
 
-  describe "GET /update" do
-    it "returns http success" do
-      sign_in @user
-      get "/reports/update"
-      expect(response).to have_http_status(:success)
-    end
-  end
 end
