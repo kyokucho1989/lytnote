@@ -17,6 +17,7 @@ RSpec.describe "Reviews", type: :request do
   before(:context) do
     @user = create(:user)
     @genre = create(:genre, user: @user)
+    @plan = create(:plan, user: @user, genre: @genre)
     @review_list = create_list(:review, 3, user: @user)
   end
 
@@ -41,8 +42,18 @@ RSpec.describe "Reviews", type: :request do
       expect(res["reviews"].first.keys).to eq ["id", "content", "user", "reviewed_on"]
       expect(response).to have_http_status(200) 
     end
+    
   end
 
+  describe "POST /reviews" do
+    subject { post(reviews_path( :format => :json ), params: params) }
+    let(:params) { {review: attributes_for(:review, user: @user)}}
+    it "レビューのレコードが作成できる" do
+      params[:review]["plans"] = {@plan.id =>  @plan.slice(:user_id,:deadline,:status)}
+      expect { subject }.to change { Review.count }.by(1)
+      expect(response).to have_http_status(200) 
+    end
+  end
 
   describe "GET /index" do
     it "returns http success" do
@@ -50,6 +61,8 @@ RSpec.describe "Reviews", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+
 
   describe "GET /show" do
     it "returns http success" do

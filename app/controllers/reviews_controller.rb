@@ -34,6 +34,7 @@ class ReviewsController < ApplicationController
     @review.user_id = current_user.id
 
     param_plans = params.require(:review)[:plans]
+    binding.pry
     plan_keys = param_plans.keys
     item = param_plans.values
 
