@@ -83,4 +83,5 @@ gem 'pry-rails'
 gem 'kaminari'
 gem 'kaminari-i18n'
 
-
+# 項目動的追加
+gem 'cocoon'

@@ -1,23 +1,4 @@
 <h1>日報編集</h1>
-<% if @report.errors.any? %>
-  <h2>エラー</h2>
-  <ul>
-    <% @report.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
-
-<%= form_with model: @report, local: true do |f| %>
-  <p>登録日：<%= f.date_field :reported_on %></p>
-  <%= f.fields_for :report_items do |item| %>
-    <p>ジャンル：<%= item.collection_select :genre_id, @select_genre, :id, :name, :include_blank => true %></p>
-    <p>やったこと：<%= item.text_field :content %></p>
-    <p>作業時間：<%= item.text_field :work_hours %></p>
-    <%= link_to "この項目を削除", report_item_path(item.object.id), method: :delete, data: {confirm: "削除しますか?"} %>
-  <% end %>
-  <p>コメント：<%= f.text_field :content %></p>
-  <%= f.submit "登録" %>
-<% end %>
+<%= render "form" %>
 
 <%= link_to "編集キャンセル（日報一覧へ戻る）", reports_path %> 

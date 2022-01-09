@@ -1,18 +1,4 @@
 <h1>目標編集</h1>
-<% if @plan.errors.any? %>
-<h2>エラー</h2>
-<ul>
-  <% @plan.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-  <% end %>
-</ul>
-<% end %> 
-<%= form_with model: @plan, local: true do |f| %>
-  <p>目標：<%= f.text_field :name %></p>
-  <p>ジャンル：<%= f.collection_select :genre_id, @select_genre, :id, :name, :include_blank => true %></p>
-  <p>締め切り：<%= f.date_field :deadline %></p>
-  <p>ステータス　<%= f.select :status, ["進行中","中止","完了"] %> </p>
-  <%= f.submit "登録" %>
-<% end %>
+<%= render "form" %>
 
 <%= link_to "編集キャンセル（目標一覧へ戻る）", plans_path %>

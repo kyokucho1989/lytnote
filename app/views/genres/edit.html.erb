@@ -1,15 +1,4 @@
 <h1>ジャンル編集</h1>
-<% if @genre.errors.any? %>
-  <h2>エラー</h2>
-  <ul>
-    <% @genre.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-  </ul>
-<% end %>
-<%= form_with model: @genre, local: true do |form| %>
-  <p>名前：<%= form.text_field :name %></p>
-  <%= form.submit "登録" %>
-<% end %>
+<%= render "form" %>
 
 <%= link_to "編集キャンセル（ジャンル一覧へ戻る）", genres_path %>
