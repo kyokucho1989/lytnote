@@ -15,7 +15,7 @@ RSpec.describe "Reports", type: :request do
     @genre = create(:genre, user: @user)
     @report_list = create_list(:report, 3, user: @user)
     @report_list.each do |report|
-      FactoryBot.create(:report_item,report_id:report.id,genre_id:@genre.id)
+      FactoryBot.create(:report_item, report_id: report.id, genre_id: @genre.id)
     end
   end
 
@@ -32,30 +32,30 @@ RSpec.describe "Reports", type: :request do
   end
 
   describe "GET /index" do
-    subject { get(reports_path( :format => :json )) }
+    subject { get(reports_path(:format => :json)) }
     it "日報一覧が取得できる" do
       subject
       res = JSON.parse(response.body)
       expect(res["reports"].size).to eq 3
       expect(res["reports"].first.keys).to eq ["id", "content", "user", "reported_on"]
-      expect(response).to have_http_status(200) 
+      expect(response).to have_http_status(200)
     end
   end
 
   describe "POST /reports" do
-    subject { post(reports_path( :format => :json ), params: params) }
-    let(:report_item) { attributes_for(:report_item, genre_id:@genre.id)}
-    let(:params) { {report: attributes_for(:report)}}
-  
+    subject { post(reports_path(:format => :json), params: params) }
+    let(:report_item) { attributes_for(:report_item, genre_id: @genre.id) }
+    let(:params) { { report: attributes_for(:report) } }
+
     it "日報のレコードが作成できる" do
-      params[:report]["report_items_attributes"] = {0 => report_item}
+      params[:report]["report_items_attributes"] = { 0 => report_item }
       expect { subject }.to change { Report.count }.by(1)
-      expect(response).to have_http_status(200) 
+      expect(response).to have_http_status(200)
     end
   end
 
   describe "GET /reports/:id" do
-    subject { get(report_path(report_id, :format => :json ))}
+    subject { get(report_path(report_id, :format => :json)) }
     context "指定した id の日報が存在する場合" do
       let(:report) { create(:report, user: @user) }
       let(:report_id) { report.id }
@@ -76,16 +76,16 @@ RSpec.describe "Reports", type: :request do
   end
 
   describe "PUT /reports/:id" do
-    subject { put(report_path(report.id, :format => :json ), params: params) }
-    let(:report_item) { attributes_for(:report_item, genre_id:@genre.id)}
-    let(:params) { { report: { reported_on:report.reported_on, content: Faker::Name.name, created_at: Time.current } } }
+    subject { put(report_path(report.id, :format => :json), params: params) }
+    let(:report_item) { attributes_for(:report_item, genre_id: @genre.id) }
+    let(:params) { { report: { reported_on: report.reported_on, content: Faker::Name.name, created_at: Time.current } } }
     let(:report) { create(:report, user: @user) }
 
     it "任意のレコードを更新できる" do
-      params[:report]["report_items_attributes"] = {0 => report_item}
+      params[:report]["report_items_attributes"] = { 0 => report_item }
       expect { subject }.to change { Report.find(report.id).content }.from(report.content).to(params[:report][:content]) &
       not_change { Report.find(report.id).created_at }
-      expect(response).to have_http_status(200) 
+      expect(response).to have_http_status(200)
     end
   end
 
@@ -97,5 +97,4 @@ RSpec.describe "Reports", type: :request do
       expect(response).to have_http_status(200)
     end
   end
-
 end

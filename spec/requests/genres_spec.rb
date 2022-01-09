@@ -25,36 +25,36 @@ RSpec.describe "Genres", type: :request do
   after(:context) do
     @user.destroy
   end
-  
+
   describe "GET /genres" do
-    subject { get(genres_path( :format => :json )) }
+    subject { get(genres_path(:format => :json)) }
     it "ジャンル一覧が取得できる" do
       subject
       res = JSON.parse(response.body)
       expect(res["genres"].size).to eq 3
       expect(res["genres"].first.keys).to eq ["id", "name"]
-      expect(response).to have_http_status(200) 
+      expect(response).to have_http_status(200)
     end
   end
 
   describe "POST /genres" do
-    subject { post(genres_path( :format => :json ), params: params) }
-    let(:params) { {genre: attributes_for(:genre) }}
+    subject { post(genres_path(:format => :json), params: params) }
+    let(:params) { { genre: attributes_for(:genre) } }
     it "ジャンルのレコードが作成できる" do
       expect { subject }.to change { Genre.count }.by(1)
-      expect(response).to have_http_status(200) 
+      expect(response).to have_http_status(200)
     end
   end
 
   describe "PUT /genres/:id" do
-    subject { put(genre_path(genre.id, :format => :json ), params: params) }
+    subject { put(genre_path(genre.id, :format => :json), params: params) }
     let(:params) { { genre: { name: Faker::Name.name, created_at: Time.current } } }
     let(:genre) { create(:genre, user: @user) }
     it "任意のレコードを更新できる" do
       # binding.pry
       expect { subject }.to change { Genre.find(genre.id).name }.from(genre.name).to(params[:genre][:name]) &
       not_change { Genre.find(genre.id).created_at }
-      expect(response).to have_http_status(200) 
+      expect(response).to have_http_status(200)
     end
   end
 
@@ -66,6 +66,4 @@ RSpec.describe "Genres", type: :request do
       expect(response).to have_http_status(200)
     end
   end
-
-
 end
