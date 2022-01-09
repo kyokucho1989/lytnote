@@ -55,54 +55,47 @@ RSpec.describe "Reviews", type: :request do
     end
   end
 
-  describe "GET /index" do
-    it "returns http success" do
-      get "/reviews/index"
-      expect(response).to have_http_status(:success)
+  describe "GET /reviews/:id" do
+    subject { get(review_path(review_id, :format => :json ))}
+    context "指定した id のレコードが存在する場合" do
+      let(:review) { create(:review, user: @user) }
+      let(:review_id) { review.id }
+      it "値が取得できる" do
+        subject
+        res = JSON.parse(response.body)
+        expect(response).to have_http_status(200)
+        expect(res["content"]).to eq review.content
+      end
+    end
+
+    context "指定した id の日報が存在しない場合" do
+      let(:review_id) { 0 }
+      it "日報が見つからない" do
+        expect { subject }.to raise_error ActiveRecord::RecordNotFound
+      end
     end
   end
 
+  describe "PUT /reviews/:id" do
+    subject { put(review_path(review.id, :format => :json ), params: params) }
+    let(:report_item) { attributes_for(:report_item, genre_id:@genre.id)}
+    let(:params) { { review: { reviewed_on:review.reviewed_on, content: Faker::Name.name, created_at: Time.current } } }
+    let(:review) { create(:review, user: @user) }
 
-
-  describe "GET /show" do
-    it "returns http success" do
-      get "/reviews/show"
-      expect(response).to have_http_status(:success)
+    it "任意のレコードを更新できる" do
+      params[:review]["plans"] = {@plan.id =>  @plan.slice(:user_id,:deadline,:status)}
+      expect { subject }.to change { Review.find(review.id).content }.from(review.content).to(params[:review][:content]) &
+      not_change { Review.find(review.id).created_at }
+      expect(response).to have_http_status(200) 
     end
   end
 
-  describe "GET /new" do
-    it "returns http success" do
-      get "/reviews/new"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET /create" do
-    it "returns http success" do
-      get "/reviews/create"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET /edit" do
-    it "returns http success" do
-      get "/reviews/edit"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET /destroy" do
-    it "returns http success" do
-      get "/reviews/destroy"
-      expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe "GET /update" do
-    it "returns http success" do
-      get "/reviews/update"
-      expect(response).to have_http_status(:success)
+  describe "DELETE/review/:id" do
+    subject { delete(review_path(review.id)) }
+    let!(:review) { create(:review, user: @user) }
+    it "任意のレコードを削除できる" do
+      expect { subject }.to change { Review.count }.by(-1)
+      expect(response).to have_http_status(200)
     end
   end
 end
