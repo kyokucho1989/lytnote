@@ -6,29 +6,70 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
 
   <body>
   
   <%= render "layouts/flash" %>
-  <% if user_signed_in? %>
-    <%# ログイン時 %>
-    <%= link_to "アカウント編集", edit_user_registration_path %>
-    <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } %>
-    <%= "【ログイン中のアドレス】#{current_user.email}" %>
-  <% else %>
-    <%# 非ログイン時 %>
-    <%= link_to "新規登録", new_user_registration_path %>
-    <%= link_to "ログイン", new_user_session_path %>
-    <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, method: :post %>
-  <% end %>
-  <%= link_to "目標一覧", plans_path %>
-  <%= link_to "目標登録", new_plan_path %>
-  <%= link_to "日報一覧", reports_path %> 
-  <%= link_to "日報登録", new_report_path %> 
-  <%= link_to "振り返り一覧", reviews_path %>
-  <%= link_to "振り返り登録", select_plan_reviews_path %>
-  <%= link_to "ジャンル一覧", genres_path %>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <%= link_to "lyt_note", plans_path ,class: "navbar-brand"%>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to "目標一覧", plans_path ,class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "目標登録", new_plan_path ,class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "日報一覧", reports_path ,class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "日報登録", new_report_path ,class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "振り返り一覧", reviews_path ,class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+          <%= link_to "振り返り登録", select_plan_reviews_path ,class: "nav-link"%>
+        </li>
+        <li class="nav-item">
+        <%= link_to "ジャンル一覧", genres_path ,class: "nav-link"%>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            アカウント
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to "アカウント編集", edit_user_registration_path, class:"dropdown-item" %>
+            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } , class:"dropdown-item"%>
+            <%= "【ログイン中のアドレス】#{current_user.email}" %>
+          </div>
+        </li>
+      <% else %>
+      <%# 非ログイン時 %>
+        <li class="nav-item">
+          <%= link_to "新規登録", new_user_registration_path ,class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ログイン", new_user_session_path ,class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, method: :post ,class: "nav-link" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
 
   <%= yield %>
   </body>
