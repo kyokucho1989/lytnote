@@ -9,6 +9,9 @@
   <%= link_to "削除", plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} %>
   </p>
 <% end %>
+
+<button type="button" class="btn btn-primary">Primary</button>
+
 <% if @plans.empty? %>
 <%# ページネーション非表示 %>
 <% else %>
