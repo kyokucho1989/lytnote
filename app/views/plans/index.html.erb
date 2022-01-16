@@ -1,28 +1,46 @@
 <main role="main">
   <div class = "container">
     <h1 class="display-6">目標一覧</h1>
-
-
-    <% @plans.each.with_index(1) do |plan, i| %>
-      <div class="row">
+    <div class="row row-title">
       <div class="col-4">
-        <%= plan.name %>
-      </div>
-      <div class="col-3">
-      締め切り:<%= l plan.deadline %>
-      </div>
-      <div class="col-1">
-      <%= plan.status %>
+        目標
       </div>
       <div class="col-2">
-      ジャンル:<%= get_genre_name(plan.genre_id) %>
+        締め切り
+      </div>
+      <div class="col-2">
+        状態
+      </div>
+      <div class="col-2">
+        ジャンル
       </div>
       <div class="col-1">
-      <%= link_to "編集", edit_plan_path(plan) %>
+        -
       </div>
       <div class="col-1">
-      <%= link_to "削除", plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} %>
+        -
       </div>
+    </div>
+    <% @plans.each.with_index(1) do |plan, i| %>
+      <div class="row">
+        <div class="col-4">
+          <%= plan.name %>
+        </div>
+        <div class="col-2">
+        <%= l plan.deadline %>
+        </div>
+        <div class="col-2">
+        <%= plan.status %>
+        </div>
+        <div class="col-2">
+        <%= get_genre_name(plan.genre_id) %>
+        </div>
+        <div class="col-1">
+        <%= link_to "編集", edit_plan_path(plan) %>
+        </div>
+        <div class="col-1">
+        <%= link_to "削除", plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} %>
+        </div>
       </div>
     <% end %>
 
