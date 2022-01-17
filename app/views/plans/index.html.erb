@@ -1,7 +1,7 @@
 <main role="main">
   <div class = "container">
-    <h1 class="display-6">目標一覧</h1>
-    <div class="row row-title">
+    <h1 class="display-6 mt-5 mb-5">目標一覧</h1>
+    <div class="row row-title bg-light border-bottom">
       <div class="col-4">
         目標
       </div>
@@ -25,7 +25,7 @@
     </div>
     <% @plans.each.with_index(1) do |plan, i| %>
       <div class="row row-content rounded">
-        <div class="col-4">
+        <div class="col-4 fw-bold">
           <%= plan.name %>
         </div>
         <div class="col-2">
@@ -33,9 +33,11 @@
         </div>
         <div class="col-2">
         <% if plan.status == "進行中" %>
-          <div class="badge bg-secondary pt-5">
-          <% else %>
-          <div class="badge bg-success">
+          <div class="badge bg-warning pt-2 pb-2 px-3 py-3 text-black">
+          <% elsif plan.status == "完了" %>
+          <div class="badge bg-success pt-2 pb-2 px-3 py-3">
+          <% elsif plan.status == "中止" %>
+          <div class="badge bg-dark pt-2 pb-2 px-3 py-3 text-white">
         <% end %>
             <%= plan.status %>
           </div>
@@ -45,15 +47,17 @@
         <%= get_genre_name(plan.genre_id) %>
         </div>
         <div class="col-1">
-        <%= link_to "編集", edit_plan_path(plan) %>
+          <%= link_to edit_plan_path(plan) do %>
+            <i class="fas fa-edit"></i>
+          <% end %>
         </div>
         <div class="col-1">
-        <%= link_to "削除", plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} %>
+          <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
         </div>
       </div>
     <% end %>
-
-    <button type="button" class="btn btn-primary">Primary</button>
 
     <% if @plans.empty? %>
     <%# ページネーション非表示 %>
