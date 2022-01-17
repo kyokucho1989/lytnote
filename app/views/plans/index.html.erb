@@ -20,9 +20,11 @@
       <div class="col-1">
         -
       </div>
+      
+      
     </div>
     <% @plans.each.with_index(1) do |plan, i| %>
-      <div class="row">
+      <div class="row row-content rounded">
         <div class="col-4">
           <%= plan.name %>
         </div>
@@ -30,7 +32,14 @@
         <%= l plan.deadline %>
         </div>
         <div class="col-2">
-        <%= plan.status %>
+        <% if plan.status == "進行中" %>
+          <div class="badge bg-secondary pt-5">
+          <% else %>
+          <div class="badge bg-success">
+        <% end %>
+            <%= plan.status %>
+          </div>
+
         </div>
         <div class="col-2">
         <%= get_genre_name(plan.genre_id) %>
