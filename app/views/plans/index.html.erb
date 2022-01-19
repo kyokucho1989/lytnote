@@ -1,68 +1,77 @@
-<main role="main">
-  <div class = "container">
-    <h1 class="display-6 mt-5 mb-5">目標一覧</h1>
-    <div class="row row-title bg-light border-bottom">
-      <div class="col-4">
-        目標
+<!-- HEADER -->
+<header id="main-header" class="py-2 bg-primary text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>
+          <i class="fas fa-cog"></i>目標一覧</h1>
       </div>
-      <div class="col-2">
-        締め切り
-      </div>
-      <div class="col-2">
-        状態
-      </div>
-      <div class="col-2">
-        ジャンル
-      </div>
-      <div class="col-1">
-        -
-      </div>
-      <div class="col-1">
-        -
-      </div>
-      
-      
     </div>
-    <% @plans.each.with_index(1) do |plan, i| %>
-      <div class="row row-content rounded">
-        <div class="col-4 fw-bold">
-          <%= plan.name %>
-        </div>
-        <div class="col-2">
-        <%= l plan.deadline %>
-        </div>
-        <div class="col-2">
-        <% if plan.status == "進行中" %>
-          <div class="badge bg-warning pt-2 pb-2 px-3 py-3 text-black">
-          <% elsif plan.status == "完了" %>
-          <div class="badge bg-success pt-2 pb-2 px-3 py-3">
-          <% elsif plan.status == "中止" %>
-          <div class="badge bg-dark pt-2 pb-2 px-3 py-3 text-white">
-        <% end %>
-            <%= plan.status %>
-          </div>
+  </div>
+</header>
 
-        </div>
-        <div class="col-2">
-        <%= get_genre_name(plan.genre_id) %>
-        </div>
-        <div class="col-1">
-          <%= link_to edit_plan_path(plan) do %>
-            <i class="fas fa-edit"></i>
-          <% end %>
-        </div>
-        <div class="col-1">
-          <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
-            <i class="fas fa-trash-alt"></i>
-          <% end %>
+<section id="plan">
+  <div class = "container">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h4>目標</h4>
+          </div>
+          <table class="table table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>内容</th>
+                <th>締め切り</th>
+                <th>状態</th>
+                <th>ジャンル</th>
+                <th>-</th>
+                <th>-</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @plans.each.with_index(1) do |plan, i| %>
+                <tr>
+                  <td>
+                    <%= plan.name %>
+                  </td>
+                  <td>
+                    <%= l plan.deadline %>
+                  </td>
+                  <td>
+                    <% if plan.status == "進行中" %>
+                      <div class="badge bg-warning pt-2 pb-2 px-3 py-3 text-black">
+                      <% elsif plan.status == "完了" %>
+                      <div class="badge bg-success pt-2 pb-2 px-3 py-3">
+                      <% elsif plan.status == "中止" %>
+                      <div class="badge bg-dark pt-2 pb-2 px-3 py-3 text-white">
+                    <% end %>
+                    <%= plan.status %>
+                  </td>
+                  <td>
+                    <%= get_genre_name(plan.genre_id) %>
+                  </td>
+                  <td>
+                    <%= link_to edit_plan_path(plan) do %>
+                      <i class="fas fa-edit"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <% end %>
+                  </td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
-    <% end %>
-
+    </div>
     <% if @plans.empty? %>
     <%# ページネーション非表示 %>
     <% else %>
     <%= paginate @plans %>
     <% end %>
   </div>
-</main>
+</section>
