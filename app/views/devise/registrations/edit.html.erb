@@ -35,13 +35,12 @@
         <div class="actions">
           <%= f.submit t('.update') ,class:'btn-primary btn-lg'%>
         </div>
+
       <% end %>
-
-<h4 class="mt-5"><%= t('.cancel_my_account') %></h4>
-
-<p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete ,class:'btn-danger btn-lg'%></p>
-
-<%= link_to t('devise.shared.links.back'), :back %>
-</div>
-</div>
+      
+      <h4 class="mt-5"><%= t('.cancel_my_account') %></h4>
+      <p><%= t('.unhappy') %> <%= button_to t('.cancel_my_account'), registration_path(resource_name), data: { confirm: t('.are_you_sure') }, method: :delete ,class:'btn-danger btn-lg'%></p>
+      <%= link_to t('devise.shared.links.back'), :back %>
+    </div>
+  </div>
 </div>
