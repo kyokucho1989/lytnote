@@ -16,11 +16,11 @@
 
 
 //  color list
-//  1A535C
-//  084887
-//  F5F0F6
-//  4ECDC4
-//  FF6B6B
+//  #1A535C
+// #084887
+//  #F5F0F6
+//  #4ECDC4
+//  #FF6B6B
  
  .visible {
   display:inline;  
@@ -29,7 +29,13 @@
  .imvisible {
   display:none; 
  }
+ .sub_header {
+  background-color: #1A545c; 
+ }
 
+ .genre {
+  background-color: #4ECDC4; 
+ }
 // .row-title {
 //   border-bottom: 2px solid #aaa;
 //   background-color: #fff;
