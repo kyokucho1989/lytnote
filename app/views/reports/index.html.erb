@@ -4,40 +4,39 @@
 <section id="report">
   <div class = "container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-8 border">
         <% @reports.each.with_index(1) do |report, i| %>
-          <div class="card border-1 my-4">
-            <div class="card-header">
-              <%= l report.reported_on %>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-borderless">
-                  <tbody>
-                    <% report.report_items.each do |item| %>
-                      <tr>
-                        <td>
-                        <div class="rounded genre p-1 text-center">
-                        <%= @genres_set.assoc(item.genre_id).last %>
-                        </div>
-                        </td>
-                        <td class="align-middle">やったこと:<%= item.content %></td>
-                        <td class="align-middle">時間:<%= item.work_hours %></td>
-                      </tr>
-                    <% end %>
-                    <tr>
-                      <td colspan="3">
-                      <%= report.content %>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+          
+            <div class="row border mt-2">
+              <div class="col-7 col-md-6 py-3">
+                <%= l report.reported_on %>
+              </div>
+              <div class="col-5 col-md-6 py-3">
                 <%= link_to "編集", edit_report_path(report) %>
                 <%= link_to "詳細", report_path(report) %>
                 <%= link_to "この日の日報を削除", report_path(report), method: :delete, data: {confirm: "削除しますか?"} %>
               </div>
             </div>
-          </div>
+            <div class="row">
+              
+                    <% report.report_items.each do |item| %>
+                      <div class="col-3 p-2">
+                        <div class="rounded genre p-1 text-center">
+                          <%= @genres_set.assoc(item.genre_id).last %>
+                        </div>
+                      </div>
+                      <div class="col-6 p-2">
+                        <%= item.content %>
+                      </div>
+                        <div class="col-3 p-2"><%= item.work_hours %>時間
+                      </div>
+                    <% end %>
+                    <div class="col-12 p-2">
+                      <%= report.content %>
+                    </div>
+                  </div>
+            </div>
+          
         <% end %>
         
       <nav aria-label="Page navigation example">
