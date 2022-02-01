@@ -36,6 +36,19 @@
  .genre {
   background-color: #4ECDC4; 
  }
+
+ .edit-icon {
+  color: #4ECDC4; 
+  font-size:32px;
+ }
+ .detail-icon {
+  color: #4ECDC4; 
+  font-size:1rem;
+ }
+ .trash-icon {
+  color: #D1345B; 
+  font-size:1rem;
+ }
 // .row-title {
 //   border-bottom: 2px solid #aaa;
 //   background-color: #fff;
@@ -61,9 +74,23 @@
 }
 
 
-// $theme-colors: (
-//   "primary":    #aaa,
-// );
+$theme-colors: (
+  "primary":    #3454D1,
+  "danger":    #D1345B,
+
+);
+
+$theme-colors: (
+  "primary":    #3454D1,
+  "secondary":  #8D99AE,
+  "success":    #3993DD,
+  "info":       #4ECDC4,
+  "warning":    #F9C80E,
+  "danger":     #D1345B,
+  "dark":       #2B2D42,
+  "light":      #F6F4F3,
+  
+);
 
 @import "bootstrap/scss/bootstrap"; 
 
