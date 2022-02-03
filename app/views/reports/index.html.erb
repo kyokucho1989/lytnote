@@ -8,28 +8,28 @@
         <% @reports.each.with_index(1) do |report, i| %>
           <div class="container border my-3">
             <div class="row px-2">
-              <div class="col-6 col-md-6 py-3 align-middle">
+              <div class="col-5 col-md-6 py-3 px-1 d-flex align-items-center">
                 <%= l report.reported_on %>
               </div>
               <div class="col-2 col-md-2 py-3 px-1 align-middle">
                 <%= link_to edit_report_path(report) do %>
-                  <button type="button" class="btn btn-outline-primary"><i class="fas fa-edit edit-icon mr-1"></i>編集</button>
+                  <button type="button" class="btn btn-outline-primary w-100"><i class="fas fa-edit mr-2"></i><span class="d-none d-sm-inline">編集</span></button>
                 <% end %>
               </div>
               <div class="col-2 col-md-2 py-3 px-1 align-middle">
                 <%= link_to report_path(report) do %>
-                  <button type="button" class="btn btn-outline-primary w-50"><i class="far fa-file-alt detail-icon mr-1"></i>詳細</button>
+                  <button type="button" class="btn btn-outline-info w-100"><i class="far fa-file-alt mr-2"></i><span class="d-none d-sm-inline">詳細</span></button>
                 <% end %>
               </div>
               <div class="col-2 col-md-2 py-3 px-1 align-middle">
                 <%= link_to report_path(report), method: :delete, data: {confirm: "削除しますか?"} do %>
-                  <button type="button" class="btn btn-outline-primary"><i class="fas fa-trash-alt trash-icon mr-2"></i>削除</button>
+                  <button type="button" class="btn btn-outline-danger w-100"><i class="fas fa-trash-alt mr-2"></i><span class="d-none d-sm-inline">削除</span></button>
                 <% end %>
               </div>
               
             </div>
             <% report.report_items.each do |item| %>
-              <div class="row px-2">
+              <div class="row">
                 <div class="col-2 p-2">
                   <div class="rounded genre p-1 text-center">
                     <%= @genres_set.assoc(item.genre_id).last %>
@@ -44,7 +44,7 @@
               </div>
             <% end %>
             <hr>
-            <div class="row px-2">
+            <div class="row">
               <div class="col-12 p-2">
                 <%= report.content %>
               </div>
