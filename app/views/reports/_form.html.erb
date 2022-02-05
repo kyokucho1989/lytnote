@@ -7,20 +7,28 @@
   </ul>
 <% end %>
 
-<%= form_with model: @report, local: true do |f| %>
-  <% if @report.reported_on.nil? %>
-    <p>登録日:<%= f.date_field :reported_on , value:Date.today%></p>
-  <% else %>
-    <p>登録日:<%= f.date_field :reported_on %></p>
-  <% end %>
-  <div id="report_items">
-    <%= f.fields_for :report_items do |item| %>
-      <%= render "report_item_fields", f: item %>
-    <% end %>
-    <div class="links">
-      <%= link_to_add_association "追加", f, :report_items %>
-    </div>
-  </div>
-  <p>コメント:<%= f.text_field :content %></p>
-  <%= f.submit "登録" %>
-<% end %>
+<div class = "container py-5">
+  <div class="row">
+    <div class="col-md-6">
+    <form class="pb-5">
+
+      <%= form_with model: @report, local: true do |f| %>
+        <div class="form-group">
+          <label for="label-report" class="form-label">登録日</label>
+          <% if @report.reported_on.nil? %>
+            <%= f.date_field :reported_on, {class: "form-control"} ,value:Date.today %>
+          <% else %>
+            <%= f.date_field :reported_on, {class: "form-control"} %>
+          <% end %>
+        </div>
+        <div id="report_items">
+          <%= f.fields_for :report_items do |item| %>
+            <%= render "report_item_fields", f: item %>
+          <% end %>
+          <div class="links">
+            <%= link_to_add_association "追加", f, :report_items %>
+          </div>
+        </div>
+        <p>コメント:<%= f.text_field :content %></p>
+        <%= f.submit "登録" %>
+      <% end %>
