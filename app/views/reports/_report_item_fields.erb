@@ -1,6 +1,8 @@
 <div class="nested-fields">
-<p>ジャンル：<%= f.collection_select :genre_id, @select_genre, :id, :name, {:include_blank => true ,:onchange => "alertDisp()" }%></p>
-<p>やったこと：<%= f.text_field :content %></p>
-<p>作業時間：<%= f.text_field :work_hours %></p>
-<%= link_to_remove_association "削除", f %>
+<tr>
+    <th><%= f.collection_select :genre_id, @select_genre, :id, :name, {:include_blank => true ,:onchange => "alertDisp()" }%></th>
+    <td><%= f.text_field :content %></td>
+    <td><%= f.text_field :work_hours %></td>
+    <td>aa<%= link_to_remove_association "削除", f %></td>
+</tr>
 </div>
