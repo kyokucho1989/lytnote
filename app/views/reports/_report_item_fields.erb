@@ -1,8 +1,6 @@
-<div class="nested-fields">
-<tr>
+<tr class="nested-fields">
     <th><%= f.collection_select :genre_id, @select_genre, :id, :name, {:include_blank => true ,:onchange => "alertDisp()" }%></th>
     <td><%= f.text_field :content %></td>
     <td><%= f.text_field :work_hours %></td>
-    <td>aa<%= link_to_remove_association "削除", f %></td>
+    <td><%= link_to_remove_association "削除", f %></td>
 </tr>
-</div>
