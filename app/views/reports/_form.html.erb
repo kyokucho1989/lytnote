@@ -35,15 +35,13 @@
                   <%= f.fields_for :report_items do |item| %>
                     <%= render "report_item_fields", f: item %>
                   <% end %>
-                  <tr>
-                    <th>
-                    <div class="links">
-                      <%= link_to_add_association "追加", f, :report_items %>
-                    </div>
+                    <tr class="links"><td>
+                      <%= link_to_add_association "追加", f, :report_items ,:"data-association-insertion-node" => "tbody" %>
+                      </td></tr>
+                                   
                 </div>
-                  </th>
-                </tr>
-                </tbody>
+
+              </tbody>
               </table>
 
           <p>コメント:<%= f.text_field :content %></p>
