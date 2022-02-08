@@ -35,8 +35,10 @@
                   <%= f.fields_for :report_items do |item| %>
                     <%= render "report_item_fields", f: item %>
                   <% end %>
-                    <tr class="links"><td>
-                      <%= link_to_add_association "追加", f, :report_items ,:"data-association-insertion-node" => "tbody" %>
+                  
+                    <tr class="links" id="intersect-point"><td>
+                      <%= link_to_add_association "追加", f, :report_items ,\
+                      :"data-association-insertion-node" => "#intersect-point" %>
                       </td></tr>
                                    
                 </div>
