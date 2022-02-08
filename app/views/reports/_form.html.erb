@@ -21,31 +21,32 @@
               <%= f.date_field :reported_on, {class: "form-control"} %>
             <% end %>
           </div>
-          <table class="table mb-0">
-            <thead>
-              <tr>
-              <th scope="col">ジャンル</th>
-                <th scope="col">やったこと</th>
-                <th scope="col">作業時間</th>
-                <th scope="col">-</th>
-              </tr>
-            </thead>
+          <div class="table-responsive-xl">
+            <table class="table mb-0 ">
+              <thead>
+                <tr>
+                <th scope="col">ジャンル</th>
+                  <th scope="col">やったこと</th>
+                  <th scope="col">作業時間</th>
+                  <th scope="col">-</th>
+                </tr>
+              </thead>
               <tbody>
                 <div id="report_items">
                   <%= f.fields_for :report_items do |item| %>
                     <%= render "report_item_fields", f: item %>
                   <% end %>
-                  
-                    <tr class="links" id="intersect-point"><td>
-                      <%= link_to_add_association "追加", f, :report_items ,\
-                      :"data-association-insertion-node" => "#intersect-point" %>
-                      </td></tr>
-                                   
+                  <tr class="links" id="intersect-point">
+                    <td colspan="3"></td>
+                    <td>
+                      <%= link_to_add_association "", f, :report_items ,\
+                      :"data-association-insertion-node" => "#intersect-point" ,class: 'fas fa-plus' %>
+                    </td>
+                  </tr>                   
                 </div>
-
               </tbody>
-              </table>
-
+           </table>
+          </div>
           <p>コメント:<%= f.text_field :content %></p>
           <%= f.submit "登録" %>
         <% end %>
