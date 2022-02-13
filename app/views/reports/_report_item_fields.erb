@@ -1,14 +1,14 @@
 <div class="form-row nested-fields">
     <div class="my-2 col-3 col-md-3">
-      	<%= f.collection_select :genre_id, @select_genre, :id, :name, {:include_blank => true ,:onchange => "alertDisp()" },class: "form-control w-100"%>
+	  	<%= f.collection_select :genre_id, @select_genre, :id, :name, {:include_blank => true ,:onchange => "alertDisp()" },class: "form-control  form-control-sm w-100"%>
     </div>
-		<div class="my-2 col-4 col-md-6">
-    	<%= f.text_field :content,class: "form-control w-100"%>
+		<div class="my-2 col-6 col-md-6">
+    	<%= f.text_field :content,class: "form-control form-control-sm w-100"%>
 		</div>
-    <div class="my-2 col-3 col-md-2">
-			<%= f.text_field :work_hours,class: "form-control w-100"%><span class="d-none d-lg-inline">時間</span>
+    <div class="my-2 col-2 col-md-2">
+			<%= f.text_field :work_hours,class: "form-control form-control-sm w-100"%>
 		</div>
-    <div class="col-2 col-md-1 d-flex justify-content-center align-items-center">
+    <div class="col-1 col-md-1 d-flex justify-content-center align-items-center">
 			<%= link_to_remove_association "", f  ,\
     	class: 'fas fa-trash-alt' %>
 		</div>
