@@ -46,10 +46,14 @@
           <label for="label-report" class="form-label">コメント</label>
             <%= f.text_area :content,class: "form-control form-control-sm" ,size: "2x3"%></p>
           </div>
-          <%= f.submit "登録" ,class:'btn btn-primary btn-lg btn-block'%>
+          <%= f.submit title ,class:'btn btn-primary btn-lg btn-block'%>
         <% end %>
         </div>
       </div>
     </div>
+    
+  </div>
+  <div class="row px-3 mt-4">
+  <%= link_to "#{title}キャンセル（日報一覧へ戻る）", reports_path %> 
   </div>
 </div>
