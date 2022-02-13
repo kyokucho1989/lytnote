@@ -1,10 +1,63 @@
-<h1>日報詳細</h1>
-  <p>登録日：<%= l @report.reported_on %></p>
-    <% @report_item_array.each do |item| %>
-      ジャンル： <%= @genres.assoc(item.genre_id).last %>
-      <p>やったこと：<%= item.content %></p>
-      <p>作業時間：<%= item.work_hours %></p>
-    <% end %>
-  <p>コメント：<%= @report.content %></p>
-  <p>共有用文章：<%= simple_format(@report.content_for_share) %></p>
-  <%= link_to "日報一覧", reports_path %> 
+<%= render "layouts/header", title: "日報詳細" , bg_color: "primary" %>
+
+<div class = "container py-5">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card rounded-3">
+        <div class="card-body">
+        <%= form_with model: @report, local: true do |f| %>
+          <div class="form-group mb-4">
+            <label for="label-report" class="form-label">登録日</label>
+            <%= l @report.reported_on %>
+          </div>
+          <div class="form-group mb-4">
+            <form>
+              <div class="form-row">
+                <div class="col-2 col-md-2">ジャンル</div>
+                <div class="col-7 col-md-8">やったこと</div>
+                <div class="col-3 col-md-2">時間</div>
+              </div>
+              <div id="report_items">
+                <% @report_item_array.each do |item| %>                    
+                  <div class="form-row nested-fields">
+                    <div class="my-2 col-2 col-md-2">
+                      <div class="rounded genre p-1 text-center">
+                        <%= @genres.assoc(item.genre_id).last %>
+                      </div>
+                    </div>
+                    <div class="my-2 col-7 col-md-8">
+                      <%= item.content %>
+                    </div>
+                    <div class="my-2 col-3 col-md-2">
+                    <%= item.work_hours %>
+                    </div>
+                  </div>
+                <% end %>
+                                
+              </div>  
+            </form>
+          </div>
+          <hr>
+          <div class="form-group mb-4">
+            <label for="label-report" class="form-label">コメント</label>
+            <div class="card-body">
+              <%= @report.content %>
+            </div>
+          </div>
+          <div class="form-group mb-4">
+            <label for="label-report" class="form-label">共有用文章</label>
+            <div class="card-body bg-light">
+            <%= simple_format(@report.content_for_share) %>
+            </div>
+        </div>
+        <% end %>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="row px-3 mt-4">
+  <%= link_to "日報一覧へ戻る", reports_path %> 
+  </div>
+  
+</div>
