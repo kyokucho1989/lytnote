@@ -6,7 +6,6 @@ class ReportsController < ApplicationController
   end
 
   def new
-    binding.pry
     @report = Report.new
     @report.report_items.build
     @select_genre = Genre.where(user_id: current_user)
