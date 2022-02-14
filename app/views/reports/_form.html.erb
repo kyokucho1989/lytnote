@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-md-10">
       <div class="card rounded-3">
-        <div class="card-body">
+        <form class="card-body">
         <%= form_with model: @report, local: true do |f| %>
           <div class="form-group mb-4">
             <label for="label-report" class="form-label">登録日</label>
@@ -46,9 +46,10 @@
           <label for="label-report" class="form-label">コメント</label>
             <%= f.text_area :content,class: "form-control form-control-sm" ,size: "2x3"%></p>
           </div>
-          <%= f.submit title ,class:'btn btn-primary btn-lg btn-block'%>
+          
+          <%= f.submit "登録"%>
         <% end %>
-        </div>
+        </form>
       </div>
     </div>
     
