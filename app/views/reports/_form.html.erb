@@ -22,7 +22,6 @@
             <% end %>
           </div>
           <div class="form-group mb-4">
-            <form>
               <div class="form-row">
                 <div class="col-3 col-md-3">ジャンル</div>
                 <div class="col-6 col-md-6">やったこと</div>
@@ -40,13 +39,12 @@
                     </div>
                   </div>                   
               </div>  
-            </form>
           </div>
           <div class="form-group mb-4">
           <label for="label-report" class="form-label">コメント</label>
             <%= f.text_area :content,class: "form-control form-control-sm" ,size: "2x3"%></p>
           </div>
-          <%= f.submit title ,class:'btn btn-primary btn-lg btn-block'%>
+          <%= f.submit "登録", {class: "btn-primary btn-lg"}%>
         <% end %>
         </div>
       </div>
