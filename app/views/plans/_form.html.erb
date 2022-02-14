@@ -26,10 +26,10 @@
         <%= f.date_field :deadline,  {class: "form-control"} %>
         </div>
         <%= f.hidden_field :status, :value => "進行中" %>
-        <%= f.submit   "登録" ,{class: "btn-primary btn-lg"}%>
+        <%= f.submit   "#{title}" ,{class: "btn-primary btn-lg"}%>
       <% end %>
     </div>
-      <%= link_to "キャンセル（目標一覧へ戻る）", plans_path %>
+      <%= link_to "#{title}キャンセル（目標一覧へ戻る）", plans_path %>
     </div>
   </div>
 </div>
