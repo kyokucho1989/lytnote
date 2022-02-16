@@ -1,15 +1,51 @@
-<h1>振り返り詳細</h1>
-  <p>振り返り日：<%= l @review.reviewed_on %></p>
-    <% @plans.each do |plan| %>
-      <p>
-      目標： <%= plan.name %>
-      ジャンル： <%= get_genre_name(plan.genre_id) %>
-      締め切り：<%= plan.deadline %>
-      ステータス：<%= plan.status %>
-      </p>
-    <% end %>
-  <p>コメント：<%= @review.content %></p>
-  <p>共有用文章：<%= simple_format(@review.content_for_share) %></p>
-  <%= link_to "目標再選択/編集", re_select_plan_review_path(@review) %>
+<%= render "layouts/header", title: "振り返り詳細" , bg_color: "info" %>
+<div class = "container py-5">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card rounded-3">
+        <div class="card-body">
+          <div class="form-group mb-4">
+            <h6>振り返り日:<%= l @review.reviewed_on %></h6>
+          </div>
+          <% @plans.each do |plan| %>
+          <div class="form-group mb-4">
+            <div class="form-row">
+              <div class="col-3 col-md-3">目標</div>
+              <div class="col-3 col-md-3">ジャンル</div>
+              <div class="col-3 col-md-3">締め切り</div>
+              <div class="col-3 col-md-3">ステータス</div>
+            </div>
+            <div class="form-row">
+              <div class="col-3 col-md-3"><%= plan.name %></div>
+              <div class="col-3 col-md-3"><%= get_genre_name(plan.genre_id) %></div>
+              <div class="col-3 col-md-3"><%= l plan.deadline %></div>
+              <div class="col-3 col-md-3"><%= plan.status %></div>
+            </div>
+          </div>
+          <% end %>
+          <div class="form-group mb-4">
+          <h6>コメント</h6>
+            <div class="card-body">
+            <%= @review.content %>
+            </div>
+          </div>
+          <div class="form-group mb-4">
+          <h6>共有用文章</h6>
+            <div class="card-body bg-light">
+            <%= simple_format(@review.content_for_share) %>
+          </div>
+        </div>
+     
+        <div class="row px-3 mt-2">
+          <%= link_to "目標再選択/編集", re_select_plan_review_path(@review) %>
+        </div>
 
+      </div>
+
+  </div>
+  <div class="row px-3 mt-2">
   <%= link_to "振り返り一覧", reviews_path %>
+</div>
+  </div>
+  </div>
+  </div>
