@@ -1,4 +1,5 @@
 <% flash.each do |flash_type, msg| %>
-  <p style="color: <%= flash_type == 'notice' ? 'green' : 'red' %>;"><%= msg %></p>
-  <hr>
+  <div class="alert <%= flash_type == 'notice' ? 'alert-warning' : 'alert-danger' %> alert-dismissible fade show" role="alert">
+<%= msg %>
+  </div>
 <% end %>

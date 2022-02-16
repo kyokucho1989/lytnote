@@ -1,4 +1,4 @@
-<%= render "layouts/header", title: "日報詳細" , bg_color: "primary" %>
+<%= render "layouts/header", title: "日報詳細" , bg_color: "none" %>
 
 <div class = "container py-5">
   <div class="row">
@@ -7,8 +7,7 @@
         <div class="card-body">
         <%= form_with model: @report, local: true do |f| %>
           <div class="form-group mb-4">
-            <label for="label-report" class="form-label">登録日</label>
-            <%= l @report.reported_on %>
+            <h6><%= l @report.reported_on %></h6>
           </div>
           <div class="form-group mb-4">
             <form>
@@ -39,13 +38,13 @@
           </div>
           <hr>
           <div class="form-group mb-4">
-            <label for="label-report" class="form-label">コメント</label>
+          <h6>コメント</h6>
             <div class="card-body">
               <%= @report.content %>
             </div>
           </div>
           <div class="form-group mb-4">
-            <label for="label-report" class="form-label">共有用文章</label>
+          <h6>共有用文章</h6>
             <div class="card-body bg-light">
             <%= simple_format(@report.content_for_share) %>
             </div>
