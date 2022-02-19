@@ -5,7 +5,6 @@ class ReviewsController < ApplicationController
   end
 
   def show
-    binding.pry
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id: @review.id).to_a
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))

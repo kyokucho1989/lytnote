@@ -1,12 +1,7 @@
 <div class = "container">
   <div class="row">
     <div class="col">
-        <% if mode == "new" then %>
-        <%= form_with url: new_review_path, method: :get, local: true do |form| %>
-        <% end %> 
-        <% if mode == "edit" then %>
-        <%= form_with url: edit_review_path, method: :get, local: true do |form| %>
-        <% end %>    
+        <%= form_with url: path, method: :get, local: true do |form| %>
         <% @plans.each do |plan| %>
           <%= form.fields_for 'plans[]', plan do |f| %>
             <p>
