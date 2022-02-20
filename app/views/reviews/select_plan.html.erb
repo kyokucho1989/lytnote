@@ -1,20 +1,36 @@
 <%= render "layouts/header", title: "振り返り登録-目標選択" , bg_color: "info" %>
 <div class = "container">
   <div class="row">
-    <div class="col">
+    <div class="col-2">-</div>
+    <div class="col-3">目標</div>
+    <div class="col-3">締め切り</div>
+    <div class="col-2">状態</div>
+    <div class="col-2">ジャンル</div>
+  </div>
+  <div class="row">
         <%= form_with url: new_review_path, method: :get, local: true do |form| %>
         <% @plans.each do |plan| %>
           <%= form.fields_for 'plans[]', plan do |f| %>
-            <p>
+          <div class="row">
+            <div class="col-2">
               <%= check_box_tag 'checked_plan[]',"#{plan.id}" %>
-
-            目標： <%= plan.name %>
-            締め切り：<%=l plan.deadline %>
-            ステータス：<%= plan.status %>
-            ジャンル：<%= plan.genre_id %>
-            </p>
+            </div>
+            <div class="col-2">
+            <%= plan.name %>
+            </div>
+            <div class="col-2">
+            <%=l plan.deadline %>
+            </div>
+            <div class="col-2">
+            <%= plan.status %>
+            </div>
+            <div class="col-2">
+            <%= get_genre_name(plan.genre_id) %>
+            </div>
+          </div>
           <% end %>
         <% end %>
+        </div>
 
         <%= form.submit "登録" %>
       <% end %>
