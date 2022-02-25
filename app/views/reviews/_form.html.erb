@@ -1,42 +1,69 @@
 <% if @plan.errors.any? || @review.errors.any?%>
-  <h2>エラー</h2>
-  <ul>
-    <% @plan.errors.full_messages.each do |msg| %>
+  <div class="alert alert-warning my-3" role="alert" >
+    <h5 class="alert-heading">エラー</h5>
+    <ul>
+      <% @plan.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+    <ul>
+    <% @review.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
-  </ul>
-  <ul>
-  <% @review.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
-  <% end %>
-</ul>
+    </ul>
+  </div>
 <% end %>
-<%= form_with model: @review, local: true do |form| %>
-  <% if @review.reviewed_on.nil? %>
-    <p>振り返り日:<%= form.date_field :reviewed_on , value:Date.today%></p>
-  <% else %>
-    <p>振り返り日:<%= form.date_field :reviewed_on %></p>
-  <% end %>
-  
-    <% @plans.each do |plan| %>
-      <%= form.fields_for 'plans[]', plan do |f| %>
-      <p>
-      目標: <%= plan.name %>
-      ジャンル:<%= plan.genre_id %>
-      締め切り:<%=l plan.deadline %>
-      ステータス:<%= plan.status %>
-      </p>
-      <p>変更後のステータス:<%= f.select :status, ["進行中","中止","完了"] %></p>
- 
-      <% if plan.status == "進行中" %>
-        <p id = "review_plans_<%= plan.id %>_status_disp" class ="visible">  
-      <% else %>
-        <p id = "review_plans_<%= plan.id %>_status_disp" class ="imvisible"> 
-      <% end %>
-          変更後の締め切り:<%= f.date_field :deadline %>
-        </p>
-    <% end %>
-  <% end %>
-  <p>コメント:<%= form.text_field :content %></p>
-  <%= form.submit "登録" %>
-<% end %>
+<div class = "container py-5">
+  <div class="row">
+    <div class="col-md-10">
+      <div class="card rounded-3">
+        <div class="card-body">
+          <%= form_with model: @review, local: true do |form| %>
+            <div class="form-group mb-4">
+            <label for="label-report" class="form-label">振り返り日</label>
+              <% if @review.reviewed_on.nil? %>
+                <%= form.date_field :reviewed_on , {class: "form-control" ,value:Date.today}%>
+              <% else %>
+                <%= form.date_field :reviewed_on , {class: "form-control"} %>
+              <% end %>
+            </div>
+          <div class="form-group mb-4">
+              <% @plans.each do |plan| %>
+                <%= form.fields_for 'plans[]', plan do |f| %>
+                  <div class="form-group mb-2">
+                   <label for="label-report" class="form-label">目標</label>
+                   <p><%= plan.name %></p>
+                  </div>
+                  <div class="form-group mb-2">
+                    <label for="label-report" class="form-label">ジャンル</label>
+                    <p><%= get_genre_name(plan.genre_id) %></p>
+                  </div>
+                  <div class="form-group mb-2">
+                    <label for="label-report" class="form-label">締め切り</label>
+                    <p><%=l plan.deadline %></p>
+                  </div>
+                  <div class="form-group mb-4">
+                    <label for="label-report" class="form-label">ステータス</label>
+                    <p><%= plan.status %></p>
+                  </div>
+                  <div class="form-group mb-4">
+                    <label for="label-report" class="form-label">変更後のステータス</label>
+                    <p><%= f.select :status, ["進行中","中止","完了"] ,{class: "form-control"}%></p>
+                  </div>
+                <% if plan.status == "進行中" %>
+                  <p id = "review_plans_<%= plan.id %>_status_disp" class ="visible">  
+                <% else %>
+                  <p id = "review_plans_<%= plan.id %>_status_disp" class ="imvisible"> 
+                <% end %>
+                    変更後の締め切り:<%= f.date_field :deadline %>
+                  </p>
+              <% end %>
+            <% end %>
+          <p>コメント:<%= form.text_field :content %></p>
+          <%= form.submit "登録" %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
