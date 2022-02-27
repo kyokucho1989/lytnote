@@ -20,50 +20,76 @@
         <div class="card-body">
           <%= form_with model: @review, local: true do |form| %>
             <div class="form-group mb-4">
-            <label for="label-report" class="form-label">振り返り日</label>
+              <label for="label-report" class="form-label">振り返り日</label>
               <% if @review.reviewed_on.nil? %>
                 <%= form.date_field :reviewed_on , {class: "form-control" ,value:Date.today}%>
               <% else %>
                 <%= form.date_field :reviewed_on , {class: "form-control"} %>
               <% end %>
             </div>
-          <div class="form-group mb-4">
+            <div class="form-group mb-4">
               <% @plans.each do |plan| %>
                 <%= form.fields_for 'plans[]', plan do |f| %>
-                  <div class="form-group mb-2">
-                   <label for="label-report" class="form-label">目標</label>
-                   <p><%= plan.name %></p>
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <div class="row">
+                        <div class="col-6">
+                          目標
+                          </div>
+                        <div class="col-6">
+                          <%= plan.name %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          ジャンル
+                        </div>
+                        <div class="col-6">
+                        <%= get_genre_name(plan.genre_id) %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          締め切り
+                        </div>
+                        <div class="col-6">
+                        <%=l plan.deadline %>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-6">
+                          ステータス
+                        </div>
+                        <div class="col-6">
+                          <%= plan.status %>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-group mb-2">
-                    <label for="label-report" class="form-label">ジャンル</label>
-                    <p><%= get_genre_name(plan.genre_id) %></p>
-                  </div>
-                  <div class="form-group mb-2">
-                    <label for="label-report" class="form-label">締め切り</label>
-                    <p><%=l plan.deadline %></p>
-                  </div>
-                  <div class="form-group mb-4">
-                    <label for="label-report" class="form-label">ステータス</label>
-                    <p><%= plan.status %></p>
-                  </div>
-                  <div class="form-group mb-4">
+                  <div class="form-group my-4">
                     <label for="label-report" class="form-label">変更後のステータス</label>
                     <p><%= f.select :status, ["進行中","中止","完了"] ,{class: "form-control"}%></p>
-                  </div>
+                  
                 <% if plan.status == "進行中" %>
                   <p id = "review_plans_<%= plan.id %>_status_disp" class ="visible">  
                 <% else %>
                   <p id = "review_plans_<%= plan.id %>_status_disp" class ="imvisible"> 
                 <% end %>
-                    変更後の締め切り:<%= f.date_field :deadline %>
+                    変更後の締め切り:<%= f.date_field :deadline ,{class: "form-control"} %>
                   </p>
-              <% end %>
+                <% end %>
+                </div>
+                <hr>
             <% end %>
-          <p>コメント:<%= form.text_field :content %></p>
-          <%= form.submit "登録" %>
+            <div class="form-group mb-4">
+            <label for="label-report" class="form-label">コメント</label>
+            <%= form.text_area :content , class:"form-control" ,size: "2x3" %>
+          </div>
+          <%= form.submit "登録" ,{class: "btn-primary btn-lg"}%>
         <% end %>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
