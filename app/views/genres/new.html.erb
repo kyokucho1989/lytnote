@@ -1,5 +1,5 @@
-<h1>ジャンル登録</h1>
-<%= form_with model: @genre, local: true do |form| %>
-  <p>名前：<%= form.text_field :name %></p>
-  <%= form.submit "登録" %>
-<% end %>
+<%= render "layouts/header", title: "ジャンル登録" ,  bg_color: "primary" %>
+
+<%= render "form" %>
+
+<%= link_to "登録キャンセル（ジャンル一覧へ戻る）", genres_path %>

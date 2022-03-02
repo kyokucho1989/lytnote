@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :report do
-    user { nil }
-    created_on { "2021-08-27 05:25:38" }
+    sequence(:reported_on) { |i| Date.today.since(i.days) }
     content { "MyString" }
   end
 end

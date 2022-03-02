@@ -1,8 +1,4 @@
-<h1>目標登録</h1>
-<%= form_with model: @plan, local: true do |f| %>
-  <p>目標：<%= f.text_field :name %></p>
-  <p>ジャンル：<%= f.collection_select :genre_id, @select_genre, :id, :name, :include_blank => true %></p>
-  <p>締め切り：<%= f.date_field :deadline %></p>
- <%= f.hidden_field :status, :value => "進行中" %>
-  <%= f.submit "登録" %>
-<% end %>
+<!-- HEADER -->
+<%= render "layouts/header", title: "目標登録" , bg_color: "primary" %>
+
+<%= render "form" ,title: "登録"%>

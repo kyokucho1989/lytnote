@@ -1,20 +1,4 @@
-<h1>振り返り登録</h1>
-<%= form_with model: @review, local: true do |form| %>
-  <p>振り返り日：<%= form.date_field :reviewed_on %></p>
-    <% @plans.each do |plan| %>
-      <%= form.fields_for 'plans[]', plan do |f| %>
-      <p>
-      目標： <%= plan.name %>
-      締め切り：<%= plan.deadline %>
-      ステータス：<%= plan.status %>
-      ジャンル：<%= plan.genre_id %>
-      </p>
-      <%= f.fields_for @review_item_array do |item| %>
-        <p>変更後の締め切り：<%= item.date_field :deadline_after_review %></p>
-        <p>変更後のステータス：<%= item.select :status_after_review, ["進行中","中止","完了"] %></p>
-      <% end %>
-    <% end %>
-  <% end %>
-  <p>コメント：<%= form.text_field :content %></p>
-  <%= form.submit "登録" %>
-<% end %>
+<%= render "layouts/header", title: "振り返り登録" , bg_color: "none" %>
+<%= render "form" %>
+
+<%= link_to "登録キャンセル（振り返り一覧へ戻る）", reviews_path %>

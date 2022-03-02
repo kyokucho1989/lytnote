@@ -78,3 +78,10 @@ group :development, :test do
 end
 # rails cを見やすく
 gem 'pry-rails'
+
+# ページネーション追加
+gem 'kaminari'
+gem 'kaminari-i18n'
+
+# 項目動的追加
+gem 'cocoon'

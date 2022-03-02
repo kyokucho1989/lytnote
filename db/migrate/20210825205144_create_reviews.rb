@@ -1,10 +1,10 @@
 class CreateReviews < ActiveRecord::Migration[6.0]
   def change
     create_table :reviews do |t|
-      t.string :content
+      t.string :content, null: false
       t.references :user, null: false, foreign_key: true
-      t.datetime :reviewed_on
-
+      t.datetime :reviewed_on, null: false
+      t.string :content_for_share
       t.timestamps
     end
   end

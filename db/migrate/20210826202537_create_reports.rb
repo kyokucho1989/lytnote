@@ -4,7 +4,7 @@ class CreateReports < ActiveRecord::Migration[6.0]
       t.references :user, null: false, foreign_key: true
       t.datetime :reported_on, null: false
       t.string :content, null: false
-
+      t.string :content_for_share
       t.timestamps
     end
   end

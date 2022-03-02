@@ -1,0 +1,28 @@
+ja:
+  time:
+    formats:
+      long: "%Y/%m/%d %H:%M:%S"
+      default: "%Y/%m/%d"
+
+  activerecord:
+    models:
+      report_items: 
+    attributes:
+      plan:
+        name: 目標
+        genre: ジャンル
+        deadline: 締め切り 
+      report:
+        content: コメント
+        genre: ジャンル
+        deadline: 締め切り 
+      report_items: 
+        content: やったこと
+        genre: ジャンル
+        work_hours: 作業時間
+      review: 
+        content: コメント
+        genre: ジャンル
+        reviewed_on: 振り返り日
+      genre: 
+        name: 名前

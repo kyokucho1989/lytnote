@@ -1,10 +1,42 @@
-<h1>振り返り一覧</h1>
-<% @reviews.each.with_index(1) do |review, i| %>
-  <p>
-  作成日： <%= review.created_at %>
-  内容：<%= review.content %>
-  <%= link_to "編集", edit_review_path(review) %>
-  <%= link_to "詳細", review_path(review) %>
-  <%= link_to "削除", review_path(review), method: :delete, data: {confirm: "削除しますか?"} %>
-  </p>
-<% end %>
+<%= render "layouts/header", title: "振り返り一覧" , bg_color: "info" %>
+
+<section id="report">
+  <div class = "container">
+    <div class="row">
+      <div class="col-md-8">
+        <% @reviews.each.with_index(1) do |review, i| %>
+          <div class="container border my-3">
+            <div class="row px-2">
+              <div class="col-6 col-md-8 py-3 px-1 d-flex align-items-center">
+                <h6><%= l review.reviewed_on %></h6>
+              </div>
+              <div class="col-3 col-md-2 py-3 px-1 align-middle">
+                <%= link_to review_path(review) do %>
+                  <button type="button" class="btn btn-outline-info w-100"><i class="far fa-file-alt mr-2"></i><span class="d-none d-sm-inline">詳細</span></button>
+                <% end %>
+              </div>
+              <div class="col-3 col-md-2 py-3 px-1 align-middle">
+                <%= link_to review_path(review), method: :delete, data: {confirm: "削除しますか?"} do %>
+                  <button type="button" class="btn btn-outline-danger w-100"><i class="fas fa-trash-alt mr-2"></i><span class="d-none d-sm-inline">削除</span></button>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="row px-2">
+              <div class="col-12 p-2 mb-2">
+                <%= review.content %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <%= paginate @reviews %>  
+          </ul>
+        </nav>
+
+      </div>
+    </div>
+  </div>
+</section>  

@@ -1,0 +1,21 @@
+<% if @genre.errors.any? %>
+<div class="alert alert-warning my-3" role="alert" >
+<h5 class="alert-heading">エラー</h5>
+  <ul>
+    <% @genre.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div class = "container py-5">
+  <div class="row">
+    <div class="col-10 col-md-5">
+      <%= form_with model: @genre, local: true do |form| %>
+        <label for="label-report" class="form-label">名前</label>
+        <%= form.text_field :name ,{class: "form-control"} %></p>
+        <%= form.submit "登録" ,{class: "btn-primary btn-lg"}%>
+      <% end %>
+    </div>
+  </div>
+</div>
