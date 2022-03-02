@@ -1,10 +1,12 @@
 <% if @genre.errors.any? %>
-  <h2>エラー</h2>
+<div class="alert alert-warning my-3" role="alert" >
+<h5 class="alert-heading">エラー</h5>
   <ul>
     <% @genre.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
     <% end %>
   </ul>
+</div>
 <% end %>
 <div class = "container py-5">
   <div class="row">
