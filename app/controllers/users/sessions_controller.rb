@@ -3,6 +3,7 @@ class Users::SessionsController < Devise::SessionsController
     # ゲストアカウントでログイン
     sign_in User.guest
     # トップページへリダイレクト
-    redirect_to root_path, notice: "ゲストユーザーとしてログインしました。"
+    redirect_to plans_path, notice: "ゲストユーザーとしてログインしました。"
   end
+
 end

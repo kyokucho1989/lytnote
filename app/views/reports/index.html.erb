@@ -1,19 +1,63 @@
-<h1>日報一覧</h1>
-<% @reports.each.with_index(1) do |report, i| %>
-  <p>日付：<%= l report.reported_on %></p>
-  <% report.report_items.each do |item| %>
-    <p>
-    ジャンル：
-    <%= @genres_set.assoc(item.genre_id).last %>
-    やったこと：<%= item.content %>
-    時間：<%= item.work_hours %>
-    </p>
-  <% end %>
-  コメント： <%= report.content %>
-  <%= link_to "編集", edit_report_path(report) %>
-  <%= link_to "詳細", report_path(report) %>
-  <%= link_to "この日の日報を削除", report_path(report), method: :delete, data: {confirm: "削除しますか?"} %>
-  </p>
-  <hr>
-<% end %>
-<%= paginate @reports %>
+<!-- HEADER -->
+<%= render "layouts/header", title: "日報一覧" , bg_color: "none" %>
+
+<section id="report">
+  <div class = "container">
+    <div class="row">
+      <div class="col-md-8">
+        <% @reports.each.with_index(1) do |report, i| %>
+          <div class="container border my-3">
+            <div class="row px-2">
+              <div class="col-5 col-md-6 py-3 px-1 d-flex align-items-center">
+                <%= l report.reported_on %>
+              </div>
+              <div class="col-2 col-md-2 py-3 px-1 align-middle">
+                <%= link_to edit_report_path(report) do %>
+                  <button type="button" class="btn btn-outline-primary w-100"><i class="fas fa-edit mr-2"></i><span class="d-none d-sm-inline">編集</span></button>
+                <% end %>
+              </div>
+              <div class="col-2 col-md-2 py-3 px-1 align-middle">
+                <%= link_to report_path(report) do %>
+                  <button type="button" class="btn btn-outline-info w-100"><i class="far fa-file-alt mr-2"></i><span class="d-none d-sm-inline">詳細</span></button>
+                <% end %>
+              </div>
+              <div class="col-2 col-md-2 py-3 px-1 align-middle">
+                <%= link_to report_path(report), method: :delete, data: {confirm: "削除しますか?"} do %>
+                  <button type="button" class="btn btn-outline-danger w-100"><i class="fas fa-trash-alt mr-2"></i><span class="d-none d-sm-inline">削除</span></button>
+                <% end %>
+              </div>
+              
+            </div>
+            <% report.report_items.each do |item| %>
+              <div class="row">
+                <div class="col-2 p-2">
+                  <div class="rounded genre p-1 text-center">
+                    <%= @genres_set.assoc(item.genre_id).last %>
+                  </div>
+                </div>
+                <div class="col-7 col-md-8 p-2">
+                  <%= item.content %>
+                </div>
+                <div class="col-3 col-md-2 p-2">
+                  <%= item.work_hours %>時間
+                </div>
+              </div>
+            <% end %>
+            <hr>
+            <div class="row">
+              <div class="col-12 p-2 mb-2">
+                <%= report.content %>
+              </div>
+            </div>
+          </div>  
+        <% end %>
+        
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <%= paginate @reports %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
