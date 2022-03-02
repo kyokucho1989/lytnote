@@ -11,11 +11,10 @@ class ReviewsController < ApplicationController
   end
 
   def new
-    # 振り返る目標が選択されていない時
+    # 振り返る目標が選択されていない
     if !params[:checked_plan]
       flash[:notice] = "目標を選択してください"
       redirect_to request.referer
-      
       return
     end
     @review = Review.new
