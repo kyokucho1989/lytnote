@@ -1,8 +1,10 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.17.0"
 
-set :application, "my_app_name"
-set :repo_url, "git@example.com:me/my_repo.git"
+set :application, "lytnote"
+set :repo_url, "git@github.com:kyokucho1989/simple-record.git"
+set :rbenv_ruby, File.read('.ruby-version').strip
+set :branch, ENV['BRANCH'] || "master"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -37,3 +39,10 @@ set :repo_url, "git@example.com:me/my_repo.git"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+# Nginxの設定ファイル名と置き場所を修正
+set :nginx_config_name, "#{fetch(:application)}.conf"
+set :nginx_sites_enabled_path, "/etc/nginx/conf.d"
+
+append :linked_files, "config/master.key"
+append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "node_modules"

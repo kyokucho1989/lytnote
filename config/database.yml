@@ -82,4 +82,5 @@ production:
   <<: *default
   database: daily_report_app_production
   username: daily_report_app
-  password: <%= ENV['DAILY_REPORT_APP_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.db[:password] %>
+  host: <%= Rails.application.credentials.db[:hostname] %>
