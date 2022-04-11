@@ -11,6 +11,12 @@ class ReviewsController < ApplicationController
   end
 
   def new
+    # 振り返る目標が選択されていない
+    if !params[:checked_plan]
+      flash[:notice] = "目標を選択してください"
+      redirect_to request.referer
+      return
+    end
     @review = Review.new
     selected_plan_ids = select_plan_params[:checked_plan].map(&:to_i)
     @plans = Plan.where(id: selected_plan_ids)
@@ -77,6 +83,7 @@ class ReviewsController < ApplicationController
   end
 
   def select_plan
+    
     @plans_all = Plan.where(user_id: current_user.id)
     plans1 = Plan.left_joins(:review_items).where(review_items: { id: nil }).where(user_id: current_user.id)
     plans2 = Plan.left_joins(:review_items).where(status: "進行中").where(user_id: current_user.id)
