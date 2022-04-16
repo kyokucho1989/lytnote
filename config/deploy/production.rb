@@ -5,7 +5,7 @@
 
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
-server "219.94.255.76", user: "deploy", roles: %w{db}
+server "219.94.255.76", user: "vpuser", roles: %w{db}
 
 
 
@@ -42,9 +42,9 @@ server "219.94.255.76", user: "deploy", roles: %w{db}
 # Global options
 # --------------
  set :ssh_options, {
-   keys: %w(/home/user_name/.ssh/id_rsa),
+   keys: %w(~/.ssh/id_rsa),
    forward_agent: false,
-   auth_methods: %w(password)
+  #  auth_methods: %w(password)
  }
 #
 # The server-based syntax can be used to override options:
