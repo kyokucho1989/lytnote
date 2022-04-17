@@ -2,7 +2,7 @@
 lock "~> 3.17.0"
 
 set :application, "lytnote"
-set :repo_url, "git@github.com:kyokucho1989/simple-record.git"
+set :repo_url, 'git@github.com:kyokucho1989/simple-record.git'
 set :rbenv_ruby, File.read('.ruby-version').strip
 set :branch, ENV['BRANCH'] || "master"
 set :rbenv_custom_path, '/usr/local/.rbenv'
