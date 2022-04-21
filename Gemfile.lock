@@ -356,7 +356,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   thor (= 0.19.1)
   turbolinks (~> 5)
-  tzinfo-data
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 4.0)
