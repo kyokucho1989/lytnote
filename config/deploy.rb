@@ -2,9 +2,12 @@
 lock "~> 3.17.0"
 
 set :application, "lytnote"
-set :repo_url, "git@github.com:kyokucho1989/simple-record.git"
+set :repo_url, 'https://github.com/kyokucho1989/simple-record.git'
 set :rbenv_ruby, File.read('.ruby-version').strip
-set :branch, ENV['BRANCH'] || "master"
+set :branch, ENV['BRANCH'] || "main"
+set :rbenv_custom_path, '/usr/local/.rbenv'
+
+set :deploy_to ,'/home/vpuser'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -13,7 +16,7 @@ set :branch, ENV['BRANCH'] || "master"
 # set :deploy_to, "/var/www/my_app_name"
 
 # Default value for :format is :airbrussh.
-# set :format, :airbrussh
+# set :format, :airbrusshFile.read('.ruby-version').strip
 
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
