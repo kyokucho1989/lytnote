@@ -82,8 +82,9 @@ gem 'devise-i18n'
 group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
-  gem 'faker'
+
 end
+gem 'faker'
 # rails cを見やすく
 gem 'pry-rails'
 
