@@ -81,8 +81,9 @@ group :development, :test do
   gem 'pry-byebug' # 追加
   gem 'rspec-rails'
   gem 'factory_bot_rails'
-  gem 'faker'
+
 end
+gem 'faker'
 
 # rails cを見やすく
 gem 'pry-rails'
