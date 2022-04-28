@@ -94,3 +94,6 @@ gem 'kaminari-i18n'
 
 # 項目動的追加
 gem 'cocoon'
+
+# サーバー環境に追加する　
+gem 'net-ssh' , '>= 6.1.0'
