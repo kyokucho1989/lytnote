@@ -1,0 +1,18 @@
+databases:
+  - name: daily_report_app_production
+    databaseName: daily_report_app_production
+    user: daily_report_app
+
+services:
+  - type: web
+    name: daily_report_app
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: daily_report_app_production
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false

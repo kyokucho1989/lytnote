@@ -8,7 +8,7 @@ set :branch, ENV['BRANCH'] || "main"
 set :rbenv_custom_path, '/usr/local/.rbenv'
 
 set :deploy_to ,'/home/vpuser'
-
+set :log_level, :debug
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
