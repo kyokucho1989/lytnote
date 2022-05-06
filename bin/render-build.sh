@@ -4,6 +4,7 @@ set -o errexit
 
 bundle install
 yarn install
+yarn add bootstrap
 yarn build
 
 bundle exec rake assets:precompile
