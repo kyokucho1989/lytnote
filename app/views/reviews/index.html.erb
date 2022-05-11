@@ -4,30 +4,36 @@
   <div class = "container">
     <div class="row">
       <div class="col-md-8">
-        <% @reviews.each.with_index(1) do |review, i| %>
-          <div class="container border my-3">
-            <div class="row px-2">
-              <div class="col-6 col-md-8 py-3 px-1 d-flex align-items-center">
-                <h6><%= l review.reviewed_on %></h6>
-              </div>
-              <div class="col-3 col-md-2 py-3 px-1 align-middle">
-                <%= link_to review_path(review) do %>
-                  <button type="button" class="btn btn-outline-info w-100"><i class="far fa-file-alt mr-2"></i><span class="d-none d-sm-inline">詳細</span></button>
-                <% end %>
-              </div>
-              <div class="col-3 col-md-2 py-3 px-1 align-middle">
-                <%= link_to review_path(review), method: :delete, data: {confirm: "削除しますか?"} do %>
-                  <button type="button" class="btn btn-outline-danger w-100"><i class="fas fa-trash-alt mr-2"></i><span class="d-none d-sm-inline">削除</span></button>
-                <% end %>
-              </div>
-            </div>
-
-            <div class="row px-2">
-              <div class="col-12 p-2 mb-2">
-                <%= review.content %>
-              </div>
-            </div>
+        <% if @reviews.size == 0 %>
+          <div class="my-5">
+          振り返りが登録されていません。
           </div>
+        <% else %>
+          <% @reviews.each.with_index(1) do |review, i| %>
+            <div class="container border my-3">
+              <div class="row px-2">
+                <div class="col-6 col-md-8 py-3 px-1 d-flex align-items-center">
+                  <h6><%= l review.reviewed_on %></h6>
+                </div>
+                <div class="col-3 col-md-2 py-3 px-1 align-middle">
+                  <%= link_to review_path(review) do %>
+                    <button type="button" class="btn btn-outline-info w-100"><i class="far fa-file-alt mr-2"></i><span class="d-none d-sm-inline">詳細</span></button>
+                  <% end %>
+                </div>
+                <div class="col-3 col-md-2 py-3 px-1 align-middle">
+                  <%= link_to review_path(review), method: :delete, data: {confirm: "削除しますか?"} do %>
+                    <button type="button" class="btn btn-outline-danger w-100"><i class="fas fa-trash-alt mr-2"></i><span class="d-none d-sm-inline">削除</span></button>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="row px-2">
+                <div class="col-12 p-2 mb-2">
+                  <%= review.content %>
+                </div>
+              </div>
+            </div>
+          <% end %>
         <% end %>
 
         <nav aria-label="Page navigation example">

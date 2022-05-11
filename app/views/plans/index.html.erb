@@ -6,55 +6,61 @@
     <div class="row">
       <div class="col">
         <div class="card border-0 my-4">
-          <div class="table-responsive">
-            <table class="table table-hover">
-              <thead class="table-dark">
-                <tr>
-                  <th>内容</th>
-                  <th>締め切り</th>
-                  <th>状態</th>
-                  <th>ジャンル</th>
-                  <th>-</th>
-                  <th>-</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @plans.each.with_index(1) do |plan, i| %>
-                  <tr>
-                    <td>
-                      <%= plan.name %>
-                    </td>
-                    <td>
-                      <%= l plan.deadline %>
-                    </td>
-                    <td>
-                      <% if plan.status == "進行中" %>
-                        <div class="badge bg-warning pt-2 pb-2 px-3 py-3 text-black">
-                        <% elsif plan.status == "完了" %>
-                        <div class="badge bg-success pt-2 pb-2 px-3 py-3">
-                        <% elsif plan.status == "中止" %>
-                        <div class="badge bg-dark pt-2 pb-2 px-3 py-3 text-white">
-                      <% end %>
-                      <%= plan.status %>
-                    </td>
-                    <td>
-                      <%= get_genre_name(plan.genre_id) %>
-                    </td>
-                    <td>
-                      <%= link_to edit_plan_path(plan) do %>
-                        <i class="fas fa-edit"></i>
-                      <% end %>
-                    </td>
-                    <td>
-                      <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
-                        <i class="fas fa-trash-alt"></i>
-                      <% end %>
-                    </td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
+          <% if @plans.size == 0 %>
+          <div class="my-5">
+          目標が登録されていません。
           </div>
+          <% else %>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead class="table-dark">
+                  <tr>
+                    <th>内容</th>
+                    <th>締め切り</th>
+                    <th>状態</th>
+                    <th>ジャンル</th>
+                    <th>-</th>
+                    <th>-</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @plans.each.with_index(1) do |plan, i| %>
+                    <tr>
+                      <td>
+                        <%= plan.name %>
+                      </td>
+                      <td>
+                        <%= l plan.deadline %>
+                      </td>
+                      <td>
+                        <% if plan.status == "進行中" %>
+                          <div class="badge bg-warning pt-2 pb-2 px-3 py-3 text-black">
+                          <% elsif plan.status == "完了" %>
+                          <div class="badge bg-success pt-2 pb-2 px-3 py-3">
+                          <% elsif plan.status == "中止" %>
+                          <div class="badge bg-dark pt-2 pb-2 px-3 py-3 text-white">
+                        <% end %>
+                        <%= plan.status %>
+                      </td>
+                      <td>
+                        <%= get_genre_name(plan.genre_id) %>
+                      </td>
+                      <td>
+                        <%= link_to edit_plan_path(plan) do %>
+                          <i class="fas fa-edit"></i>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
+                          <i class="fas fa-trash-alt"></i>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
