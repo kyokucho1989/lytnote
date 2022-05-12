@@ -7,6 +7,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
       Genre.create!(name: "運動", user_id: @user.id)
     end
   end
+
+  # DELETE /resource
+  def destroy
+    resource.soft_delete
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    set_flash_message :notice, :destroyed
+    yield resource if block_given?
+    respond_with_navigational(resource){ redirect_to after_sign_out_path_for(resource_name) }
+  end
+
   def ensure_normal_user
     if resource.email == "guest@example.com"
       redirect_to root_path, alert: "ゲストユーザーは削除できません。"
