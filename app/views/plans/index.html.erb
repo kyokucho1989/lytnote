@@ -2,69 +2,47 @@
 <%= render "layouts/header", title: "目標一覧" ,  bg_color: "primary" %>
 
 <section id="plan">
-  <div class = "container">
-    <div class="row">
-      <div class="col">
-        <div class="card border-0 my-4">
-          <% if @plans.size == 0 %>
-          <div class="my-5">
-          目標が登録されていません。
-          </div>
-          <% else %>
-            <div class="table-responsive">
-              <table class="table table-hover">
-                <thead class="table-dark">
-                  <tr>
-                    <th>内容</th>
-                    <th>締め切り</th>
-                    <th>状態</th>
-                    <th>ジャンル</th>
-                    <th>-</th>
-                    <th>-</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @plans.each.with_index(1) do |plan, i| %>
-                    <tr>
-                      <td>
-                        <%= plan.name %>
-                      </td>
-                      <td>
-                        <%= l plan.deadline %>
-                      </td>
-                      <td>
-                        <% if plan.status == "進行中" %>
-                          <div class="badge bg-warning pt-2 pb-2 px-3 py-3 text-black">
-                          <% elsif plan.status == "完了" %>
-                          <div class="badge bg-success pt-2 pb-2 px-3 py-3">
-                          <% elsif plan.status == "中止" %>
-                          <div class="badge bg-dark pt-2 pb-2 px-3 py-3 text-white">
-                        <% end %>
-                        <%= plan.status %>
-                      </td>
-                      <td>
-                        <%= get_genre_name(plan.genre_id) %>
-                      </td>
-                      <td>
-                        <%= link_to edit_plan_path(plan) do %>
-                          <i class="fas fa-edit"></i>
-                        <% end %>
-                      </td>
-                      <td>
-                        <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
-                          <i class="fas fa-trash-alt"></i>
-                        <% end %>
-                      </td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
+  <% if @plans.size == 0 %>
+    <div class="my-5">
+    目標が登録されていません。
+    </div>
+  <% else %>
+    <% @plans.each.with_index(1) do |plan, i| %>
+      <div class = "container my-4 bg-light">
+        <div class="row">
+          <div class="col-8 col-md-8">
+            <div class="row">
+              <div class="col-12 col-md-2"><%= get_genre_name(plan.genre_id) %></div>
+              <div class="col-12 col-md-6"><%= plan.name %></div>
+              <div class="col-12 col-md-4"><i class="fas fa-calendar-check"></i><%= l plan.deadline %></div>
             </div>
+          </div>
+          <div class="col-2 col-md-2">
+            <% if plan.status == "進行中" %>
+            <div class="badge bg-warning pt-2 pb-2  text-black">
+            <% elsif plan.status == "完了" %>
+            <div class="badge bg-success pt-2 pb-2 ">
+            <% elsif plan.status == "中止" %>
+            <div class="badge bg-dark pt-2 pb-2 text-white">
+            <% end %>
+            <%= plan.status %>
+            </div>
+          </div>
+          <div class="col-1 col-md-1">
+          <%= link_to edit_plan_path(plan) do %>
+            <i class="fas fa-edit"></i>
           <% end %>
+          </div>
+          <div class="col-1 col-md-1">
+          <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
+            <i class="fas fa-trash-alt"></i>
+          <% end %>
+          </div>
         </div>
       </div>
-    </div>
-    <% if @plans.empty? %>
+    <% end %>
+  <% end %>
+  <% if @plans.empty? %>
     <%# ページネーション非表示 %>
     <% else %>
     <nav aria-label="Page navigation example">
@@ -72,6 +50,5 @@
         <%= paginate @plans %>
       </ul>
     </nav>
-    <% end %>
-  </div>
+  <% end %>
 </section>
