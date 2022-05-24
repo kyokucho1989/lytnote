@@ -4,7 +4,7 @@
 <section id="report">
   <div class = "container">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-9">
         <% if @reports.size == 0 %>
           <div class="my-5">
           日報が登録されていません。
@@ -12,45 +12,45 @@
         <% else %>
           <% @reports.each.with_index(1) do |report, i| %>
             <div class="container border my-3">
-              <div class="row px-2">
-                <div class="col-5 col-md-6 py-3 px-1 d-flex align-items-center">
+              <div class="row py-2">
+                <div class="col-6">
                   <%= l report.reported_on %>
                 </div>
-                <div class="col-2 col-md-2 py-3 px-1 align-middle">
+                <div class="col-2">
                   <%= link_to edit_report_path(report) do %>
-                    <button type="button" class="btn btn-outline-primary w-100"><i class="fas fa-edit mr-2"></i><span class="d-none d-sm-inline">編集</span></button>
+                    <button type="button" class="btn btn-outline-primary"><i class="fas fa-edit mr-1"></i><span class="d-none d-lg-inline">編集</span></button>
                   <% end %>
                 </div>
-                <div class="col-2 col-md-2 py-3 px-1 align-middle">
+                <div class="col-2">
                   <%= link_to report_path(report) do %>
-                    <button type="button" class="btn btn-outline-info w-100"><i class="far fa-file-alt mr-2"></i><span class="d-none d-sm-inline">詳細</span></button>
+                    <button type="button" class="btn btn-outline-info"><i class="far fa-file-alt mr-1"></i><span class="d-none d-lg-inline">詳細</span></button>
                   <% end %>
                 </div>
-                <div class="col-2 col-md-2 py-3 px-1 align-middle">
+                <div class="col-2">
                   <%= link_to report_path(report), method: :delete, data: {confirm: "削除しますか?"} do %>
-                    <button type="button" class="btn btn-outline-danger w-100"><i class="fas fa-trash-alt mr-2"></i><span class="d-none d-sm-inline">削除</span></button>
+                    <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash-alt mr-1"></i><span class="d-none d-lg-inline">削除</span></button>
                   <% end %>
                 </div>
                 
               </div>
               <% report.report_items.each do |item| %>
-                <div class="row">
-                  <div class="col-2 p-2">
+                <div class="row mt-4">
+                  <div class="col-3 col-md-2">
                     <div class="rounded genre p-1 text-center">
                       <%= @genres_set.assoc(item.genre_id).last %>
                     </div>
                   </div>
-                  <div class="col-7 col-md-8 p-2">
+                  <div class="col-6 col-md-8">
                     <%= item.content %>
                   </div>
-                  <div class="col-3 col-md-2 p-2">
+                  <div class="col-3 col-md-2">
                     <%= item.work_hours %>時間
                   </div>
                 </div>
               <% end %>
               <hr>
               <div class="row">
-                <div class="col-12 p-2 mb-2">
+                <div class="col-12 mb-2">
                   <%= report.content %>
                 </div>
               </div>
