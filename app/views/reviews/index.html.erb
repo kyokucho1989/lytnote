@@ -3,7 +3,7 @@
 <section id="report">
   <div class = "container">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-9">
         <% if @reviews.size == 0 %>
           <div class="my-5">
           振り返りが登録されていません。
@@ -11,18 +11,18 @@
         <% else %>
           <% @reviews.each.with_index(1) do |review, i| %>
             <div class="container border my-3">
-              <div class="row px-2">
-                <div class="col-6 col-md-8 py-3 px-1 d-flex align-items-center">
-                  <h6><%= l review.reviewed_on %></h6>
+              <div class="row py-2">
+                <div class="col-8">
+                  <%= l review.reviewed_on %>
                 </div>
-                <div class="col-3 col-md-2 py-3 px-1 align-middle">
+                <div class="col-2">
                   <%= link_to review_path(review) do %>
-                    <button type="button" class="btn btn-outline-info w-100"><i class="far fa-file-alt mr-2"></i><span class="d-none d-sm-inline">詳細</span></button>
+                    <button type="button" class="btn btn-outline-info"><i class="far fa-file-alt mr-1"></i><span class="d-none d-lg-inline">詳細</span></button>
                   <% end %>
                 </div>
-                <div class="col-3 col-md-2 py-3 px-1 align-middle">
+                <div class="col-2">
                   <%= link_to review_path(review), method: :delete, data: {confirm: "削除しますか?"} do %>
-                    <button type="button" class="btn btn-outline-danger w-100"><i class="fas fa-trash-alt mr-2"></i><span class="d-none d-sm-inline">削除</span></button>
+                    <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash-alt mr-1"></i><span class="d-none d-lg-inline">削除</span></button>
                   <% end %>
                 </div>
               </div>
@@ -35,13 +35,15 @@
             </div>
           <% end %>
         <% end %>
-
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <%= paginate @reviews %>  
-          </ul>
-        </nav>
-
+        <% if @reviews.empty? %>
+          <%# ページネーション非表示 %>
+        <% else %>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <%= paginate @reviews %>  
+            </ul>
+          </nav>
+        <% end %>
       </div>
     </div>
   </div>
