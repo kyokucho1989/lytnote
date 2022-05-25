@@ -2,53 +2,63 @@
 <%= render "layouts/header", title: "目標一覧" ,  bg_color: "primary" %>
 
 <section id="plan">
-  <% if @plans.size == 0 %>
-    <div class="my-5">
-    目標が登録されていません。
-    </div>
-  <% else %>
-    <% @plans.each.with_index(1) do |plan, i| %>
-      <div class = "container my-4 bg-light">
-        <div class="row">
-          <div class="col-8 col-md-8">
-            <div class="row">
-              <div class="col-12 col-md-2"><%= get_genre_name(plan.genre_id) %></div>
-              <div class="col-12 col-md-6"><%= plan.name %></div>
-              <div class="col-12 col-md-4"><i class="fas fa-calendar-check"></i><%= l plan.deadline %></div>
+  <div class = "container">
+    <div class="row">
+      <div class="col-md-12">
+        <% if @plans.size == 0 %>
+          <div class="my-5">
+          目標が登録されていません。
+          </div>
+        <% else %>
+          <% @plans.each.with_index(1) do |plan, i| %>
+            <div class = "container border my-5">
+              <div class="row py-3">
+                <div class="col-6 col-md-7">
+                  <div class="row">
+                    <div class="col-5 col-md-2">
+                      <div class="rounded genre p-1 text-center">
+                        <%= get_genre_name(plan.genre_id) %>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-7"><%= plan.name %></div>
+                    <div class="col-12 col-md-3"><i class="fas fa-calendar-check"></i><%= l plan.deadline %></div>
+                  </div>
+                </div>
+                <div class="col-2 col-md-1">
+                  <% if plan.status == "進行中" %>
+                  <div class="badge bg-warning pt-2 pb-2  text-black">
+                  <% elsif plan.status == "完了" %>
+                  <div class="badge bg-success pt-2 pb-2 ">
+                  <% elsif plan.status == "中止" %>
+                  <div class="badge bg-dark pt-2 pb-2 text-white">
+                  <% end %>
+                  <%= plan.status %>
+                  </div>
+                </div>
+                <div class="col-2 col-md-2">
+                <%= link_to edit_plan_path(plan) do %>
+                  <button type="button" class="btn btn-outline-primary"><i class="fas fa-edit"></i><span class="d-none d-lg-inline">編集</span></button>
+                <% end %>
+                </div>
+                <div class="col-2 col-md-2">
+                <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
+                  <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i><span class="d-none d-lg-inline">削除</span></button>
+                <% end %>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-2 col-md-2">
-            <% if plan.status == "進行中" %>
-            <div class="badge bg-warning pt-2 pb-2  text-black">
-            <% elsif plan.status == "完了" %>
-            <div class="badge bg-success pt-2 pb-2 ">
-            <% elsif plan.status == "中止" %>
-            <div class="badge bg-dark pt-2 pb-2 text-white">
-            <% end %>
-            <%= plan.status %>
-            </div>
-          </div>
-          <div class="col-1 col-md-1">
-          <%= link_to edit_plan_path(plan) do %>
-            <i class="fas fa-edit"></i>
           <% end %>
-          </div>
-          <div class="col-1 col-md-1">
-          <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
-            <i class="fas fa-trash-alt"></i>
-          <% end %>
-          </div>
-        </div>
+        <% end %>
+        <% if @plans.empty? %>
+          <%# ページネーション非表示 %>
+        <% else %>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <%= paginate @plans %>
+            </ul>
+          </nav>
+        <% end %>
       </div>
-    <% end %>
-  <% end %>
-  <% if @plans.empty? %>
-    <%# ページネーション非表示 %>
-    <% else %>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <%= paginate @plans %>
-      </ul>
-    </nav>
-  <% end %>
+    </div>
+  </div>
 </section>

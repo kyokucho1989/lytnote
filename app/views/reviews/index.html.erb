@@ -35,13 +35,15 @@
             </div>
           <% end %>
         <% end %>
-
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <%= paginate @reviews %>  
-          </ul>
-        </nav>
-
+        <% if @reviews.empty? %>
+          <%# ページネーション非表示 %>
+        <% else %>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <%= paginate @reviews %>  
+            </ul>
+          </nav>
+        <% end %>
       </div>
     </div>
   </div>
