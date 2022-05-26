@@ -13,15 +13,15 @@
           <% @plans.each.with_index(1) do |plan, i| %>
             <div class = "container border my-5">
               <div class="row py-3">
-                <div class="col-6 col-md-7">
+                <div class="col-8 col-lg-7">
                   <div class="row">
-                    <div class="col-5 col-md-2">
+                    <div class="col-5 col-md-3">
                       <div class="rounded genre p-1 text-center">
                         <%= get_genre_name(plan.genre_id) %>
                       </div>
                     </div>
-                    <div class="col-12 col-md-7"><%= plan.name %></div>
-                    <div class="col-12 col-md-3"><i class="fas fa-calendar-check"></i><%= l plan.deadline %></div>
+                    <div class="col-12 col-md-6"><%= plan.name %></div>
+                    <div class="col-12 col-md-3"><i class="fas fa-calendar-check"></i><%= l plan.deadline, format: :short  %></div>
                   </div>
                 </div>
                 <div class="col-2 col-md-1">
@@ -35,14 +35,14 @@
                   <%= plan.status %>
                   </div>
                 </div>
-                <div class="col-2 col-md-2">
+                <div class="col-1 offset-2">
                 <%= link_to edit_plan_path(plan) do %>
-                  <button type="button" class="btn btn-outline-primary"><i class="fas fa-edit"></i><span class="d-none d-lg-inline">編集</span></button>
+                  <button type="button" class="btn btn-outline-primary"><i class="fas fa-edit"></i></button>
                 <% end %>
                 </div>
-                <div class="col-2 col-md-2">
+                <div class="col-1">
                 <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
-                  <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i><span class="d-none d-lg-inline">削除</span></button>
+                  <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
                 <% end %>
                 </div>
               </div>

@@ -4,7 +4,7 @@
 <section id="report">
   <div class = "container">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col">
         <% if @reports.size == 0 %>
           <div class="my-5">
           日報が登録されていません。
@@ -16,19 +16,19 @@
                 <div class="col-6">
                   <%= l report.reported_on %>
                 </div>
-                <div class="col-2">
+                <div class="col-2 col-lg-1 offset-0 offset-lg-3">
                   <%= link_to edit_report_path(report) do %>
-                    <button type="button" class="btn btn-outline-primary"><i class="fas fa-edit mr-1"></i><span class="d-none d-lg-inline">編集</span></button>
+                    <button type="button" class="btn btn-outline-primary"><i class="fas fa-edit mr-1"></i></button>
                   <% end %>
                 </div>
-                <div class="col-2">
+                <div class="col-2 col-lg-1">
                   <%= link_to report_path(report) do %>
-                    <button type="button" class="btn btn-outline-info"><i class="far fa-file-alt mr-1"></i><span class="d-none d-lg-inline">詳細</span></button>
+                    <button type="button" class="btn btn-outline-info"><i class="far fa-file-alt mr-1"></i></button>
                   <% end %>
                 </div>
-                <div class="col-2">
+                <div class="col-2 col-lg-1">
                   <%= link_to report_path(report), method: :delete, data: {confirm: "削除しますか?"} do %>
-                    <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash-alt mr-1"></i><span class="d-none d-lg-inline">削除</span></button>
+                    <button type="button" class="btn btn-outline-danger"><i class="fas fa-trash-alt mr-1"></i></button>
                   <% end %>
                 </div>
                 
