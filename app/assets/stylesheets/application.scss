@@ -34,7 +34,9 @@
  }
 
  .genre {
-  background-color: #4ECDC4; 
+  background-color: #4ECDC4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
  }
 
  .edit-icon {
