@@ -34,7 +34,8 @@
  }
 
  .genre {
-  background-color: #4ECDC4;
+ // background-color: #4ECDC4;
+  color:#8D99AE;
   word-wrap: break-word;
   overflow-wrap: break-word;
   font-size:0.7rem;
@@ -42,6 +43,11 @@
 
  .dead-line {
   font-size:0.7rem;
+  color:#8D99AE;
+ }
+
+ .status {
+  color:#8D99AE;
  }
  .edit-icon {
   color: #4ECDC4; 
