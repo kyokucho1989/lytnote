@@ -1,5 +1,5 @@
 <!-- HEADER -->
-<%= render "layouts/header", title: "進行中の目標一覧" ,  bg_color: "primary" %>
+<%= render "layouts/header", title: "目標一覧" ,  bg_color: "primary" %>
 
 <section id="plan">
   <div class = "container">
@@ -13,12 +13,21 @@
           <% @plans.each.with_index(1) do |plan, i| %>
             <div class = "container border my-5">
               <div class="row py-3">
-                <div class="col-8">
+                <div class="col-8 col-md-10">
                   <div class="row">
                     <div class="col-12">
                       <%= plan.name %>
+                      <% if plan.status == "完了" %>
+                      <span class="badge bg-success pt-2 pb-2 ">
+                      <%= plan.status %>
+                      </span>
+                      <% elsif plan.status == "中止" %>
+                      <span class="badge bg-dark pt-2 pb-2 text-white">
+                      <%= plan.status %>
+                      </span>
+                      <% end %>
                     </div>
-                    <div class="col-8 col-md-6 my-2">
+                    <div class="col-8 col-md-4 my-2">
                       <div class="genre">
                         <i class="fas fa-tag"></i><%= get_genre_name(plan.genre_id)%>
                       </div>
@@ -28,12 +37,12 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2 px-2">
+                <div class="col-2 col-md-1 px-2">
                   <%= link_to edit_plan_path(plan) do %>
                     <button type="button" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
                   <% end %>
                 </div>
-                <div class="col-2 px-2">
+                <div class="col-2 col-md-1 px-2">
                   <%= link_to plan_path(plan), method: :delete, data: {confirm: "削除しますか?"} do %>
                     <button type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
                   <% end %>
