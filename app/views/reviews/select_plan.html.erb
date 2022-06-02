@@ -1,65 +1,69 @@
 <%= render "layouts/header", title: "振り返り登録-目標選択" , bg_color: "info" %>
 <div class = "container">
   <div class="row">
-    <div class="col">
-      <div class="card border-0 my-4">
-        <% if @plans.size == 0 %>
-          <div class="my-5">
-          目標が登録されていません。
-          </div>
-        <% else %>
-          <div class="table-responsive">
-            <%= form_with url: new_review_path, method: :get, local: true do |form| %>
-              <table class="table table-hover">
-                <thead class="table-dark">
-                  <tr>
-                    <th> </th>
-                    <th>目標</th>
-                    <th>締め切り</th>
-                    <th>状態</th>
-                    <th>ジャンル</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @plans.each do |plan| %>
-                    <%= form.fields_for 'plans[]', plan do |f| %>
-                      <tr>
-                        <td class="d-flex align-items-center justify-content-center">
-                          <%= check_box_tag 'checked_plan[]',"#{plan.id}", false,{class: "form-check"} %>
-                        </td>
-                        <td>
-                          <%= plan.name %>
-                        </td>
-                        <td>
-                          <%=l plan.deadline %>
-                        </td>
-                        <td>
-                          <% if plan.status == "進行中" %>
-                            <div class="badge bg-warning pt-2 pb-2 px-3 py-3 text-black">
-                          <% elsif plan.status == "完了" %>
-                            <div class="badge bg-success pt-2 pb-2 px-3 py-3">
-                          <% elsif plan.status == "中止" %>
-                            <div class="badge bg-dark pt-2 pb-2 px-3 py-3 text-white">
-                          <% end %>
-                            <%= plan.status %>
+    <div class="col-md-8">
+      
+      <% if @plans.size == 0 %>
+        <div class="my-5">
+        目標が登録されていません。
+        </div>
+      <% else %>
+      
+        <%= form_with url: new_review_path, method: :get, local: true do |form| %>
+          <% @plans.each do |plan| %>
+          <div class = "container border my-5"> 
+            
+              <%= form.fields_for 'plans[]', plan do |f| %>
+                <div class = "row py-3"> 
+                  <div class="col">
+                    <div class="row">
+                      <div class="col-1">
+                        <%= check_box_tag 'checked_plan[]',"#{plan.id}", false %>
+                      </div>
+                      <div class="col-10">
+                        <div class="row">
+                          <div class="col-12 col-md-4">
+                            <%= plan.name %>
+                            <% if plan.status == "完了" %>
+                              <span class="badge bg-success pt-2 pb-2 ">
+                                <%= plan.status %>
+                              </span>
+                            <% elsif plan.status == "中止" %>
+                              <span class="badge bg-dark pt-2 pb-2 text-white">
+                                <%= plan.status %>
+                              </span>
+                            <% end %>
+                          </div>
+                          <div class="col-8 col-md-5">
+                            <div class="genre">
+                              <i class="fas fa-tag"></i><%= get_genre_name(plan.genre_id)%>
                             </div>
-                        </td>
-                        <td>
-                          <%= get_genre_name(plan.genre_id) %>
-                        </td>
-                      </tr>
-                    <% end %>
-                  <% end %>
-                </tbody>
-              </table>
-              <%= form.submit "> 振り返り記入" ,{class: "btn-primary btn-lg"}%> 
-            <% end %>
+                          </div>
+                          <div class="col-4 col-md-3">
+                            <span class="dead-line"><i class="fas fa-calendar-check"></i><%= l plan.deadline, format: :short  %>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            
           </div>
-
+          <% end %>
+          <div class="col-9 px-0">
+            <%= form.submit "> 振り返り記入" ,{class: "btn-primary btn-lg"}%> 
+          </div>
         <% end %>
-      </div>
+      <% end %>
+      
     </div>
   </div>
-  <%= link_to "登録キャンセル（振り返り一覧へ戻る）", reviews_path %>
+  <div class="row">
+    <div class="col my-3">
+    <%= link_to "登録キャンセル（振り返り一覧へ戻る）", reviews_path %>
+    </div>
+  </div>
 </div>
 
