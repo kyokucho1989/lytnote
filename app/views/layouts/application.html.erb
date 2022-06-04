@@ -11,7 +11,15 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width">
     <script src="https://kit.fontawesome.com/60c39cf339.js" crossorigin="anonymous"></script>
-
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X4B8C0DNZK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-X4B8C0DNZK');
+    </script>
   </head>
 
   <body>
@@ -30,25 +38,18 @@
     <ul class="navbar-nav">
       <% if user_signed_in? %>
         <li class="nav-item">
-          <%= link_to "目標一覧", plans_path ,class: "nav-link"%>
+          <%= link_to "日報", reports_path ,class: "nav-link"%>
         </li>
         <li class="nav-item">
-          <%= link_to "目標登録", new_plan_path ,class: "nav-link"%>
+          <%= link_to "目標", plans_path ,class: "nav-link"%>
         </li>
+
         <li class="nav-item">
-          <%= link_to "日報一覧", reports_path ,class: "nav-link"%>
+          <%= link_to "振り返り", reviews_path ,class: "nav-link"%>
         </li>
+
         <li class="nav-item">
-          <%= link_to "日報登録", new_report_path ,class: "nav-link"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "振り返り一覧", reviews_path ,class: "nav-link"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "振り返り登録", select_plan_reviews_path ,class: "nav-link"%>
-        </li>
-        <li class="nav-item">
-        <%= link_to "ジャンル一覧", genres_path ,class: "nav-link"%>
+        <%= link_to "ジャンル設定", genres_path ,class: "nav-link"%>
         </li>
 
         <li class="nav-item dropdown">

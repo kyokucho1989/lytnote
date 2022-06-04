@@ -3,6 +3,7 @@ ja:
     formats:
       long: "%Y/%m/%d %H:%M:%S"
       default: "%Y/%m/%d"
+      short: "%m/%d"
 
   activerecord:
     models:

@@ -1,33 +1,44 @@
 <%= render "layouts/header", title: "ジャンル一覧" ,  bg_color: "primary" %>
-<div class = "container">
-  <div class="row">
-    <div class="col-10 col-md-8">
-      <div class="card border-0 my-4">
-        <% if @genres.size == 0 %>
-          <div class="my-5">
-          ジャンルが登録されていません。
-          </div>
-        <% else %>
-          <% @genres.each do |genre| %>
-            <div class="row my-2">
-              <div class="col-8">
-                <%= genre.name %>
-              </div>
-              <div class="col-2">
-              <%= link_to edit_genre_path(genre) do %>
-                <i class="fas fa-edit"></i>編集
-              <% end %>
-              </div>
-              <div class="col-2">
-              <%= link_to genre_path(genre), method: :delete, data: {confirm: "削除しますか?"} do %>
-                <i class="fas fa-trash-alt"></i>削除
-              <% end %>
-              </div>
+<section id="genre">
+  <div class = "container">
+    <div class="row">
+      <div class="col-md-8">
+
+      <div class="col-12 my-3 px-0 text-right">
+      <%= link_to new_genre_path do %>
+        <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> ジャンル登録</button>
+      <% end %>
+      </div>
+
+        <div class="card border-0 my-5">
+          <% if @genres.size == 0 %>
+            <div class="my-5">
+            ジャンルが登録されていません。
             </div>
+          <% else %>
+            <% @genres.each do |genre| %>
+              <div class = "container border my-2">
+                <div class="row my-2">
+                  <div class="col-8">
+                    <%= genre.name %>
+                  </div>
+                  <div class="col-2 col-lg-1  offset-0 offset-lg-2">
+                  <%= link_to edit_genre_path(genre) do %>
+                    <button type="button" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                  <% end %>
+                  </div>
+                  <div class="col-2 col-lg-1">
+                  <%= link_to genre_path(genre), method: :delete, data: {confirm: "削除しますか?"} do %>
+                    <button type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i></button>
+                  <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
+
   </div>
-<%= link_to "新規ジャンル登録", new_genre_path %>
-</div>
+</section>

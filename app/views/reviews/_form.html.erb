@@ -15,7 +15,7 @@
 <% end %>
 <div class = "container py-5">
   <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-8">
       <div class="card rounded-3">
         <div class="card-body">
           <%= form_with model: @review, local: true do |form| %>
@@ -27,60 +27,53 @@
                 <%= form.date_field :reviewed_on , {class: "form-control"} %>
               <% end %>
             </div>
-            <div class="form-group mb-4">
+            <hr>
+            <div class="form-group mb-4 mx-2">
               <% @plans.each do |plan| %>
                 <%= form.fields_for 'plans[]', plan do |f| %>
                   <div class="row">
-                    <div class="col-12 col-md-6">
-                      <div class="row">
-                        <div class="col-6">
-                          目標
-                          </div>
-                        <div class="col-6">
-                          <%= plan.name %>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6">
-                          ジャンル
-                        </div>
-                        <div class="col-6">
-                        <%= get_genre_name(plan.genre_id) %>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6">
-                          締め切り
-                        </div>
-                        <div class="col-6">
-                        <%=l plan.deadline %>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6">
-                          ステータス
-                        </div>
-                        <div class="col-6">
-                          <%= plan.status %>
-                        </div>
-                      </div>
+                    <div class="col-lg-6 col-12">
+                      <%= plan.name %>
+                      <% if plan.status == "完了" %>
+                      <span class="badge bg-success pt-2 pb-2 ">
+                      <%= plan.status %>
+                      </span>
+                      <% elsif plan.status == "中止" %>
+                      <span class="badge bg-dark pt-2 pb-2 text-white">
+                      <%= plan.status %>
+                      </span>
+                      <% elsif plan.status == "進行中" %>
+                      <span class="badge bg-light pt-2 pb-2">
+                      <%= plan.status %>
+                      </span>
+                      <% end %>
                     </div>
-                  </div>
-                  <div class="form-group my-4">
-                    <label for="label-report" class="form-label">変更後のステータス</label>
-                    <p><%= f.select :status, ["進行中","中止","完了"] ,{class: "form-control"}%></p>
+                      <div class="col-lg-3  col-8 genre">  
+                          <i class="fas fa-tag"></i><%= get_genre_name(plan.genre_id)%>
+                      </div>
+                      <div class="col-lg-3 col-8 dead-line">
+                        <i class="fas fa-calendar-check"></i><%= l plan.deadline, format: :short  %>
+                      </div>
+                      
+                    </div>
+                    <div class="row">
+                    <div class="col-8 my-4 px-3">
+                      <label for="label-report" class="form-label">変更後のステータス</label>
+                      <p><%= f.select :status, ["進行中","中止","完了"] ,{class: "form-control"}%></p>             
+                        <% if plan.status == "進行中" %>
+                          <p id = "review_plans_<%= plan.id %>_status_disp" class ="visible">  
+                        <% else %>
+                          <p id = "review_plans_<%= plan.id %>_status_disp" class ="imvisible"> 
+                        <% end %>
+                            変更後の締め切り:<%= f.date_field :deadline ,{class: "form-control"} %>
+                          </p>
+                        <% end %>
+                    </div>
+                    </div>
                   
-                <% if plan.status == "進行中" %>
-                  <p id = "review_plans_<%= plan.id %>_status_disp" class ="visible">  
-                <% else %>
-                  <p id = "review_plans_<%= plan.id %>_status_disp" class ="imvisible"> 
+                  
+                  <hr>
                 <% end %>
-                    変更後の締め切り:<%= f.date_field :deadline ,{class: "form-control"} %>
-                  </p>
-                <% end %>
-                </div>
-                <hr>
-            <% end %>
             <div class="form-group mb-4">
             <label for="label-report" class="form-label">コメント</label>
             <%= form.text_area :content , class:"form-control" ,size: "2x3" %>
