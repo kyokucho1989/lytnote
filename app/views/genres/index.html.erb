@@ -3,6 +3,13 @@
   <div class = "container">
     <div class="row">
       <div class="col-md-8">
+
+      <div class="col-12 my-3 px-0 text-right">
+      <%= link_to new_genre_path do %>
+        <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> ジャンル登録</button>
+      <% end %>
+      </div>
+
         <div class="card border-0 my-5">
           <% if @genres.size == 0 %>
             <div class="my-5">
@@ -30,11 +37,6 @@
             <% end %>
           <% end %>
         </div>
-      </div>
-      <div class="col-12 my-2">
-        <%= link_to new_genre_path do %>
-          <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> 新規ジャンル登録</button>
-        <% end %>
       </div>
     </div>
 
