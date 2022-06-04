@@ -4,6 +4,13 @@
   <div class = "container">
     <div class="row">
       <div class="col-md-8">
+
+      <div class="col-12 my-3 px-0 text-right">
+      <%= link_to new_plan_path do %>
+        <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> 新規目標登録</button>
+      <% end %>
+      </div>
+
         <% if @plans.size == 0 %>
           <div class="my-5">
           目標が登録されていません。
@@ -26,12 +33,12 @@
                       </span>
                       <% end %>
                     </div>
-                    <div class="col-8 col-md-4 my-2">
+                    <div class="col-12 col-md-4 my-2">
                       <div class="genre">
                         <i class="fas fa-tag"></i><%= get_genre_name(plan.genre_id)%>
                       </div>
                     </div>
-                    <div class="col-5 col-md-6">
+                    <div class="col-10 col-md-6">
                       <span class="dead-line"><i class="fas fa-calendar-check"></i><%= l plan.deadline, format: :short  %>
                     </div>
                   </div>
