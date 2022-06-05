@@ -74,6 +74,7 @@ class ReviewsController < ApplicationController
     @review.content_for_share = share_content
     if @review.save
       flash[:notice] = "振り返りを投稿しました"
+      redirect_to action: 'index'
     else
       flash.now[:alert] = "投稿に失敗しました"
       @plans = Plan.where(id: selected_plan_ids)
@@ -141,7 +142,8 @@ class ReviewsController < ApplicationController
     share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
     @review.content_for_share = share_content
     if @review.save
-      flash[:notice] = "振り返りを投稿しました"
+      flash[:notice] = "振り返りを修正しました"
+      redirect_to action: 'index'
     else
       flash.now[:alert] = "投稿に失敗しました"
       @plans = Plan.where(id: selected_plan_ids)
@@ -153,6 +155,12 @@ class ReviewsController < ApplicationController
   def destroy
     review = Review.find(params[:id])
     review.destroy
+    if review.errors.any?
+      flash[:notice] = review.errors.full_messages.first
+    else
+      flash[:notice] = "振り返りを削除しました"
+    end
+    redirect_to action: 'index'
   end
 
   def change_state
