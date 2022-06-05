@@ -12,7 +12,6 @@ class PlansController < ApplicationController
   end
 
   def get_genre_name(id)
-    # binding.pry
     genre = @genres.find{|array| array[:id] == id }
     genre.name    
   end
@@ -29,7 +28,7 @@ class PlansController < ApplicationController
     @plan.user_id = current_user.id
     if @plan.save
       flash[:notice] = "目標を投稿しました"
-      # redirect_to @plan
+      redirect_to action: 'index'
     else
       flash.now[:alert] = "投稿に失敗しました"
       @select_genre = Genre.where(user_id: current_user)
@@ -46,7 +45,7 @@ class PlansController < ApplicationController
     @plan = Plan.find(params[:id])
     if @plan.update(plan_params)
       flash[:notice] = "目標を修正しました"
-      # redirect_to @plan
+      redirect_to action: 'index'
     else
       flash.now[:alert] = "修正に失敗しました"
       @select_genre = Genre.where(user_id: current_user)
@@ -57,6 +56,12 @@ class PlansController < ApplicationController
   def destroy
     plan = Plan.find(params[:id])
     plan.destroy
+    if plan.errors.any?
+      flash[:notice] = plan.errors.full_messages.first
+    else
+      flash[:notice] = "目標を削除しました"
+    end
+    redirect_to action: 'index'
   end
 
   private
