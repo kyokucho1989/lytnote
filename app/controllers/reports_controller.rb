@@ -28,6 +28,7 @@ class ReportsController < ApplicationController
 
     if @report.save
       flash[:notice] = "日報を投稿しました"
+      redirect_to action: 'index'
     else
       flash.now[:alert] = "投稿に失敗しました"
       @select_genre = Genre.where(user_id: current_user)
@@ -54,6 +55,8 @@ class ReportsController < ApplicationController
   def destroy
     report = Report.find(params[:id])
     report.destroy
+    flash[:notice] = "日報を削除しました"
+    redirect_to action: 'index'
   end
 
   def update
@@ -71,6 +74,7 @@ class ReportsController < ApplicationController
 
     if @report.update_attributes(content_for_share: share_content)
       flash[:notice] = "日報を修正しました"
+      redirect_to action: 'index'
     else
       flash.now[:alert] = "修正に失敗しました"
       @select_genre = Genre.where(user_id: current_user)
