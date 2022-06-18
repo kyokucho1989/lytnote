@@ -1,5 +1,11 @@
 <div class="form-row nested-fields">
     <div class="my-2 col-3 col-md-3">
+			<%= f.text_field :genreset ,{:class => 'form-control' ,:list => 'datalistOptions3', :id => 'exampleDataList3', :value =>get_genre_name(@report.report_items.first.genre_id) } %>
+			<datalist id="datalistOptions3">
+			<% @select_genre.each do |genre| %>
+				<option value= <%= genre.name %> >
+			<% end %>
+			</datalist>
 	  	<%= f.collection_select :genre_id, @select_genre, :id, :name, {:include_blank => true ,:onchange => "alertDisp()" },class: "form-control  form-control-sm w-100"%>
     </div>
 		<div class="my-2 col-6 col-md-6">
