@@ -15,7 +15,7 @@ class Report < ApplicationRecord
     items = formatted_para[:report_items_attributes].values
     formatted_items = ""
     items.each do |item|
-      if item[:genre_id].empty?
+      if item[:genre_id].to_s.empty?
         genre_name = item[:genre_id]
       else
         genre_name = genres_set.assoc(item[:genre_id].to_i).last
