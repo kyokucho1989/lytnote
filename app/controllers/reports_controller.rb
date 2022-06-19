@@ -22,7 +22,6 @@ class ReportsController < ApplicationController
 
 
 
-
     para = report_genre_params[:report_items_attributes]
 
     report_lists = para.values
@@ -35,6 +34,7 @@ class ReportsController < ApplicationController
       @genre_new = Genre.find_by(name:genre_name,user_id: current_user)
       if @genre_new.nil?
         @genre_new = Genre.new("name"=> genre_name, "user_id" => current_user.id)
+        @genre_new.save
       end
       report[:genre_id] = @genre_new.id
     end
@@ -81,6 +81,7 @@ class ReportsController < ApplicationController
   def edit
     @report = Report.find(params[:id])
     @select_genre = Genre.where(user_id: current_user)
+    @genres = @select_genre
   end
 
   def destroy
@@ -119,7 +120,7 @@ class ReportsController < ApplicationController
     else
       genre = @genres.find{|array| array[:id] == id }
       genre.name 
-    end   
+    end
   end
 
   helper_method :get_genre_name
