@@ -12,16 +12,6 @@ class ReportsController < ApplicationController
   end
 
   def create
-    binding.pry
-
-#  ジャンル名登録
-# ジャンル名がDBにあるかどうか
-# あればそのジャンルidを返す
-# なければ新規ジャンル作成
-# そのジャンルidを返す
-
-
-
     para = report_genre_params[:report_items_attributes]
 
     report_lists = para.values
@@ -39,14 +29,12 @@ class ReportsController < ApplicationController
       report[:genre_id] = @genre_new.id
     end
 
-    binding.pry
     first_key = para.keys.first
     first_value = para.values.first
     para.reject! { |_key, value| value[:content] == "" }
     para[first_key] = first_value unless para.key?("content")
 
     para.values.map {|a| a.delete("genreset") }
-    binding.pry
     formatted_para = report_params
     formatted_para[:report_items_attributes] = para
     genres_set = get_genre_nameset
@@ -67,6 +55,15 @@ class ReportsController < ApplicationController
     end
   end
 
+  def get_genre_id(genre_name)
+    genre = Genre.find_by(name:genre_name,user_id: current_user)
+    if genre.nil?
+      genre = Genre.new("name"=> genre_name, "user_id" => current_user.id)
+      genre.save
+    end
+    genre.id
+  end
+
   def get_genre_nameset
     genres = Genre.where(user_id: current_user.id)
     genres.pluck(:id, :name)
@@ -82,6 +79,7 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
     @select_genre = Genre.where(user_id: current_user)
     @genres = @select_genre
+    # binding.pry/
   end
 
   def destroy
@@ -92,8 +90,14 @@ class ReportsController < ApplicationController
   end
 
   def update
+    update_params = report_genre_params
+    update_params[:report_items_attributes].values.each do |report|
+      genre_name = report[:genre_name]
+      report[:genre_id] = get_genre_id(genre_name)
+      report.delete("genre_name")
+    end
     @report = Report.find(params[:id])
-    if !@report.update_attributes(report_params)
+    if !@report.update_attributes(update_params)
       flash.now[:alert] = "修正に失敗しました"
       @select_genre = Genre.where(user_id: current_user)
       render :edit
@@ -101,7 +105,7 @@ class ReportsController < ApplicationController
     end
 
     genres_set = get_genre_nameset
-    share_content = Report.convert_content_shared(report_params, genres_set)
+    share_content = Report.convert_content_shared(update_params, genres_set)
     @report.update_attributes(content_for_share: share_content)
 
     if @report.update_attributes(content_for_share: share_content)
@@ -131,6 +135,6 @@ class ReportsController < ApplicationController
   end
 
   def report_genre_params
-    params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :genreset, :work_hours, :content_for_share, :id])
+    params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :genreset, :genre_name ,:work_hours, :content_for_share, :id])
   end
 end
