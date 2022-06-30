@@ -119,10 +119,10 @@ class ReportsController < ApplicationController
   end
 
   def get_genre_name(id)
-    if id.nil?
+    if id.nil? || id == 0
       " "
     else
-      genre = @genres.find{|array| array[:id] == id }
+      genre = @select_genre.find{|array| array[:id] == id }
       genre.name 
     end
   end
