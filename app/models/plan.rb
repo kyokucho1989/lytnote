@@ -1,6 +1,6 @@
 class Plan < ApplicationRecord
   belongs_to :user
-  belongs_to :genre
+  belongs_to :genre, optional: true
   has_many :review_items, dependent: :restrict_with_error
   accepts_nested_attributes_for :review_items
   validates :deadline, presence: true

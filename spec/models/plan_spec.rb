@@ -6,6 +6,15 @@ RSpec.describe Plan, type: :model do
     @genre = create(:genre, user: @user)
   end
 
+  context "ジャンルが空白" do
+    it "エラーが出ない" do
+      plan = Plan.new(name: "test", user_id: @user.id, genre_id: nil,\
+                      deadline: Date.today + 1, status: "進行中")
+      plan.valid?
+      expect(plan.valid?).to eq true
+    end
+  end
+
   context "nameが空白" do
     it "エラーが出る" do
       plan = Plan.new(name: nil, user_id: @user.id, genre_id: @genre.id,\

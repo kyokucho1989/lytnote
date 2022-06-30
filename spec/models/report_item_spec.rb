@@ -7,6 +7,14 @@ RSpec.describe ReportItem, type: :model do
     @report = create(:report, user_id: @user.id)
   end
 
+  context "ジャンルが空白" do
+    it "エラーが出ない" do
+      report_item = ReportItem.new(content: "参考書10ページ", report_id: @report.id, genre_id: nil, work_hours: 2.5)
+      report_item.valid?
+      expect(report_item.valid?).to eq true
+    end
+  end
+
   context "contentがない" do
     it "エラーが出る" do
       report_item = ReportItem.new(content: nil, report_id: @report.id, genre_id: @genre.id, work_hours: 2.5)
