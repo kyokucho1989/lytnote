@@ -16,9 +16,9 @@ class Report < ApplicationRecord
     formatted_items = ""
     items.each do |item|
       if item[:genre_id].to_s.empty?
-        genre_name = item[:genre_id]
+        genre_name = item[:genre_id].to_s
       else
-        genre_name = genres_set.assoc(item[:genre_id].to_i).last
+        genre_name = genres_set.assoc(item[:genre_id].to_i).last.to_s
       end
       formatted_items = formatted_items + "【" + genre_name + "】" + item[:content] + "   " + item[:work_hours] + "時間 \n"
     end

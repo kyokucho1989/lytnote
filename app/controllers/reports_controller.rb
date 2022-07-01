@@ -40,7 +40,9 @@ class ReportsController < ApplicationController
     genres_set = get_genre_nameset
 
     share_content = Report.convert_content_shared(formatted_para, genres_set)
-
+    formatted_para[:report_items_attributes].values.map{
+      |a| a.delete("genre_name")
+    }
     @report = Report.new(formatted_para)
     @report.user_id = current_user.id
     @report.content_for_share = share_content
