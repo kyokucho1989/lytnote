@@ -18,7 +18,7 @@
                         </div>
                         <div class="my-2 col-12 col-md-6">
                           <div class="genre">
-                          <i class="fas fa-tag"></i><%= @genres.assoc(item.genre_id).last %>
+                          <i class="fas fa-tag"></i><%= get_genre_name(item.genre_id) %>
                           </div>
                         </div>
                       </div>
