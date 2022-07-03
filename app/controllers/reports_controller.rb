@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
 
     report_lists = para.values
     report_lists.each do |report|
-      genre_name = report[:genreset]
+      genre_name = report[:genre_name]
       if genre_name.nil?
         report[:genre_id] = nil
         break
@@ -46,7 +46,7 @@ class ReportsController < ApplicationController
     @report = Report.new(formatted_para)
     @report.user_id = current_user.id
     @report.content_for_share = share_content
-
+binding.pry
     if @report.save
       flash[:notice] = "日報を投稿しました"
       redirect_to action: 'index'
@@ -75,6 +75,7 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
     @report_item_array = ReportItem.where(report_id: @report.id).to_a
     @genres = get_genre_nameset
+    @select_genre = Genre.where(user_id: current_user)
   end
 
   def edit
