@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
+  include Component
+
   def index
     @reviews = Review.where(user_id: current_user.id).page(params[:page])
   end
@@ -29,15 +31,6 @@ class ReviewsController < ApplicationController
   def get_genre_nameset
     genres = Genre.where(user_id: current_user.id)
     genres.pluck(:id, :name)
-  end
-
-  def get_genre_name(id)
-    if id.nil? || id == 0
-      " "
-    else
-      genre = @select_genre.find{|array| array[:id] == id }
-      genre.name 
-    end
   end
 
   helper_method :get_genre_name
