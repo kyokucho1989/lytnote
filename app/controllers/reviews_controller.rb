@@ -5,12 +5,14 @@ class ReviewsController < ApplicationController
   end
 
   def show
+    @select_genre = Genre.where(user_id: current_user)
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id: @review.id).to_a
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
   end
 
   def new
+    @select_genre = Genre.where(user_id: current_user)
     # 振り返る目標が選択されていない
     if !params[:checked_plan]
       flash[:notice] = "目標を選択してください"
@@ -30,12 +32,18 @@ class ReviewsController < ApplicationController
   end
 
   def get_genre_name(id)
-    @genres = Genre.where(user_id: current_user.id)
-    @genres.where(id: id).first[:name]
+    if id.nil? || id == 0
+      " "
+    else
+      genre = @select_genre.find{|array| array[:id] == id }
+      genre.name 
+    end
   end
+
   helper_method :get_genre_name
 
   def create
+    @select_genre = Genre.where(user_id: current_user)
     @review = Review.new(review_params)
     @review.user_id = current_user.id
 
@@ -84,7 +92,7 @@ class ReviewsController < ApplicationController
   end
 
   def select_plan
-    
+    @select_genre = Genre.where(user_id: current_user)
     @plans_all = Plan.where(user_id: current_user.id)
     plans1 = Plan.left_joins(:review_items).where(review_items: { id: nil }).where(user_id: current_user.id)
     plans2 = Plan.left_joins(:review_items).where(status: "進行中").where(user_id: current_user.id)
@@ -93,6 +101,7 @@ class ReviewsController < ApplicationController
   end
 
   def re_select_plan
+    @select_genre = Genre.where(user_id: current_user)
     @plans = Plan.where(user_id: current_user.id)
     review_item = ReviewItem.where(review_id: params[:id])
     @selected_plan_ids = review_item.pluck(:plan_id).to_a

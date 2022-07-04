@@ -46,7 +46,6 @@ class ReportsController < ApplicationController
     @report = Report.new(formatted_para)
     @report.user_id = current_user.id
     @report.content_for_share = share_content
-binding.pry
     if @report.save
       flash[:notice] = "日報を投稿しました"
       redirect_to action: 'index'
