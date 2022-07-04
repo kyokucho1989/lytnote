@@ -1,5 +1,7 @@
 class PlansController < ApplicationController
   before_action :authenticate_user!, except: :index
+  include Component
+
   def index
     if user_signed_in?
       @plans = Plan.includes(:user).where(user_id: current_user.id).page(params[:page])
@@ -10,15 +12,6 @@ class PlansController < ApplicationController
       @plans = Plan.where(user_id: 0)
       @genres = Genre.where(user_id: 0)
     end
-  end
-
-  def get_genre_name(id)
-    if id.nil? || id == 0
-      " "
-    else
-      genre = @select_genre.find{|array| array[:id] == id }
-      genre.name 
-    end   
   end
 
   helper_method :get_genre_name

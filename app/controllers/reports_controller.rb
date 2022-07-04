@@ -1,5 +1,7 @@
 class ReportsController < ApplicationController
   before_action :authenticate_user!
+  include Component
+  
   def index
     @reports = Report.where(user_id: current_user.id).page(params[:page])
     @genres_set = get_genre_nameset
@@ -117,15 +119,6 @@ class ReportsController < ApplicationController
       flash.now[:alert] = "修正に失敗しました"
       @select_genre = Genre.where(user_id: current_user)
       render :edit
-    end
-  end
-
-  def get_genre_name(id)
-    if id.nil? || id == 0
-      " "
-    else
-      genre = @select_genre.find{|array| array[:id] == id }
-      genre.name 
     end
   end
 
