@@ -7,10 +7,4 @@ module Component
       genre.name 
     end   
   end
-
-  def get_genre_nameset
-    genres = Genre.where(user_id: current_user.id)
-    genres.pluck(:id, :name)
-  end
-  
 end
