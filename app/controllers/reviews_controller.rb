@@ -103,7 +103,7 @@ class ReviewsController < ApplicationController
       redirect_to request.referer
       return
     end
-    
+
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id: @review.id).to_a
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
@@ -127,13 +127,13 @@ class ReviewsController < ApplicationController
     selected_plan_ids.each do |plan_id|
       update_plan_params = plan_params[plan_id]
       @plan = Plan.find(plan_id)
-      if !@plan.update(update_plan_params)
-        flash.now[:alert] = "投稿に失敗しました"
-        @review_item_array = ReviewItem.where(review_id: @review.id).to_a
-        @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
-        render :edit
-        return
-      end
+      next if @plan.update(update_plan_params)
+
+      flash.now[:alert] = "投稿に失敗しました"
+      @review_item_array = ReviewItem.where(review_id: @review.id).to_a
+      @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
+      render :edit
+      return
     end
     after_plan_state = Plan.find(selected_plan_ids)
     genres_set = get_genre_nameset
@@ -153,11 +153,11 @@ class ReviewsController < ApplicationController
   def destroy
     review = Review.find(params[:id])
     review.destroy
-    if review.errors.any?
-      flash[:notice] = review.errors.full_messages.first
-    else
-      flash[:notice] = "振り返りを削除しました"
-    end
+    flash[:notice] = if review.errors.any?
+                       review.errors.full_messages.first
+                     else
+                       "振り返りを削除しました"
+                     end
     redirect_to action: 'index'
   end
 
@@ -185,6 +185,6 @@ class ReviewsController < ApplicationController
   end
 
   def review_update_params
-    params.require(:review).permit(:content, :reviewed_on, plans: {}, review_items_attributes: [:deadline_after_review, :status_after_review, :id])
+    params.require(:review).permit(:content, :reviewed_on, plans: {}, review_items_attributes: %i[deadline_after_review status_after_review id])
   end
 end

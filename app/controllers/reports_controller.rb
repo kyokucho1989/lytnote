@@ -130,6 +130,7 @@ class ReportsController < ApplicationController
   end
 
   def report_genre_params
-    params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :genreset, :genre_name ,:work_hours, :content_for_share, :id])
+    params.require(:report).permit(:content, :reported_on, 
+                                   report_items_attributes: [:content, :genre_id, :genreset, :genre_name ,:work_hours, :content_for_share, :id])
   end
 end
