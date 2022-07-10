@@ -28,10 +28,10 @@ class ReviewsController < ApplicationController
     @plan = Plan.new
   end
 
-  def get_genre_nameset
-    genres = Genre.where(user_id: current_user.id)
-    genres.pluck(:id, :name)
-  end
+  # def get_genre_nameset
+  #   genres = Genre.where(user_id: current_user.id)
+  #   genres.pluck(:id, :name)
+  # end
 
   helper_method :get_genre_name
 
@@ -86,11 +86,7 @@ class ReviewsController < ApplicationController
 
   def select_plan
     @select_genre = Genre.where(user_id: current_user)
-    @plans_all = Plan.where(user_id: current_user.id)
-    plans1 = Plan.left_joins(:review_items).where(review_items: { id: nil }).where(user_id: current_user.id)
-    plans2 = Plan.left_joins(:review_items).where(status: "進行中").where(user_id: current_user.id)
-    @plans = plans1.or(plans2)
-    @review = Review.new
+    @plans = Plan.where(user_id: current_user.id, status: "進行中")
   end
 
   def re_select_plan
@@ -101,7 +97,7 @@ class ReviewsController < ApplicationController
   end
 
   def edit
-
+    @select_genre = Genre.where(user_id: current_user)
     if !params[:checked_plan]
       flash[:notice] = "目標を選択してください"
       redirect_to request.referer

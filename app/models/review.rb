@@ -12,8 +12,9 @@ class Review < ApplicationRecord
     formatted_items = ""
     (0...before_plan_state.size).each do |i|
       genre_id = before_plan_state[i].genre_id
+      binding.pry
       if genre_id.to_s.empty?
-        genre_name = item[:genre_id].to_s
+        genre_name = ""
       else
         genre_name = genres_set.assoc(genre_id).last
       end
