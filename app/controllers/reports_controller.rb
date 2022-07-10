@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   include Component
   
   def index
-    @reports = Report.where(user_id: current_user.id).page(params[:page])
+    @reports= Report.where(user_id: current_user.id).page(params[:page]).order(reported_on: :desc)
     @genres_set = get_genre_nameset
   end
 
