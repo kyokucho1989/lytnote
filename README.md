@@ -30,12 +30,20 @@
 ## 使用方法
 
 ### STEP1: 目標設定
+<img src="app/assets/images/screen1.png" width="300px">
+
 目標と締め切りを設定しましょう。難しく考えずにOK。
 
 ### STEP2: 日報登録
+<img src="app/assets/images/screen2.png" width="300px">
+
 日々の作業を記録しましょう。かけた時間だけでなく、そのとき考えたこともコメントとして残すことができます。
 
 ### STEP3: 振り返り投稿
+<img src="app/assets/images/screen3.png" width="300px">
+
+<img src="app/assets/images/screen4.png" width="300px">
+
 週に一度程度のペースで振り返りを行いましょう。目標を達成したかどうか、達成できなかった理由を記録します。
 
 ### STEP4: どんどん繰り返す！
