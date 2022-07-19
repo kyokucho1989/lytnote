@@ -48,15 +48,14 @@
                       </span>
                       <% end %>
                     </div>
-                      <div class="col-lg-3  col-8 genre">  
-                          <i class="fas fa-tag"></i><%= get_genre_name(plan.genre_id)%>
-                      </div>
-                      <div class="col-lg-3 col-8 dead-line">
-                        <i class="fas fa-calendar-check"></i><%= l plan.deadline, format: :short  %>
-                      </div>
-                      
+                    <div class="col-lg-3  col-8 genre">  
+                        <i class="fas fa-tag"></i><%= get_genre_name(plan.genre_id)%>
                     </div>
-                    <div class="row">
+                    <div class="col-lg-3 col-8 dead-line">
+                      <i class="fas fa-calendar-check"></i><%= l plan.deadline, format: :short  %>
+                    </div>   
+                  </div>
+                  <div class="row">
                     <div class="col-8 my-4 px-3">
                       <label for="label-report" class="form-label">変更後のステータス</label>
                       <p><%= f.select :status, ["進行中","中止","完了"] ,{class: "form-control"}%></p>             
@@ -69,20 +68,21 @@
                           </p>
                         <% end %>
                     </div>
-                    </div>
+                  </div>
                   
                   
                   <hr>
                 <% end %>
-            <div class="form-group mb-4">
-            <label for="label-report" class="form-label">コメント</label>
-            <%= form.text_area :content , class:"form-control" ,size: "2x3" %>
-          </div>
-          <%= form.submit "登録" ,{class: "btn-primary btn-lg"}%>
-        <% end %>
+                <div class="form-group mb-4">
+                  <label for="label-report" class="form-label">コメント</label>
+                  <%= form.text_area :content , class:"form-control" ,size: "2x3" %>
+                </div>
+                <%= form.submit "登録" ,{class: "btn-primary btn-lg"}%>
+              <% end %>
+            </div>
         </div>
       </div>
+      <%= link_to "キャンセル（振り返り一覧へ戻る）", reviews_path %>
     </div>
   </div>
-</div>
 </div>

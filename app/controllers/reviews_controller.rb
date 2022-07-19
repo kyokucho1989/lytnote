@@ -1,16 +1,21 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
+  include Component
+
   def index
-    @reviews = Review.where(user_id: current_user.id).page(params[:page])
+    reviews_nonorder = Review.where(user_id: current_user.id).page(params[:page])
+    @reviews =  reviews_nonorder.order(reviewed_on: :desc)
   end
 
   def show
+    @select_genre = Genre.where(user_id: current_user)
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id: @review.id).to_a
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
   end
 
   def new
+    @select_genre = Genre.where(user_id: current_user)
     # 振り返る目標が選択されていない
     if !params[:checked_plan]
       flash[:notice] = "目標を選択してください"
@@ -24,18 +29,15 @@ class ReviewsController < ApplicationController
     @plan = Plan.new
   end
 
-  def get_genre_nameset
-    genres = Genre.where(user_id: current_user.id)
-    genres.pluck(:id, :name)
-  end
+  # def get_genre_nameset
+  #   genres = Genre.where(user_id: current_user.id)
+  #   genres.pluck(:id, :name)
+  # end
 
-  def get_genre_name(id)
-    @genres = Genre.where(user_id: current_user.id)
-    @genres.where(id: id).first[:name]
-  end
   helper_method :get_genre_name
 
   def create
+    @select_genre = Genre.where(user_id: current_user)
     @review = Review.new(review_params)
     @review.user_id = current_user.id
 
@@ -74,6 +76,7 @@ class ReviewsController < ApplicationController
     @review.content_for_share = share_content
     if @review.save
       flash[:notice] = "振り返りを投稿しました"
+      redirect_to action: 'index'
     else
       flash.now[:alert] = "投稿に失敗しました"
       @plans = Plan.where(id: selected_plan_ids)
@@ -83,22 +86,19 @@ class ReviewsController < ApplicationController
   end
 
   def select_plan
-    
-    @plans_all = Plan.where(user_id: current_user.id)
-    plans1 = Plan.left_joins(:review_items).where(review_items: { id: nil }).where(user_id: current_user.id)
-    plans2 = Plan.left_joins(:review_items).where(status: "進行中").where(user_id: current_user.id)
-    @plans = plans1.or(plans2)
-    @review = Review.new
+    @select_genre = Genre.where(user_id: current_user)
+    @plans = Plan.where(user_id: current_user.id, status: "進行中")
   end
 
   def re_select_plan
+    @select_genre = Genre.where(user_id: current_user)
     @plans = Plan.where(user_id: current_user.id)
     review_item = ReviewItem.where(review_id: params[:id])
     @selected_plan_ids = review_item.pluck(:plan_id).to_a
   end
 
   def edit
-
+    @select_genre = Genre.where(user_id: current_user)
     if !params[:checked_plan]
       flash[:notice] = "目標を選択してください"
       redirect_to request.referer
@@ -141,7 +141,8 @@ class ReviewsController < ApplicationController
     share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
     @review.content_for_share = share_content
     if @review.save
-      flash[:notice] = "振り返りを投稿しました"
+      flash[:notice] = "振り返りを修正しました"
+      redirect_to action: 'index'
     else
       flash.now[:alert] = "投稿に失敗しました"
       @plans = Plan.where(id: selected_plan_ids)
@@ -153,6 +154,12 @@ class ReviewsController < ApplicationController
   def destroy
     review = Review.find(params[:id])
     review.destroy
+    if review.errors.any?
+      flash[:notice] = review.errors.full_messages.first
+    else
+      flash[:notice] = "振り返りを削除しました"
+    end
+    redirect_to action: 'index'
   end
 
   def change_state

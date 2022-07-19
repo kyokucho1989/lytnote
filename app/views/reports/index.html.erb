@@ -49,7 +49,7 @@
                       </div>
                       <div class="col-12 col-md-6">
                         <div class="genre">
-                        <i class="fas fa-tag"></i><%= @genres_set.assoc(item.genre_id).last %>
+                        <i class="fas fa-tag"></i><%= item.genre_id.nil?  ?  '' : @genres_set.assoc(item.genre_id).last %>
                         </div>
                       </div>
                     </div>

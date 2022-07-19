@@ -12,7 +12,12 @@ class Review < ApplicationRecord
     formatted_items = ""
     (0...before_plan_state.size).each do |i|
       genre_id = before_plan_state[i].genre_id
-      genre_name = genres_set.assoc(genre_id).last
+      if genre_id.to_s.empty?
+        genre_name = item[:genre_id].to_s
+      else
+        genre_name = genres_set.assoc(genre_id).last
+      end
+      
       name = before_plan_state[i].name
       before_state = before_plan_state[i].status
       before_deadline = before_plan_state[i].deadline.strftime("%m月%d日")
