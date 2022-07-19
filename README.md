@@ -24,31 +24,36 @@
 
 　そこで記録に目標設定+振り返りの機能をつけた新しいアプリをつくることにしました。
 
-　
 
 
 ## 使用方法
 
 ### STEP1: 目標設定
-<img src="app/assets/images/screen1.png">
+<img src="app/assets/images/screen1.png" width="500px">
 
 目標と締め切りを設定しましょう。難しく考えずにOK。
 
 ### STEP2: 日報登録
-<img src="app/assets/images/screen2.png">
+<img src="app/assets/images/screen2.png" width="500px">
 
 日々の作業を記録しましょう。かけた時間だけでなく、そのとき考えたこともコメントとして残すことができます。
 
 ### STEP3: 振り返り投稿
-<img src="app/assets/images/screen3.png">
+<img src="app/assets/images/screen3.png" width="500px">
 
-<img src="app/assets/images/screen4.png">
+<img src="app/assets/images/screen4.png" width="500px">
 
 週に一度程度のペースで振り返りを行いましょう。目標を達成したかどうか、達成できなかった理由を記録します。
 
 ### STEP4: どんどん繰り返す！
 Step1-3をどんどん繰り返しましょう。
 
+
+## 工夫したところ
+
+## 困ったところ
+
+##　どんなふうに克服したか
 
 ## ⚙️ 使用技術
 - Ruby 2.6.6
