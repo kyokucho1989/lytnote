@@ -28,7 +28,7 @@
               <%= f.text_field :genreset ,{:class => 'form-control' ,:list => 'datalistOptions2', :id => 'exampleDataList2', :value =>get_genre_name(f.object.genre_id) } %>
               <datalist id="datalistOptions2">
               <% @select_genre.each do |genre| %>
-                <option value= <%= genre.name %> >
+                <option><%= genre.name %></option>
               <% end %>
               </datalist>
             </div>
