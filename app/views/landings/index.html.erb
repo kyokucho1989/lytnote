@@ -1,27 +1,32 @@
 
 <main role="main">
-  <div class="jumbotron" >
-    <div class ="container">
-      <h1 class="display-5">簡単に記録し、着実に成長する</h1>
-      <p>lyt-note（ライトノート）は目標を設定し、日々の記録を残せるサービスです。振り返り機能を用いて、自身の成長を実感することができます。</p>
-      <p>
-        <%= link_to "つかってみる（ゲストログイン）", users_guest_sign_in_path, method: :post ,class: "btn btn-primary btn-lg" %>
-      </p>
-    </div>
+  <div id="home-section">
+    <div  class="dark-overlay">
+      <div class ="container home-inner text-light">
+        <h1 class="display-5 mb-5">簡単に記録し、着実に成長する</h1>
+        <p>lyt-note（ライトノート）は目標を設定し、日々の記録を残せるサービスです。振り返り機能を用いて、自身の成長を実感することができます。</p>
+        <p class="mb-4">
+          <%= link_to "つかってみる（ゲストログイン）", users_guest_sign_in_path, method: :post ,class: "btn btn-primary btn-lg" %>
+        </p>
+      </div>
+      </div>
   </div>
   <div class ="container">
     <div class="row"> 
       <div class="col-md-4 col-sm-12">
-        <h2>STEP1 目標を設定する</h2>
-        <p>目標と締め切りを設定しましょう。難しく考えずにOK。</p>
+        <h2>Step1 目標を立てる</h2>
+        <p>目標と締め切りを設定しましょう。難しく考えずにOK。「勉強をがんばる!! 」だけでも良いです。</p>
+        <%= image_tag '/Goal-rafiki.png',width:"300px" %>
       </div>
       <div class="col-md-4 col-sm-12">
-        <h2>STEP2 記録する</h2>
+        <h2>Step2 記録する</h2>
         <p>日々の作業を記録しましょう。かけた時間だけでなく、そのとき考えたこともコメントとして残すことができます。</p>
+        <%= image_tag '/Notes-bro.png',width:"300px" %>
       </div>
         <div class="col-md-4 col-sm-12">
-        <h2>STEP3 振り返る</h2>
+        <h2>Step3 振り返る</h2>
         <p>週に一度程度のペースで振り返りを行いましょう。目標を達成したかどうか、達成できなかった理由を記録します。</p>
+        <%= image_tag '/Checklist-rafiki.png',width:"300px" %>
       </div>
   </div>
 </main>

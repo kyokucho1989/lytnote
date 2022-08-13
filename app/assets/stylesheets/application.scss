@@ -61,6 +61,31 @@
   color: #D1345B; 
   font-size:1rem;
  }
+
+
+
+ #home-section {
+  background: url(../alvaro-serrano-hjwKMkehBco-unsplash.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 320px;
+  margin-bottom: 32px;
+ }
+
+ #home-section .dark-overlay{
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 320px;
+  background: rgba(33, 39, 64, 0.7);
+}
+#home-section .home-inner{
+  padding-top:32px;
+  padding-bottom:32px;
+}
 // .row-title {
 //   border-bottom: 2px solid #aaa;
 //   background-color: #fff;
