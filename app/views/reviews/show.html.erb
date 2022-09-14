@@ -11,49 +11,42 @@
             <div class="row mt-4">
               <div class="col-12">
                 <div class="row">
-                <div class="col-12">
-                  <%= plan.name %>
-                  <% if plan.status == "完了" %>
-                  <span class="badge bg-success pt-2 pb-2 ">
-                  <%= plan.status %>
-                  </span>
-                  <% elsif plan.status == "中止" %>
-                  <span class="badge bg-dark pt-2 pb-2 text-white">
-                  <%= plan.status %>
-                  </span>
-                  <% end %>
-                </div>
-                <div class="col-12 col-md-4 my-2">
-                  <div class="genre">
-                    <i class="fas fa-tag"></i><%= get_genre_name(plan.genre_id)%>
+                  <div class="col-12">
+                    <%= plan.name %>
+                    <% if plan.status == "完了" %>
+                    <span class="badge bg-success pt-2 pb-2 ">
+                    <%= plan.status %>
+                    </span>
+                    <% elsif plan.status == "中止" %>
+                    <span class="badge bg-dark pt-2 pb-2 text-white">
+                    <%= plan.status %>
+                    </span>
+                    <% end %>
                   </div>
-                </div>
-                <div class="col-10 col-md-6">
-                  <span class="dead-line"><i class="fas fa-calendar-check"></i><%= l plan.deadline, format: :short  %>
-                </div>
-                  
+                  <div class="col-12 col-md-4 my-2">
+                    <div class="genre">
+                      <i class="fas fa-tag"></i><%= get_genre_name(plan.genre_id)%>
+                    </div>
+                  </div>
+                  <div class="col-10 col-md-6">
+                    <span class="dead-line"><i class="fas fa-calendar-check"></i><%= l plan.deadline, format: :short  %>
+                  </div>               
                 </div>
               </div>
             </div>
           <% end %>
           <div class="form-group mb-4">
-          <h6>コメント</h6>
+            <h6>コメント</h6>
             <div class="card-body">
-            <%= @review.content %>
+              <%= @review.content %>
             </div>
           </div>
-          <div class="form-group mb-4">
-          <h6>共有用文章</h6>
-            <div class="card-body bg-light">
-            <%= simple_format(@review.content_for_share) %>
+          
+     
+          <div class="row px-3 mt-2">
+            <%= link_to "目標再選択/編集", re_select_plan_review_path(@review) %>
           </div>
         </div>
-     
-        <div class="row px-3 mt-2">
-          <%= link_to "目標再選択/編集", re_select_plan_review_path(@review) %>
-        </div>
-
-      </div>
 
   </div>
   <div class="row px-3 mt-2">
