@@ -39,6 +39,7 @@ $(document).on("page:load turbolinks:load", function() {
   $(select_field).change(function(){
     let state = this.value;
     let state_id = this.id;
+    console.log(this);
     $.ajax({
       type: 'GET', // リクエストのタイプ
       url: '/reviews/change_state', // リクエストを送信するURL

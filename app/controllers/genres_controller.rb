@@ -11,6 +11,9 @@ class GenresController < ApplicationController
 
   def edit
     @genre = Genre.find(params[:id])
+    unless @genre.user_id == current_user.id
+      redirect_to action: 'index'
+    end
   end
 
   def update
