@@ -31,10 +31,8 @@
   <div id="logo">
   <%= link_to image_tag('/logo.png', class:"img-logo"), plans_path %>
   </div>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+  <div class="navbar-expand-sm" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <% if user_signed_in? %>
         <li class="nav-item">
@@ -48,15 +46,12 @@
           <%= link_to "振り返り", reviews_path ,class: "nav-link"%>
         </li>
 
-        <li class="nav-item">
-        <%= link_to "ジャンル設定", genres_path ,class: "nav-link"%>
-        </li>
-
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            アカウント
+            設定
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <%= link_to "ジャンル設定", genres_path, class:"dropdown-item" %>
             <%= link_to "アカウント編集", edit_user_registration_path, class:"dropdown-item" %>
             <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } , class:"dropdown-item"%>
             <%= "【ログイン中のアドレス】#{current_user.email}" %>
