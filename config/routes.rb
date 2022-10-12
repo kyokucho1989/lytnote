@@ -26,4 +26,6 @@ Rails.application.routes.draw do
       get 'change_state'
     end
   end
+
+  get '*not_found' => 'application#page_not_found'
 end
