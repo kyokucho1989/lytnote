@@ -3,10 +3,10 @@ class ApplicationController < ActionController::Base
     plans_path
   end
 
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-
-  private
-    def record_not_found
-      render template: "layouts/error", status: 404
-    end
+  rescue_from ActiveRecord::RecordNotFound, with: :page_not_found
+  
+  def page_not_found
+    render template: "layouts/error", status: 404
+  end
+  
 end
