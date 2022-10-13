@@ -16,14 +16,9 @@
                       <div class="row">
                         <div class="col-12 col-md-4">
                           <%= plan.name %>
-                          <% if plan.status == "完了" %>
-                            <span class="badge bg-success pt-2 pb-2 ">
-                              <%= plan.status %>
-                            </span>
-                          <% elsif plan.status == "中止" %>
-                            <span class="badge bg-dark pt-2 pb-2 text-white">
-                              <%= plan.status %>
-                            </span>
+                          <span class="badge pt-2 pb-2 <%= status_color(plan.status) %>">
+                          <%= plan.status %>
+                          </span>
                           <% end %>
                         </div>
                         <div class="col-8 col-md-5">
