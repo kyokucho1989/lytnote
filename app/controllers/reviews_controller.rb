@@ -73,18 +73,6 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def select_plan
-    @select_genre = Genre.where(user_id: current_user)
-    @plans = Plan.where(user_id: current_user.id, status: "進行中")
-  end
-
-  def re_select_plan
-    @select_genre = Genre.where(user_id: current_user)
-    @plans = Plan.where(user_id: current_user.id)
-    review_item = ReviewItem.where(review_id: params[:id])
-    @selected_plan_ids = review_item.pluck(:plan_id).to_a
-  end
-
   def edit
     @select_genre = Genre.where(user_id: current_user)
     @review = Review.find(params[:id])
