@@ -16,23 +16,11 @@ class ReviewsController < ApplicationController
 
   def new
     @select_genre = Genre.where(user_id: current_user)
-    # 振り返る目標が選択されていない
-    if !params[:checked_plan]
-      flash[:notice] = "目標を選択してください"
-      redirect_to request.referer
-      return
-    end
     @review = Review.new
-    selected_plan_ids = select_plan_params[:checked_plan].map(&:to_i)
-    @plans = Plan.where(id: selected_plan_ids)
+    @plans = Plan.where(user_id: current_user.id, status: "進行中")
     @review_item_array = Array.new(@plans.size, ReviewItem.new)
     @plan = Plan.new
   end
-
-  # def get_genre_nameset
-  #   genres = Genre.where(user_id: current_user.id)
-  #   genres.pluck(:id, :name)
-  # end
 
   helper_method :get_genre_name
 
@@ -85,26 +73,8 @@ class ReviewsController < ApplicationController
     end
   end
 
-  def select_plan
-    @select_genre = Genre.where(user_id: current_user)
-    @plans = Plan.where(user_id: current_user.id, status: "進行中")
-  end
-
-  def re_select_plan
-    @select_genre = Genre.where(user_id: current_user)
-    @plans = Plan.where(user_id: current_user.id)
-    review_item = ReviewItem.where(review_id: params[:id])
-    @selected_plan_ids = review_item.pluck(:plan_id).to_a
-  end
-
   def edit
     @select_genre = Genre.where(user_id: current_user)
-    if !params[:checked_plan]
-      flash[:notice] = "目標を選択してください"
-      redirect_to request.referer
-      return
-    end
-    
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id: @review.id).to_a
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))

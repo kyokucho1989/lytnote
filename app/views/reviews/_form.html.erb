@@ -16,6 +16,9 @@
 <div class = "container py-5">
   <div class="row">
     <div class="col-md-8">
+      <% if @plans.blank? %>
+        <p>進行中の目標がありません。新たに目標を作成してください。</p>
+      <% else %>
       <div class="card rounded-3">
         <div class="card-body">
           <%= form_with model: @review, local: true do |form| %>
@@ -34,19 +37,9 @@
                   <div class="row">
                     <div class="col-lg-6 col-12">
                       <%= plan.name %>
-                      <% if plan.status == "完了" %>
-                      <span class="badge bg-success pt-2 pb-2 ">
+                      <span class="badge pt-2 pb-2 <%= status_color(plan.status) %>">
                       <%= plan.status %>
                       </span>
-                      <% elsif plan.status == "中止" %>
-                      <span class="badge bg-dark pt-2 pb-2 text-white">
-                      <%= plan.status %>
-                      </span>
-                      <% elsif plan.status == "進行中" %>
-                      <span class="badge bg-light pt-2 pb-2">
-                      <%= plan.status %>
-                      </span>
-                      <% end %>
                     </div>
                     <div class="col-lg-3  col-8 genre">  
                         <i class="fas fa-tag"></i><%= get_genre_name(plan.genre_id)%>
@@ -80,9 +73,10 @@
                 <%= form.submit "登録" ,{class: "btn-primary btn-lg"}%>
               <% end %>
             </div>
-        </div>
+          </div>     
       </div>
       <%= link_to "キャンセル（振り返り一覧へ戻る）", reviews_path %>
+      <% end %>
     </div>
   </div>
 </div>

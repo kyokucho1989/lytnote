@@ -14,14 +14,6 @@ Rails.application.routes.draw do
   resources :report_items, only: [:index, :destroy]
   resources :genres, except: :show
   resources :reviews do
-    member do
-      get 're_select_plan'
-    end
-
-    collection do
-      get 'select_plan'
-    end
-
     collection do
       get 'change_state'
     end
