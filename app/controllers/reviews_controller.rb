@@ -87,12 +87,6 @@ class ReviewsController < ApplicationController
 
   def edit
     @select_genre = Genre.where(user_id: current_user)
-    if !params[:checked_plan]
-      flash[:notice] = "目標を選択してください"
-      redirect_to request.referer
-      return
-    end
-    
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id: @review.id).to_a
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
