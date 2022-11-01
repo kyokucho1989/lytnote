@@ -4,6 +4,8 @@ class Review < ApplicationRecord
   accepts_nested_attributes_for :review_items
   validates :reviewed_on, presence: true, uniqueness: { scope: :user }
   validates :content, length: { maximum: 200 }, presence: true
+  validate :progress_total_count_cannot_set_exceeded_limit
+
 
   def self.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
     date = review_params[:reviewed_on]
