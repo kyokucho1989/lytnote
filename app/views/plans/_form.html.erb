@@ -36,7 +36,7 @@
             <label for="label-deadline" class="form-label">締め切り</label>
             <%= f.date_field :deadline,  {class: "form-control"} %>
             </div>
-            <%= f.hidden_field :status, :value => "進行中" %>
+            
             <%= f.submit   "#{title}" ,{class: "btn-primary btn-lg"}%>
           <% end %>
         </div>
