@@ -34,6 +34,7 @@ class PlansController < ApplicationController
     @genre_new.save
     @plan = Plan.new(plan_params)
     @plan.user_id = current_user.id
+    @plan.status = "進行中"
     @plan.genre_id = @genre_new.id
     if @plan.save
       flash[:notice] = "目標を投稿しました"
