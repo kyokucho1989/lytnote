@@ -12,7 +12,7 @@ class Plan < ApplicationRecord
   PROGRESS_MAX_COUNT = 3
   def progress_total_count_cannot_set_exceeded_limit
     count_in_progress = user.plans.where(status: "進行中").count
-    if count_in_progress > PROGRESS_MAX_COUNT
+    if count_in_progress >= PROGRESS_MAX_COUNT
       errors.add(:status, ":「進行中」の目標の数は、3個までです") 
     end
   end
