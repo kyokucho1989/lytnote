@@ -32,45 +32,45 @@ class ReviewsController < ApplicationController
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
+    
+    @plan = Plan.new
+    all_valid = true
+    ActiveRecord::Base.transaction do
+      all_valid &= @review.save
+      plan_keys.each_with_index do |id, i|
+        
+        @plan_select = Plan.find(id)
+        
+        if !@plan_select.update(item[i])
+          @plan.errors.merge!(@plan_select.errors)
+          all_valid = false
+        end
+      end
 
-    if !@review.save
-      flash.now[:alert] = "投稿に失敗しました"
-      @plans = Plan.where(id: plan_keys)
-      @plan = Plan.new
-      @review_item_array = Array.new(@plans.size, ReviewItem.new)
-      render :new
-      return
+      if !all_valid 
+        raise ActiveRecord::Rollback
+      end
+
     end
+    if all_valid
+      plan_keys.each_with_index do |id, i|    
+        @plan = Plan.find(id)
+        all_valid &= @review.review_items.create!(plan_id: id)
+      end
+    end 
 
-    before_plan_state = Plan.find(plan_keys)
-
-    plan_keys.each_with_index do |id, i|
-      @plan = Plan.find(id)
-      if !@plan.update(item[i])
-        flash.now[:alert] = "投稿に失敗しました"
+    if !all_valid 
+      flash.now[:alert] = "投稿に失敗しました"
         @plans = Plan.where(id: plan_keys)
         @review_item_array = Array.new(@plans.size, ReviewItem.new)
+        binding.pry
         render :new
-        return
-      end
-      @review.review_items.create!(plan_id: id)
-    end
-
-    after_plan_state = Plan.find(plan_keys)
-
-    genres_set = get_genre_nameset
-    share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
-
-    @review.content_for_share = share_content
-    if @review.save
+    else
       flash[:notice] = "振り返りを投稿しました"
       redirect_to action: 'index'
-    else
-      flash.now[:alert] = "投稿に失敗しました"
-      @plans = Plan.where(id: selected_plan_ids)
-      @review_item_array = Array.new(@plans.size, ReviewItem.new)
-      render :new
     end
+
+      genres_set = get_genre_nameset
   end
 
   def edit
@@ -82,6 +82,7 @@ class ReviewsController < ApplicationController
   end
 
   def update
+    @select_genre = Genre.where(user_id: current_user)
     @review = Review.find(params[:id])
     if !@review.update(review_params)
       flash.now[:alert] = "投稿に失敗しました"
