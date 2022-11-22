@@ -63,7 +63,6 @@ class ReviewsController < ApplicationController
       flash.now[:alert] = "投稿に失敗しました"
         @plans = Plan.where(id: plan_keys)
         @review_item_array = Array.new(@plans.size, ReviewItem.new)
-        binding.pry
         render :new
     else
       flash[:notice] = "振り返りを投稿しました"

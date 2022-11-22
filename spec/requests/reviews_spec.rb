@@ -17,7 +17,7 @@ RSpec.describe "Reviews", type: :request do
     @user = create(:user)
     @genre = create(:genre, user: @user)
     @plan = create(:plan, user: @user, genre: @genre)
-    @review_list = create_list(:review, 3, user: @user)
+    @review_list = create_list(:review, 1, user: @user)
   end
 
   before(:example) do
