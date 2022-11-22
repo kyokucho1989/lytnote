@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   include Component
 
   def index
-    reviews_nonorder = Review.where(user_id: current_user.id).page(params[:page])
+    reviews_nonorder = Review.includes(:review_items).where(user_id: current_user.id).page(params[:page])
     @reviews =  reviews_nonorder.order(reviewed_on: :desc)
   end
 
