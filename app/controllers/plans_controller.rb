@@ -4,8 +4,8 @@ class PlansController < ApplicationController
 
   def index
     if user_signed_in?
-      @plans = Plan.includes(:user).where(user_id: current_user.id).page(params[:page])
-      @genres = Genre.includes(:user).where(user_id: current_user.id)
+      @plans = Plan.includes(:review_items).where(user_id: current_user.id).page(params[:page])
+      @genres = Genre.includes(:plans).where(user_id: current_user.id)
       @select_genre = @genres
       @genre_name = Array.new(@genres.size, 0)
     else
