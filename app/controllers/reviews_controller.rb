@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
   include Component
 
   def index
-    reviews_nonorder = Review.where(user_id: current_user.id).page(params[:page])
+    reviews_nonorder = Review.includes(:review_items).where(user_id: current_user.id).page(params[:page])
     @reviews =  reviews_nonorder.order(reviewed_on: :desc)
   end
 
@@ -16,23 +16,11 @@ class ReviewsController < ApplicationController
 
   def new
     @select_genre = Genre.where(user_id: current_user)
-    # 振り返る目標が選択されていない
-    if !params[:checked_plan]
-      flash[:notice] = "目標を選択してください"
-      redirect_to request.referer
-      return
-    end
     @review = Review.new
-    selected_plan_ids = select_plan_params[:checked_plan].map(&:to_i)
-    @plans = Plan.where(id: selected_plan_ids)
+    @plans = Plan.where(user_id: current_user.id, status: "進行中")
     @review_item_array = Array.new(@plans.size, ReviewItem.new)
     @plan = Plan.new
   end
-
-  # def get_genre_nameset
-  #   genres = Genre.where(user_id: current_user.id)
-  #   genres.pluck(:id, :name)
-  # end
 
   helper_method :get_genre_name
 
@@ -44,67 +32,48 @@ class ReviewsController < ApplicationController
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
+    
+    @plan = Plan.new
+    all_valid = true
+    ActiveRecord::Base.transaction do
+      all_valid &= @review.save
+      plan_keys.each_with_index do |id, i|
+        
+        @plan_select = Plan.find(id)
+        
+        if !@plan_select.update(item[i])
+          @plan.errors.merge!(@plan_select.errors)
+          all_valid = false
+        end
+      end
 
-    if !@review.save
-      flash.now[:alert] = "投稿に失敗しました"
-      @plans = Plan.where(id: plan_keys)
-      @plan = Plan.new
-      @review_item_array = Array.new(@plans.size, ReviewItem.new)
-      render :new
-      return
+      if !all_valid 
+        raise ActiveRecord::Rollback
+      end
+
     end
+    if all_valid
+      plan_keys.each_with_index do |id, i|    
+        @plan = Plan.find(id)
+        all_valid &= @review.review_items.create!(plan_id: id)
+      end
+    end 
 
-    before_plan_state = Plan.find(plan_keys)
-
-    plan_keys.each_with_index do |id, i|
-      @plan = Plan.find(id)
-      if !@plan.update(item[i])
-        flash.now[:alert] = "投稿に失敗しました"
+    if !all_valid 
+      flash.now[:alert] = "投稿に失敗しました"
         @plans = Plan.where(id: plan_keys)
         @review_item_array = Array.new(@plans.size, ReviewItem.new)
         render :new
-        return
-      end
-      @review.review_items.create!(plan_id: id)
-    end
-
-    after_plan_state = Plan.find(plan_keys)
-
-    genres_set = get_genre_nameset
-    share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
-
-    @review.content_for_share = share_content
-    if @review.save
+    else
       flash[:notice] = "振り返りを投稿しました"
       redirect_to action: 'index'
-    else
-      flash.now[:alert] = "投稿に失敗しました"
-      @plans = Plan.where(id: selected_plan_ids)
-      @review_item_array = Array.new(@plans.size, ReviewItem.new)
-      render :new
     end
-  end
 
-  def select_plan
-    @select_genre = Genre.where(user_id: current_user)
-    @plans = Plan.where(user_id: current_user.id, status: "進行中")
-  end
-
-  def re_select_plan
-    @select_genre = Genre.where(user_id: current_user)
-    @plans = Plan.where(user_id: current_user.id)
-    review_item = ReviewItem.where(review_id: params[:id])
-    @selected_plan_ids = review_item.pluck(:plan_id).to_a
+      genres_set = get_genre_nameset
   end
 
   def edit
     @select_genre = Genre.where(user_id: current_user)
-    if !params[:checked_plan]
-      flash[:notice] = "目標を選択してください"
-      redirect_to request.referer
-      return
-    end
-    
     @review = Review.find(params[:id])
     @review_item_array = ReviewItem.where(review_id: @review.id).to_a
     @plans = Plan.where(id: @review_item_array.pluck(:plan_id))
@@ -112,6 +81,7 @@ class ReviewsController < ApplicationController
   end
 
   def update
+    @select_genre = Genre.where(user_id: current_user)
     @review = Review.find(params[:id])
     if !@review.update(review_params)
       flash.now[:alert] = "投稿に失敗しました"

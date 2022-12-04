@@ -4,8 +4,8 @@ class PlansController < ApplicationController
 
   def index
     if user_signed_in?
-      @plans = Plan.includes(:user).where(user_id: current_user.id).page(params[:page])
-      @genres = Genre.includes(:user).where(user_id: current_user.id)
+      @plans = Plan.includes(:review_items).where(user_id: current_user.id).page(params[:page])
+      @genres = Genre.includes(:plans).where(user_id: current_user.id)
       @select_genre = @genres
       @genre_name = Array.new(@genres.size, 0)
     else
@@ -34,6 +34,7 @@ class PlansController < ApplicationController
     @genre_new.save
     @plan = Plan.new(plan_params)
     @plan.user_id = current_user.id
+    @plan.status = "進行中"
     @plan.genre_id = @genre_new.id
     if @plan.save
       flash[:notice] = "目標を投稿しました"

@@ -4,6 +4,13 @@ class Review < ApplicationRecord
   accepts_nested_attributes_for :review_items
   validates :reviewed_on, presence: true, uniqueness: { scope: :user }
   validates :content, length: { maximum: 200 }, presence: true
+  validate :cannot_set_over_2_times_per_week
+
+  def cannot_set_over_2_times_per_week
+    if user.reviews.where(reviewed_on:self.reviewed_on.beginning_of_week..self.reviewed_on.end_of_week).present?
+      errors.add(:reviewed_on, ":振り返りは週に1回までです") 
+    end
+  end
 
   def self.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
     date = review_params[:reviewed_on]
