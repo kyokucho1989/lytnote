@@ -1,4 +1,4 @@
-# lytnote（ライトノート）
+<img src="app/assets/images/logo_final_file_transparency.png" width="500px">
 
 ## App URL
 
