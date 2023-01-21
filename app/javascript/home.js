@@ -56,4 +56,27 @@ $(document).on("page:load turbolinks:load", function() {
       }
     })
   });
+
+  // 目標一覧の絞り込み
+  var select_plan_field = $('select[id^="plan"]');
+  $(select_plan_field).change(function(){
+    let state = this.value;
+    let state_id = this.id;
+    console.log(this);
+    $.ajax({
+      type: 'GET', // リクエストのタイプ
+      url: '/plan/change_state', // リクエストを送信するURL
+      data:  { 'state' : state, 'id' : state_id }, // サーバーに送信するデータ
+      dataType: 'json' // サーバーから返却される型
+    })
+    .done(function(data){ // dataにはレスポンスされたデータが入る
+      const p1 = document.getElementById(`${data.id}_disp`);
+      p1.classList.remove('visible','imvisible');
+      if (data.state == "進行中"){
+        p1.classList.add('visible');
+      }else{
+        p1.classList.add('imvisible');
+      }
+    })
+  });
 });
