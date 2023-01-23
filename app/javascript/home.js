@@ -80,3 +80,8 @@ $(document).on("page:load turbolinks:load", function() {
     })
   });
 });
+
+
+$( function() {
+  $( "#datepicker" ).datepicker();
+} );
