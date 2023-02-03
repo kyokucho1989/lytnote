@@ -145,6 +145,12 @@ $theme-colors: (
   
 );
 
+// ui date picker
+.reported-days  {
+  background-color: #ff0;
+}
+
+
 @import "bootstrap/scss/bootstrap"; 
 @import "**/*";
 

@@ -79,5 +79,19 @@ $(document).on("page:load turbolinks:load", function() {
       }
     })
   });
-  $( "#datepicker" ).datepicker();
+  let reportedDays_json = document.getElementById('reported').value;
+  let reportedDays = JSON.parse(reportedDays_json);
+  if (reportedDays !== null) {
+    $( "#datepicker" ).datepicker({
+      beforeShowDay: function(date) {
+          let formattedDay = dayjs(date).format('YYYY-MM-DD');
+          console.log(reportedDays.indexOf(formattedDay));
+          if (reportedDays.indexOf(formattedDay) != -1) {
+            return [true, 'reported-days', ''];
+          }else{
+            return [true, '', ''];
+          }
+      }
+    });
+  }
 });
