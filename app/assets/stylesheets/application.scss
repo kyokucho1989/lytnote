@@ -150,7 +150,17 @@ $theme-colors: (
   background-color: #ff0;
 }
 
+.ui-widget-header {
+  border: 1px solid #1f57d1;
+  background-image: none;
+  background: #fff;
+  color: #182736;
+  font-weight: bold;
+}
 
+.ui-datepicker-next:hover,ui-datepicker-prev:hover {
+  background: none;
+}
 @import "bootstrap/scss/bootstrap"; 
 @import "**/*";
 
