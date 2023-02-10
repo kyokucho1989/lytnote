@@ -86,7 +86,7 @@ $(document).on("page:load turbolinks:load", function() {
       beforeShowDay: function(date) {
           let formattedDay = dayjs(date).format('YYYY-MM-DD');
           if (reportedDays.indexOf(formattedDay) != -1) {
-            return [false, 'reported-days', ''];
+            return [false, 'reported-days', 'aa'];
           }else{
             return [false, '', ''];
           }
