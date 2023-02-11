@@ -3,14 +3,18 @@
 
 <section id="report">
   <div class = "container">
-    <div class="row">
-      <div class="col-md-8">
-
-        <div class="col-12 my-3 px-0 text-right">
+    <div class="row py-4">
+      <div class="col-5">
+        <input type="hidden" id="reported" value="<%= @reported_days %>">
+        <div id="datepicker"></div>
+      </div>
+      <div class="col-lg-7">
+        <div class="col-12 px-0 text-right">
         <%= link_to new_report_path do %>
-          <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> 日報登録</button>
+          <button type="button" class="btn btn-outline-primary btn-block btn-lg"><i class="fas fa-plus"></i> 日報登録</button>
         <% end %>
         </div>
+        
 
         <% if @reports.size == 0 %>
           <div class="my-5">
