@@ -65,7 +65,7 @@ $(document).on("page:load turbolinks:load", function() {
     console.log(this);
     $.ajax({
       type: 'GET', // リクエストのタイプ
-      url: '/plan/change_state', // リクエストを送信するURL
+      url: '/plan', // リクエストを送信するURL
       data:  { 'state' : state, 'id' : state_id }, // サーバーに送信するデータ
       dataType: 'json' // サーバーから返却される型
     })
