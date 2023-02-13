@@ -90,6 +90,19 @@ $(document).on("page:load turbolinks:load", function() {
           }else{
             return [false, '', ''];
           }
+      },
+      onChangeMonthYear: function(year, month, inst) {
+        // ここに、カレンダーの月が変更されたときに実行する処理を記述します
+        console.log("The month has changed to " + month + "-" + year);
+        $.ajax({
+          type: 'GET', // リクエストのタイプ
+          url: '/reports/fileter_report', // リクエストを送信するURL
+          data:  { 'year' : year, 'month' : month }, // サーバーに送信するデータ
+          dataType: 'json' // サーバーから返却される型
+        })
+        .done(function(data){ // dataにはレスポンスされたデータが入る
+          const p1 = document.getElementById(`${data.id}_disp`);
+        })
       }
     });
   }

@@ -18,6 +18,15 @@ class ReportsController < ApplicationController
     @select_genre = Genre.where(user_id: current_user)
   end
 
+  def filter_report
+    @para = params
+    binding.pry
+    respond_to do |format| # リクエスト形式によって処理を切り分ける
+      format.html { redirect_to :root } # html形式の場合
+      format.json { render json: @messages } # json形式の場合
+    end
+  end
+
   def create
     para = report_genre_params[:report_items_attributes]
 
