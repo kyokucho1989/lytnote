@@ -10,7 +10,11 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root "landings#index"
   resources :plans, except: :show
-  resources :reports
+  resources :reports do
+    collection do
+      get 'filter_report'
+    end
+  end
   resources :report_items, only: [:index, :destroy]
   resources :genres, except: :show
   resources :reviews do

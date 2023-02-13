@@ -4,7 +4,6 @@ class PlansController < ApplicationController
 
   def index
     if user_signed_in?
-
       plans_nonorder = Plan.includes(:review_items).where(user_id: current_user.id).page(params[:page])
 
       @genres = Genre.includes(:plans).where(user_id: current_user.id)
