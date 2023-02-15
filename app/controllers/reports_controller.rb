@@ -20,6 +20,7 @@ class ReportsController < ApplicationController
 
   def filter_report
     @para = params
+    get_filterd_report
     binding.pry
     respond_to do |format| # リクエスト形式によって処理を切り分ける
       format.html { redirect_to :root } # html形式の場合
@@ -146,4 +147,8 @@ class ReportsController < ApplicationController
   def report_genre_params
     params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :genreset, :genre_name ,:work_hours, :content_for_share, :id])
   end
+
+  def get_filterd_report
+    @reports ||= Report.includes(:report_items).where(user_id: current_user.id).page(params[:page]).order(reported_on: :desc)
+  end 
 end
