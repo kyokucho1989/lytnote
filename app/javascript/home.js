@@ -80,7 +80,9 @@ $(document).on("page:load turbolinks:load", function() {
     })
   });
   let reportedDays_json = document.getElementById('reported').value;
+  let reports_json = document.getElementById('reported_array').value;
   if (reportedDays_json !== null) {
+  //  let reports = JSON.parse(reports);
     let reportedDays = JSON.parse(reportedDays_json);
     $( "#datepicker" ).datepicker({
       beforeShowDay: function(date) {
@@ -96,12 +98,12 @@ $(document).on("page:load turbolinks:load", function() {
         console.log("The month has changed to " + month + "-" + year);
         $.ajax({
           type: 'GET', // リクエストのタイプ
-          url: '/reports/fileter_report', // リクエストを送信するURL
+          url: '/reports/filter_report', // リクエストを送信するURL
           data:  { 'year' : year, 'month' : month }, // サーバーに送信するデータ
           dataType: 'json' // サーバーから返却される型
         })
         .done(function(data){ // dataにはレスポンスされたデータが入る
-          const p1 = document.getElementById(`${data.id}_disp`);
+          //const p1 = document.getElementById(`${data.id}_disp`);
         })
       }
     });
