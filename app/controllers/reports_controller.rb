@@ -20,7 +20,9 @@ class ReportsController < ApplicationController
 
   def filter_report
     @para = params
-    get_filterd_report
+    # target_month = Date.new(year,month)
+    # target_day = target_month.end_of_month
+    # @month_report_previous_display_month = get_filterd_report.where('reported_on < ?', target_date)
     binding.pry
     respond_to do |format| # リクエスト形式によって処理を切り分ける
       format.html { redirect_to :root } # html形式の場合
@@ -142,6 +144,10 @@ class ReportsController < ApplicationController
 
   def report_params
     params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :work_hours, :content_for_share, :id])
+  end
+
+  def filter_params
+    params.require(:report).permit(:year, :month)
   end
 
   def report_genre_params
