@@ -1,0 +1,8 @@
+if (typeof reports === 'undefined'){
+  let reports = document.querySelector("#report_list");
+  reports.innerHTML = '<%= j render 'reportlist' %>';
+} else {
+  reports = document.querySelector("#report_list");
+  reports.innerHTML = '<%= j render 'reportlist' %>';
+}
+

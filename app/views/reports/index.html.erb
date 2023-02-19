@@ -22,6 +22,9 @@
           日報が登録されていません。
           </div>
         <% else %>
+        <div id="report_list">
+        <%= render partial: 'reportlist' %>
+        </div>
           <% @reports.each.with_index(1) do |report, i| %>
             <div class="container border my-5">
               <div class="row py-3">
