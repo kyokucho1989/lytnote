@@ -100,9 +100,10 @@ $(document).on("page:load turbolinks:load", function() {
           type: 'GET', // リクエストのタイプ
           url: '/reports/filter_report', // リクエストを送信するURL
           data:  { 'year' : year, 'month' : month }, // サーバーに送信するデータ
-          dataType: 'json' // サーバーから返却される型
+          dataType: 'script' // サーバーから返却される型
         })
         .done(function(data){ // dataにはレスポンスされたデータが入る
+          console.log(data);
           //const p1 = document.getElementById(`${data.id}_disp`);
         })
       }

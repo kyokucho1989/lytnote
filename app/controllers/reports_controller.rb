@@ -19,14 +19,16 @@ class ReportsController < ApplicationController
   end
 
   def filter_report
-    @para = params
-    # target_month = Date.new(year,month)
-    # target_day = target_month.end_of_month
-    # @month_report_previous_display_month = get_filterd_report.where('reported_on < ?', target_date)
-    binding.pry
+ 
+    year = filter_params[:year].to_i
+    month = filter_params[:month].to_i
+    target_month = Date.new(year,month)
+    target_day = target_month.end_of_month
+    @reports = get_filterd_report.where('reported_on < ?', target_day)
     respond_to do |format| # リクエスト形式によって処理を切り分ける
       format.html { redirect_to :root } # html形式の場合
-      format.json { render json: @messages } # json形式の場合
+      format.js
+      format.json { render json: @reports } # json形式の場合
     end
   end
 
@@ -147,7 +149,7 @@ class ReportsController < ApplicationController
   end
 
   def filter_params
-    params.require(:report).permit(:year, :month)
+    params.permit(:year, :month)
   end
 
   def report_genre_params
