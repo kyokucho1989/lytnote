@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
   end
 
   def filter_report
- 
+    @genres_set = get_genre_nameset
     year = filter_params[:year].to_i
     month = filter_params[:month].to_i
     target_month = Date.new(year,month)
