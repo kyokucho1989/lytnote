@@ -145,6 +145,75 @@ $theme-colors: (
   
 );
 
+// ui date picker
+.ui-widget-header {
+  border: 1px solid #1f57d1;
+  background-image: none;
+  background: #fff;
+  color: #182736;
+  font-weight: bold;
+}
+
+
+.ui-datepicker .ui-datepicker-title {
+	margin: 0 2.3em;
+	line-height: 1.8em;
+	text-align: center;
+}
+.ui-datepicker .ui-datepicker-title select {
+	font-size: 1em;
+	margin: 1px 0;
+}
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+	width: 45%;
+}
+.ui-datepicker table {
+	width: 100%;
+	font-size: .4rem;
+	border-collapse: collapse;
+	margin: 0 0 .4em;
+}
+.ui-datepicker th {
+	padding: 0;
+	text-align: center;
+	font-weight: normal;
+	border: 0;
+}
+.ui-datepicker td {
+	border: 0;
+	padding: 1px;
+}
+
+.ui-datepicker-next:hover,.ui-datepicker-prev:hover {
+  background: none;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+html .ui-button.ui-state-disabled:hover,
+html .ui-button.ui-state-disabled:active {
+  border: 0px;
+  background-image: none;
+  background:inherit;
+	font-weight: normal;
+	color: #182736;
+}
+.ui-state-disabled,
+.ui-widget-content .ui-state-disabled,
+.ui-widget-header .ui-state-disabled {
+	opacity: 1;
+	filter:none; /* support: IE8 */
+}
+.ui-state-disabled .ui-icon {
+	filter:Alpha(Opacity=35); /* support: IE8 - See #6059 */
+}
+
+.reported-days  {
+  background-color: #FFBC42;
+}
 @import "bootstrap/scss/bootstrap"; 
 @import "**/*";
 

@@ -5,12 +5,31 @@ class ReportsController < ApplicationController
   def index
     @reports= Report.includes(:report_items).where(user_id: current_user.id).page(params[:page]).order(reported_on: :desc)
     @genres_set = get_genre_nameset
+    reported_days_original = @reports.map(&:reported_on)
+    reported_days = reported_days_original.map{
+      |days| days.strftime("%F")
+    }
+    @reported_days = reported_days.to_json
   end
 
   def new
     @report = Report.new
     @report.report_items.build
     @select_genre = Genre.where(user_id: current_user)
+  end
+
+  def filter_report
+    @genres_set = get_genre_nameset
+    year = filter_params[:year].to_i
+    month = filter_params[:month].to_i
+    target_month = Date.new(year,month)
+    target_day = target_month.end_of_month
+    @reports = get_filterd_report.where('reported_on < ?', target_day)
+    respond_to do |format| # リクエスト形式によって処理を切り分ける
+      format.html { redirect_to :root } # html形式の場合
+      format.js
+      format.json { render json: @reports } # json形式の場合
+    end
   end
 
   def create
@@ -129,7 +148,15 @@ class ReportsController < ApplicationController
     params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :work_hours, :content_for_share, :id])
   end
 
+  def filter_params
+    params.permit(:year, :month)
+  end
+
   def report_genre_params
     params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :genreset, :genre_name ,:work_hours, :content_for_share, :id])
   end
+
+  def get_filterd_report
+    @reports ||= Report.includes(:report_items).where(user_id: current_user.id).page(params[:page]).order(reported_on: :desc)
+  end 
 end

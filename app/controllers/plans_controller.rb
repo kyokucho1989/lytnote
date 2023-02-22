@@ -5,11 +5,29 @@ class PlansController < ApplicationController
   def index
     if user_signed_in?
       plans_nonorder = Plan.includes(:review_items).where(user_id: current_user.id).page(params[:page])
-      @plans = plans_nonorder.order(deadline: :desc)
+
       @genres = Genre.includes(:plans).where(user_id: current_user.id)
       @select_genre = @genres
       @genre_name = Array.new(@genres.size, 0)
+
+      if params[:status].present?
+        if params[:status] == "進行中"
+          filterd_plans = plans_nonorder.where(status:"進行中")
+        elsif params[:status] == "中止/完了"
+          filterd_plans = plans_nonorder.where(status:"中止").or(plans_nonorder.where(status:"完了"))
+        else
+          filterd_plans = plans_nonorder
+        end
+      else
+        filterd_plans = plans_nonorder
+      end
+      @plans = filterd_plans.order(deadline: :desc)
+      # respond_to do |format| # リクエスト形式によって処理を切り分ける
+      #   format.js
+      #   format.html
+      # end
     else
+
       @plans = Plan.where(user_id: 0)
       @genres = Genre.where(user_id: 0)
     end

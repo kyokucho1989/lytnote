@@ -3,77 +3,22 @@
 
 <section id="report">
   <div class = "container">
-    <div class="row">
-      <div class="col-md-8">
-
-        <div class="col-12 my-3 px-0 text-right">
+    <div class="row py-4">
+      <div class="col-5">
+        <input type="hidden" id="reported_array" value="<%= @reports %>">
+        <input type="hidden" id="reported" value="<%= @reported_days %>">
+        <div id="datepicker"></div>
+      </div>
+      <div class="col-lg-7">
+        <div class="col-12 px-0 text-right">
         <%= link_to new_report_path do %>
-          <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> 日報登録</button>
+          <button type="button" class="btn btn-outline-primary btn-block btn-lg"><i class="fas fa-plus"></i> 日報登録</button>
         <% end %>
         </div>
+        <div id="report_list">
+        <%= render partial: 'reportlist' %>
+        </div>
 
-        <% if @reports.size == 0 %>
-          <div class="my-5">
-          日報が登録されていません。
-          </div>
-        <% else %>
-          <% @reports.each.with_index(1) do |report, i| %>
-            <div class="container border my-5">
-              <div class="row py-3">
-                <div class="col-6 col-lg-8">
-                  <%= l report.reported_on %>
-                </div>
-                <div class="col-2 col-lg-1">
-                  <%= link_to edit_report_path(report) do %>
-                    <button type="button" class="btn btn-sm btn-outline-primary"><i class="fas fa-edit mr-1"></i></button>
-                  <% end %>
-                </div>
-                <div class="col-2 col-lg-1 ">
-                  <%= link_to report_path(report) do %>
-                    <button type="button" class="btn btn-sm btn-outline-info"><i class="far fa-file-alt mr-1"></i></button>
-                  <% end %>
-                </div>
-                <div class="col-2 col-lg-1">
-                  <%= link_to report_path(report), method: :delete, data: {confirm: "削除しますか?"} do %>
-                    <button type="button" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt mr-1"></i></button>
-                  <% end %>
-                </div>
-                
-              </div>
-              <% report.report_items.each do |item| %>
-                <div class="row mt-4">
-                  <div class="col-6 col-md-8">
-                    <div class="row">
-                      <div class="col-12 col-md-12">
-                        <%= item.content %>
-                      </div>
-                      <div class="col-12 col-md-6">
-                        <div class="genre">
-                        <i class="fas fa-tag"></i><%= item.genre_id.nil?  ?  '' : @genres_set.assoc(item.genre_id).last %>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-3 col-md-2">
-                    <%= item.work_hours %>時間
-                  </div>
-                </div>
-              <% end %>
-              <hr>
-              <div class="row">
-                <div class="col-12 mb-2">
-                  <%= report.content %>
-                </div>
-              </div>
-            </div>  
-          <% end %>
-        <% end %>
-        
-        <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <%= paginate @reports %>
-          </ul>
-        </nav>
       </div>
     </div>
   </div>
