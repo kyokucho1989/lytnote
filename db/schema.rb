@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_30_191646) do
+ActiveRecord::Schema.define(version: 2023_03_04_202729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2022_06_30_191646) do
     t.string "content", null: false
     t.bigint "report_id", null: false
     t.bigint "genre_id", default: 0
-    t.float "work_hours", null: false
+    t.float "work_hours"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["genre_id"], name: "index_report_items_on_genre_id"
