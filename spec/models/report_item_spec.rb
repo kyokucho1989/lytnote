@@ -33,10 +33,10 @@ RSpec.describe ReportItem, type: :model do
   end
 
   context "work_hoursがない" do
-    it "エラーが出る" do
+    it "エラーが出ない" do
       report_item = ReportItem.new(content: "TOEIC　問題集", report_id: @report.id, genre_id: @genre.id, work_hours: nil)
       report_item.valid?
-      expect(report_item.errors.messages[:work_hours]).to include "を入力してください"
+      expect(report_item.errors.messages[:work_hours]).to be_blank
     end
   end
 
