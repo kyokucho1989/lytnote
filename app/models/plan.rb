@@ -1,7 +1,7 @@
 class Plan < ApplicationRecord
   belongs_to :user
   belongs_to :genre, optional: true
-  has_many :review_items, dependent: :restrict_with_error
+  has_many :review_items, dependent: :nullify
   accepts_nested_attributes_for :review_items
   validates :deadline, presence: true
   validate :deadline_cannot_set_in_past
