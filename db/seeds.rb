@@ -43,9 +43,9 @@ plan3 = Plan.create!(user_id: user1.id, genre_id: genre1_3.id, name: "レンダ�
 plan4 = Plan.create!(user_id: user1.id, genre_id: genre1_1.id, name: "MVC学習", deadline: Date.today + 1, status: "進行中")
 
 review1 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 21), content: "よくできた")
-review2 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 22), content: "よくなかった")
-review3 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 23), content: "いいかんじ")
-review4 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 25), content: "テスト")
+review2 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 10, 22), content: "よくなかった")
+review3 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 11, 23), content: "いいかんじ")
+review4 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 12, 25), content: "テスト")
 
 # review_item1 = plan1.review_items.create!(review_id: review1.id)
 
