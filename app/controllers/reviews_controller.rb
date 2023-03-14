@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
-    
+    item2 = Array.new(item.size)
     @plan = Plan.new
     all_valid = true
     ActiveRecord::Base.transaction do
@@ -40,7 +40,8 @@ class ReviewsController < ApplicationController
       plan_keys.each_with_index do |id, i|
         
         @plan_select = Plan.find(id)
-        
+        item2[i] = {"plan_id"=> id, "before_plan_status"=>@plan_select.status}
+        # [{"plan_id"=> id, "before_plan_status"=>"進行中", "after_plan_status"=>@plan.status}]
         if !@plan_select.update(item[i])
           @plan.errors.merge!(@plan_select.errors)
           all_valid = false
@@ -55,7 +56,8 @@ class ReviewsController < ApplicationController
     if all_valid
       plan_keys.each_with_index do |id, i|    
         @plan = Plan.find(id)
-        all_valid &= @review.review_items.create!(plan_id: id)
+        item2[i]["after_plan_status"] = @plan.status
+        all_valid &= @review.review_items.create!(item2[i])
       end
     end 
 

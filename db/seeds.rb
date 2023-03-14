@@ -11,9 +11,9 @@ ActiveRecord::Base.connection.execute("TRUNCATE TABLE reports RESTART IDENTITY C
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE report_items RESTART IDENTITY CASCADE")
 # ActiveRecord::Base.connection.execute("TRUNCATE TABLE plan_reviews RESTART IDENTITY CASCADE")
 
-user1 = User.create!(email: "satou@example.com", password: "password")
-user2 = User.create!(email: "suzuki@example.com", password: "password")
-user3 = User.create!(email: "tanaka@example.com", password: "password")
+user1 = User.create!(email: "satou@example.com", password: "password", password_confirmation: "password")
+user2 = User.create!(email: "suzuki@example.com", password: "password", password_confirmation: "password")
+user3 = User.create!(email: "tanaka@example.com", password: "password", password_confirmation: "password")
 
 genre1_1 = Genre.create!(name: "Rails", user_id: user1.id)
 genre1_2 = Genre.create!(name: "英語", user_id: user1.id)
