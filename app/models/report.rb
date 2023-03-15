@@ -20,7 +20,7 @@ class Report < ApplicationRecord
       else
         genre_name = genres_set.assoc(item[:genre_id].to_i).last.to_s
       end
-      formatted_items = formatted_items + "【" + genre_name + "】" + item[:content] + "   " + item[:work_hours] + "時間 \n"
+      formatted_items = formatted_items + "【" + genre_name + "】" + item[:content] + "   \n"
     end
     content = formatted_para[:content]
     date + "\n" + formatted_items + "\n" + content
