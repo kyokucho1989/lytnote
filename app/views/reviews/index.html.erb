@@ -2,16 +2,16 @@
 
 <section id="report">
   <div class = "container">
-    <div class="row">
+    <div class="row py-4">
       <div class="col-5 mb-5">
         <input type="hidden" id="reported_array" value="<%= @reviews %>">
         <input type="hidden" id="reported" value="<%= @reviewed_days %>">
         <div id="datepicker-review"></div>
       </div>
-      <div class="col-md-8">
-        <div class="col-12 my-3 px-0 text-right">
+      <div class="col-lg-7">
+        <div class="col-12 px-0 text-right">
         <%= link_to new_review_path do %>
-          <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> 振り返り登録</button>
+          <button type="button" class="btn btn-outline-primary btn-block btn-lg"><i class="fas fa-plus"></i> 振り返り登録</button>
         <% end %>
         </div>
         <div id="review_list">
