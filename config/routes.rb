@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     collection do
       get 'change_state'
     end
+    collection do
+      get 'filter_review'
+    end
   end
 
   get '*not_found' => 'application#page_not_found'

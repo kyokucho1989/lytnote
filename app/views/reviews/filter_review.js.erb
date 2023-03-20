@@ -1,0 +1,7 @@
+if (typeof reviews === 'undefined'){
+  let reviews = document.querySelector("#review_list");
+  reviews.innerHTML = '<%= j render 'reviewlist' %>';
+} else {
+  reviews = document.querySelector("#review_list");
+  reviews.innerHTML = '<%= j render 'reviewlist' %>';
+}

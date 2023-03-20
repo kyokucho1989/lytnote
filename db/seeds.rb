@@ -11,9 +11,9 @@ ActiveRecord::Base.connection.execute("TRUNCATE TABLE reports RESTART IDENTITY C
 ActiveRecord::Base.connection.execute("TRUNCATE TABLE report_items RESTART IDENTITY CASCADE")
 # ActiveRecord::Base.connection.execute("TRUNCATE TABLE plan_reviews RESTART IDENTITY CASCADE")
 
-user1 = User.create!(email: "satou@example.com", password: "password")
-user2 = User.create!(email: "suzuki@example.com", password: "password")
-user3 = User.create!(email: "tanaka@example.com", password: "password")
+user1 = User.create!(email: "satou@example.com", password: "password", password_confirmation: "password")
+user2 = User.create!(email: "suzuki@example.com", password: "password", password_confirmation: "password")
+user3 = User.create!(email: "tanaka@example.com", password: "password", password_confirmation: "password")
 
 genre1_1 = Genre.create!(name: "Rails", user_id: user1.id)
 genre1_2 = Genre.create!(name: "英語", user_id: user1.id)
@@ -43,9 +43,9 @@ plan3 = Plan.create!(user_id: user1.id, genre_id: genre1_3.id, name: "レンダ�
 plan4 = Plan.create!(user_id: user1.id, genre_id: genre1_1.id, name: "MVC学習", deadline: Date.today + 1, status: "進行中")
 
 review1 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 21), content: "よくできた")
-review2 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 22), content: "よくなかった")
-review3 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 23), content: "いいかんじ")
-review4 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 9, 25), content: "テスト")
+review2 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 10, 22), content: "よくなかった")
+review3 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 11, 23), content: "いいかんじ")
+review4 = Review.create!(user_id: user1.id, reviewed_on: Date.new(2021, 12, 25), content: "テスト")
 
 # review_item1 = plan1.review_items.create!(review_id: review1.id)
 

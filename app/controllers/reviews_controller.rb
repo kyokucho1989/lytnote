@@ -5,6 +5,11 @@ class ReviewsController < ApplicationController
   def index
     reviews_nonorder = Review.includes(:review_items).where(user_id: current_user.id).page(params[:page])
     @reviews =  reviews_nonorder.order(reviewed_on: :desc)
+    reviewed_days_original = @reviews.map(&:reviewed_on)
+    reviewed_days = reviewed_days_original.map{
+      |days| days.strftime("%F")
+    }
+    @reviewed_days = reviewed_days.to_json
   end
 
   def show
@@ -24,6 +29,22 @@ class ReviewsController < ApplicationController
 
   helper_method :get_genre_name
 
+  def filter_review
+    @genres_set = get_genre_nameset
+    year = filter_params[:year].to_i
+    month = filter_params[:month].to_i
+    target_month = Date.new(year,month)
+    target_day = target_month.end_of_month
+    @reviews = get_filterd_review.where('reviewed_on < ?', target_day)
+    respond_to do |format| # リクエスト形式によって処理を切り分ける
+      format.html { redirect_to :root } # html形式の場合
+      format.js
+      format.json { render json: @reviews } # json形式の場合
+    end
+
+  end
+
+
   def create
     @select_genre = Genre.where(user_id: current_user)
     @review = Review.new(review_params)
@@ -32,7 +53,7 @@ class ReviewsController < ApplicationController
     param_plans = params.require(:review)[:plans]
     plan_keys = param_plans.keys
     item = param_plans.values
-    
+    item2 = Array.new(item.size)
     @plan = Plan.new
     all_valid = true
     ActiveRecord::Base.transaction do
@@ -40,7 +61,8 @@ class ReviewsController < ApplicationController
       plan_keys.each_with_index do |id, i|
         
         @plan_select = Plan.find(id)
-        
+        item2[i] = {"plan_id"=> id, "before_plan_status"=>@plan_select.status}
+        # [{"plan_id"=> id, "before_plan_status"=>"進行中", "after_plan_status"=>@plan.status}]
         if !@plan_select.update(item[i])
           @plan.errors.merge!(@plan_select.errors)
           all_valid = false
@@ -55,7 +77,8 @@ class ReviewsController < ApplicationController
     if all_valid
       plan_keys.each_with_index do |id, i|    
         @plan = Plan.find(id)
-        all_valid &= @review.review_items.create!(plan_id: id)
+        item2[i]["after_plan_status"] = @plan.status
+        all_valid &= @review.review_items.create!(item2[i])
       end
     end 
 
@@ -151,6 +174,10 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(plans: {})[:plans]
   end
 
+  def filter_params
+    params.permit(:year, :month)
+  end
+
   def select_plan_params
     params.permit(checked_plan: [])
   end
@@ -158,4 +185,8 @@ class ReviewsController < ApplicationController
   def review_update_params
     params.require(:review).permit(:content, :reviewed_on, plans: {}, review_items_attributes: [:deadline_after_review, :status_after_review, :id])
   end
+
+  def get_filterd_review
+    @reviews ||= Review.includes(:review_items).where(user_id: current_user.id).page(params[:page])
+  end 
 end
