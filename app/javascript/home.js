@@ -84,7 +84,7 @@ $(document).on("page:load turbolinks:load", function() {
   if (reportedDays_json !== null) {
   //  let reports = JSON.parse(reports);
     let reportedDays = JSON.parse(reportedDays_json);
-    $( "#datepicker" ).datepicker({
+    $( "#datepicker-report" ).datepicker({
       beforeShowDay: function(date) {
           let formattedDay = dayjs(date).format('YYYY-MM-DD');
           if (reportedDays.indexOf(formattedDay) != -1) {
@@ -99,6 +99,31 @@ $(document).on("page:load turbolinks:load", function() {
         $.ajax({
           type: 'GET', // リクエストのタイプ
           url: '/reports/filter_report', // リクエストを送信するURL
+          data:  { 'year' : year, 'month' : month }, // サーバーに送信するデータ
+          dataType: 'script' // サーバーから返却される型
+        })
+        .done(function(data){ // dataにはレスポンスされたデータが入る
+          console.log(data);
+          //const p1 = document.getElementById(`${data.id}_disp`);
+        })
+      }
+    });
+
+    $( "#datepicker-review" ).datepicker({
+      beforeShowDay: function(date) {
+          let formattedDay = dayjs(date).format('YYYY-MM-DD');
+          if (reportedDays.indexOf(formattedDay) != -1) {
+            return [false, 'reported-days', 'aa'];
+          }else{
+            return [false, '', ''];
+          }
+      },
+      onChangeMonthYear: function(year, month, inst) {
+        // ここに、カレンダーの月が変更されたときに実行する処理を記述します
+        console.log("The month has changed to " + month + "-" + year);
+        $.ajax({
+          type: 'GET', // リクエストのタイプ
+          url: '/reviews/filter_review', // リクエストを送信するURL
           data:  { 'year' : year, 'month' : month }, // サーバーに送信するデータ
           dataType: 'script' // サーバーから返却される型
         })

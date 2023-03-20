@@ -5,6 +5,11 @@ class ReviewsController < ApplicationController
   def index
     reviews_nonorder = Review.includes(:review_items).where(user_id: current_user.id).page(params[:page])
     @reviews =  reviews_nonorder.order(reviewed_on: :desc)
+    reviewed_days_original = @reviews.map(&:reviewed_on)
+    reviewed_days = reviewed_days_original.map{
+      |days| days.strftime("%F")
+    }
+    @reviewed_days = reviewed_days.to_json
   end
 
   def show
@@ -23,6 +28,22 @@ class ReviewsController < ApplicationController
   end
 
   helper_method :get_genre_name
+
+  def filter_review
+    @genres_set = get_genre_nameset
+    year = filter_params[:year].to_i
+    month = filter_params[:month].to_i
+    target_month = Date.new(year,month)
+    target_day = target_month.end_of_month
+    @reviews = get_filterd_review.where('reviewed_on < ?', target_day)
+    respond_to do |format| # リクエスト形式によって処理を切り分ける
+      format.html { redirect_to :root } # html形式の場合
+      format.js
+      format.json { render json: @reviews } # json形式の場合
+    end
+
+  end
+
 
   def create
     @select_genre = Genre.where(user_id: current_user)
@@ -153,6 +174,10 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(plans: {})[:plans]
   end
 
+  def filter_params
+    params.permit(:year, :month)
+  end
+
   def select_plan_params
     params.permit(checked_plan: [])
   end
@@ -160,4 +185,8 @@ class ReviewsController < ApplicationController
   def review_update_params
     params.require(:review).permit(:content, :reviewed_on, plans: {}, review_items_attributes: [:deadline_after_review, :status_after_review, :id])
   end
+
+  def get_filterd_review
+    @reviews ||= Review.includes(:review_items).where(user_id: current_user.id).page(params[:page])
+  end 
 end
