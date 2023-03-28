@@ -84,6 +84,12 @@ $(document).on("page:load turbolinks:load", function() {
   if (reportedDays_json !== null) {
   //  let reports = JSON.parse(reports);
     let reportedDays = JSON.parse(reportedDays_json);
+    let reportedWeeks = reportedDays.map(function(dateString) {
+      const date = dayjs(dateString);
+      // 月曜日に変更する
+      const monday = date.startOf('week');
+      return monday.format('YYYY-MM-DD');
+    });
     $( "#datepicker-report" ).datepicker({
       beforeShowDay: function(date) {
           let formattedDay = dayjs(date).format('YYYY-MM-DD');
@@ -103,7 +109,7 @@ $(document).on("page:load turbolinks:load", function() {
           dataType: 'script' // サーバーから返却される型
         })
         .done(function(data){ // dataにはレスポンスされたデータが入る
-          console.log(data);
+          //console.log(data);
           //const p1 = document.getElementById(`${data.id}_disp`);
         })
       }
@@ -111,8 +117,9 @@ $(document).on("page:load turbolinks:load", function() {
 
     $( "#datepicker-review" ).datepicker({
       beforeShowDay: function(date) {
-          let formattedDay = dayjs(date).format('YYYY-MM-DD');
-          if (reportedDays.indexOf(formattedDay) != -1) {
+          let weeksBeginningDate =dayjs(date).startOf('week');
+          let formattedDay = weeksBeginningDate.format('YYYY-MM-DD');
+          if (reportedWeeks.indexOf(formattedDay) != -1) {
             return [false, 'reported-days', 'aa'];
           }else{
             return [false, '', ''];
@@ -128,7 +135,7 @@ $(document).on("page:load turbolinks:load", function() {
           dataType: 'script' // サーバーから返却される型
         })
         .done(function(data){ // dataにはレスポンスされたデータが入る
-          console.log(data);
+          //console.log(data);
           //const p1 = document.getElementById(`${data.id}_disp`);
         })
       }
