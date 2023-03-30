@@ -82,7 +82,7 @@ $(document).on("page:load turbolinks:load", function() {
   let reportedDays_json = document.getElementById('reported').value;
   let reports_json = document.getElementById('reported_array').value;
   if (reportedDays_json !== null) {
-  //  let reports = JSON.parse(reports);
+  //  let reports = JSON.parse(gireports);
     let reportedDays = JSON.parse(reportedDays_json);
     let reportedWeeks = reportedDays.map(function(dateString) {
       const date = dayjs(dateString);
