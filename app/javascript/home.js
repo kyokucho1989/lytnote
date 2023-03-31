@@ -82,8 +82,14 @@ $(document).on("page:load turbolinks:load", function() {
   let reportedDays_json = document.getElementById('reported').value;
   let reports_json = document.getElementById('reported_array').value;
   if (reportedDays_json !== null) {
-  //  let reports = JSON.parse(reports);
+  //  let reports = JSON.parse(gireports);
     let reportedDays = JSON.parse(reportedDays_json);
+    let reportedWeeks = reportedDays.map(function(dateString) {
+      const date = dayjs(dateString);
+      // 月曜日に変更する
+      const monday = date.startOf('week');
+      return monday.format('YYYY-MM-DD');
+    });
     $( "#datepicker-report" ).datepicker({
       beforeShowDay: function(date) {
           let formattedDay = dayjs(date).format('YYYY-MM-DD');
@@ -103,7 +109,7 @@ $(document).on("page:load turbolinks:load", function() {
           dataType: 'script' // サーバーから返却される型
         })
         .done(function(data){ // dataにはレスポンスされたデータが入る
-          console.log(data);
+          //console.log(data);
           //const p1 = document.getElementById(`${data.id}_disp`);
         })
       }
@@ -111,8 +117,9 @@ $(document).on("page:load turbolinks:load", function() {
 
     $( "#datepicker-review" ).datepicker({
       beforeShowDay: function(date) {
-          let formattedDay = dayjs(date).format('YYYY-MM-DD');
-          if (reportedDays.indexOf(formattedDay) != -1) {
+          let weeksBeginningDate =dayjs(date).startOf('week');
+          let formattedDay = weeksBeginningDate.format('YYYY-MM-DD');
+          if (reportedWeeks.indexOf(formattedDay) != -1) {
             return [false, 'reported-days', 'aa'];
           }else{
             return [false, '', ''];
@@ -128,10 +135,54 @@ $(document).on("page:load turbolinks:load", function() {
           dataType: 'script' // サーバーから返却される型
         })
         .done(function(data){ // dataにはレスポンスされたデータが入る
-          console.log(data);
+          //console.log(data);
           //const p1 = document.getElementById(`${data.id}_disp`);
         })
       }
     });
   }
+
+  // クリップボードへコピーする機能
+  const copyReportButtons = document.querySelectorAll('.js-copy-report');
+  copyReportButtons.forEach(function(button) {
+    const reportId = button.dataset.reportId;
+  
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      button.textContent = 'Copied!';
+      setTimeout(() => {
+        button.innerHTML = `<i class="far fa-clipboard mr-1"></i>COPY`;
+      }, 1000);
+      copyReport(reportId);
+    });
+  });
+
 });
+
+function copyReport(reportId) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', `/reports/${reportId}/copy_text`);
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        const copyText = JSON.parse(xhr.responseText).copyText;
+        copyToClipboard(copyText);
+      } else {
+        console.error('Failed to get copy text');
+      }
+    }
+  };
+
+  xhr.send();
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => {
+      // console.log('Copied to clipboard');
+    })
+    .catch((error) => {
+      // console.error('Failed to copy to clipboard', error);
+    });
+}
