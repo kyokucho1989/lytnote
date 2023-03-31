@@ -14,6 +14,9 @@ Rails.application.routes.draw do
     collection do
       get 'filter_report'
     end
+    member do
+      get 'copy_text'
+    end
   end
   resources :report_items, only: [:index, :destroy]
   resources :genres, except: :show
