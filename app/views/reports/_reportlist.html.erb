@@ -11,9 +11,7 @@
         <%= l report.reported_on %>
       </div>
       <div class="col-8 col-lg-2">
-      <%= link_to edit_report_path(report) do %>
-        <button type="button" class="btn btn-sm btn-outline-primary"><i class="far fa-clipboard mr-1"></i>COPY</button>
-      <% end %>
+        <button type="button" class="btn btn-sm btn-outline-primary js-copy-report" data-report-id="<%= report.id %>"><i class="far fa-clipboard mr-1"></i>COPY</button>
       </div>
       <div class="col-2 col-lg-1">
         <%= link_to edit_report_path(report) do %>

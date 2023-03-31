@@ -141,6 +141,12 @@ class ReportsController < ApplicationController
     end
   end
 
+  def copy_text
+    @report = Report.find(params[:id])
+    copy_text = @report.content_for_share
+    render json: { copyText: copy_text }
+  end
+
   helper_method :get_genre_name
   private
 
