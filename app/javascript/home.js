@@ -160,23 +160,23 @@ $(document).on("page:load turbolinks:load", function() {
 });
 
 function copyReport(reportId) {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', `/reports/${reportId}/copy_text`);
-
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        const copyText = JSON.parse(xhr.responseText).copyText;
-        copyToClipboard(copyText);
-      } else {
-        console.error('Failed to get copy text');
+  return new Promise(function(resolve, reject) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `/reports/${reportId}/copy_text`);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          const copyText = JSON.parse(xhr.responseText).copyText;
+          copyToClipboard(copyText);
+          resolve(copyText);
+        } else {
+          reject('Failed to get copy text');
+        }
       }
-    }
-  };
-
-  xhr.send();
+    };
+    xhr.send();
+  });
 }
-
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text)
     .then(() => {
