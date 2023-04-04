@@ -153,30 +153,13 @@ $(document).on("page:load turbolinks:load", function() {
       setTimeout(() => {
         button.innerHTML = `<i class="far fa-clipboard mr-1"></i>COPY`;
       }, 1000);
-      copyReport(reportId);
+      copyText = document.querySelector(`[share-report-id="${reportId}"]`).textContent;
+      copyToClipboard(copyText);
     });
   });
 
 });
 
-function copyReport(reportId) {
-  return new Promise(function(resolve, reject) {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', `/reports/${reportId}/copy_text`);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
-          const copyText = JSON.parse(xhr.responseText).copyText;
-          copyToClipboard(copyText);
-          resolve(copyText);
-        } else {
-          reject('Failed to get copy text');
-        }
-      }
-    };
-    xhr.send();
-  });
-}
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text)
     .then(() => {

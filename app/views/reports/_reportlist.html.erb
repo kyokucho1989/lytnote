@@ -12,6 +12,7 @@
       </div>
       <div class="col-4 col-sm-3 col-xl-2">
         <button type="button" class="btn btn-sm btn-outline-primary js-copy-report" data-report-id="<%= report.id %>"><i class="far fa-clipboard mr-1"></i>COPY</button>
+        <div class="d-none" share-report-id="<%= report.id %>"><%= report.content_for_share %></div>
       </div>
       <div class="col-2 col-sm-1">
         <%= link_to edit_report_path(report) do %>
