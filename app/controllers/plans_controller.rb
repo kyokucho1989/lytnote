@@ -19,13 +19,15 @@ class PlansController < ApplicationController
           filterd_plans = plans_nonorder
         end
       else
-        filterd_plans = plans_nonorder
+        filterd_plans = plans_nonorder.where(status:"進行中")
+        # filterd_plans = plans_nonorder
       end
+
       @plans = filterd_plans.order(deadline: :desc)
-      # respond_to do |format| # リクエスト形式によって処理を切り分ける
-      #   format.js
-      #   format.html
-      # end
+      respond_to do |format| # リクエスト形式によって処理を切り分ける
+        format.js
+        format.html
+      end
     else
 
       @plans = Plan.where(user_id: 0)
