@@ -10,21 +10,13 @@
         <button type="button" class="btn btn-outline-primary"><i class="fas fa-plus"></i> 目標登録</button>
       <% end %>
       </div>
-
-        <% if @plans.size == 0 %>
-          <div class="my-5">
-          目標が登録されていません。
-          </div>
-        <% else %>
-          <%= form_with url: plans_path, method: :get, local: false do |f| %>
-            <%= f.select :status, ["進行中","中止/完了","全て"] ,{class: "form-control"}%>
-            <%= f.submit   "絞り込み" ,{class: "btn-primary"}%>
-          <% end %>
-          <div id="plan_list">
-            <%= render partial: 'planlist' %>
-          </div>
-
-        <% end %>
+      <%= form_with url: plans_path, method: :get, local: false do |f| %>
+        <%= f.select :status, ["進行中","中止/完了","全て"] ,{class: "form-control"}%>
+        <%= f.submit   "絞り込み" ,{class: "btn-primary"}%>
+      <% end %>
+      <div id="plan_list">
+        <%= render partial: 'planlist' %>
+      </div>
       </div>
     </div>
   </div>
