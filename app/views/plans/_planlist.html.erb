@@ -3,12 +3,16 @@
 目標が登録されていません。
   </div>
 <% else %>
+<% if @copy_button_toggle %>
+<button type="button" class="btn btn-sm btn-outline-primary js-copy-plan" data-report-id="1"><i class="far fa-clipboard mr-1"></i>COPY</button>
+<% end %>
   <% @plans.each.with_index(1) do |plan, i| %>
     <div class = "container border my-5">
       <div class="row py-3">
         <div class="col-8 col-md-10">
           <div class="row">
             <div class="col-12">
+            <div class="d-none share-plan" share-plan-id="<%= plan.id %>">目標:<%= plan.name %> ジャンル: <%= get_genre_name(plan.genre_id)%> 締め切り:<%= l plan.deadline, format: :short  %></div>
               <%= plan.name %>
               <span class="badge pt-2 pb-2 <%= status_color(plan.status) %>">
               <%= plan.status %>

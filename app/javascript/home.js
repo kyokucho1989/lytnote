@@ -79,9 +79,16 @@ $(document).on("page:load turbolinks:load", function() {
       }
     })
   });
-  let reportedDays_json = document.getElementById('reported').value;
-  let reports_json = document.getElementById('reported_array').value;
-  if (reportedDays_json !== null) {
+  let reportedDaysValue = document.getElementById('reported');
+  let reportsValue = document.getElementById('reported_array');
+  let reportedDays_json;
+  let reports_json;
+  if (document.getElementById('reported') !== null){
+    reportedDays_json = reportedDaysValue.value;
+    reports_json = reportsValue.value;
+  }
+
+  if (document.getElementById('reported') !== null) {
   //  let reports = JSON.parse(gireports);
     let reportedDays = JSON.parse(reportedDays_json);
     let reportedWeeks = reportedDays.map(function(dateString) {
@@ -142,22 +149,43 @@ $(document).on("page:load turbolinks:load", function() {
     });
   }
 
-  // クリップボードへコピーする機能
+  // 日報をクリップボードへコピーする機能
   const copyReportButtons = document.querySelectorAll('.js-copy-report');
-  copyReportButtons.forEach(function(button) {
-    const reportId = button.dataset.reportId;
-  
-    button.addEventListener('click', function(event) {
+  if (document.querySelectorAll('.js-copy-report') !== null){
+    copyReportButtons.forEach(function(button) {
+      const reportId = button.dataset.reportId;
+    
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+        button.textContent = 'Copied!';
+        setTimeout(() => {
+          button.innerHTML = `<i class="far fa-clipboard mr-1"></i>COPY`;
+        }, 1000);
+        copyText = document.querySelector(`[share-report-id="${reportId}"]`).textContent;
+        copyToClipboard(copyText);
+      });
+    });
+  }
+
+
+  // 目標をクリップボードへコピーする機能
+  const copyPlanButton = document.querySelector('.js-copy-plan');
+  if (document.querySelector('.js-copy-plan') !== null){
+    
+    copyPlanButton.addEventListener('click', function(event) {
       event.preventDefault();
-      button.textContent = 'Copied!';
+      copyPlanButton.textContent = 'Copied!';
       setTimeout(() => {
-        button.innerHTML = `<i class="far fa-clipboard mr-1"></i>COPY`;
+        copyPlanButton.innerHTML = `<i class="far fa-clipboard mr-1"></i>COPY`;
       }, 1000);
-      copyText = document.querySelector(`[share-report-id="${reportId}"]`).textContent;
+      copyTextArray = document.querySelectorAll('.share-plan');
+      copyText = "";
+      copyTextArray.forEach((item) =>{
+        copyText += item.textContent + '\n';
+      });
       copyToClipboard(copyText);
     });
-  });
-
+  }
 });
 
 function copyToClipboard(text) {
