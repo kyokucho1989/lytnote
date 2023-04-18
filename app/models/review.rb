@@ -7,7 +7,9 @@ class Review < ApplicationRecord
   validate :cannot_set_over_2_times_per_week
 
   def cannot_set_over_2_times_per_week
-    if user.reviews.where(reviewed_on:self.reviewed_on.beginning_of_week..self.reviewed_on.end_of_week).present?
+    query = user.reviews.where(reviewed_on: reviewed_on.beginning_of_week..reviewed_on.end_of_week)
+    query = query.where.not(id: id) if persisted?
+    if query.exists?
       errors.add(:reviewed_on, ":振り返りは週に1回までです") 
     end
   end
