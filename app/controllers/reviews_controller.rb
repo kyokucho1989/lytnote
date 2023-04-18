@@ -55,6 +55,7 @@ class ReviewsController < ApplicationController
     item = param_plans.values
     item2 = Array.new(item.size)
     @plan = Plan.new
+    before_plan_state = Plan.find(plan_keys)
     all_valid = true
     ActiveRecord::Base.transaction do
       all_valid &= @review.save
@@ -74,14 +75,22 @@ class ReviewsController < ApplicationController
       end
 
     end
+
+    binding.pry
     if all_valid
       plan_keys.each_with_index do |id, i|    
         @plan = Plan.find(id)
         item2[i]["after_plan_status"] = @plan.status
         all_valid &= @review.review_items.create!(item2[i])
       end
-    end 
+    end
 
+    after_plan_state = Plan.find(plan_keys)
+    genres_set = get_genre_nameset
+    share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
+    @review.content_for_share = share_content
+    all_valid &= @review.save
+    binding.pry
     if !all_valid 
       flash.now[:alert] = "投稿に失敗しました"
         @plans = Plan.where(id: plan_keys)
@@ -92,7 +101,6 @@ class ReviewsController < ApplicationController
       redirect_to action: 'index'
     end
 
-      genres_set = get_genre_nameset
   end
 
   def edit

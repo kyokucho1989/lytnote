@@ -167,6 +167,24 @@ $(document).on("page:load turbolinks:load", function() {
     });
   }
 
+    // 振り返りをクリップボードへコピーする機能
+    const copyReviewButtons = document.querySelectorAll('.js-copy-review');
+    if (document.querySelectorAll('.js-copy-review') !== null){
+      copyReviewButtons.forEach(function(button) {
+        const reviewId = button.dataset.reviewId;
+      
+        button.addEventListener('click', function(event) {
+          event.preventDefault();
+          button.textContent = 'Copied!';
+          setTimeout(() => {
+            button.innerHTML = `<i class="far fa-clipboard mr-1"></i>COPY`;
+          }, 1000);
+          copyText = document.querySelector(`[share-review-id="${reviewId}"]`).textContent;
+          copyToClipboard(copyText);
+        });
+      });
+    }
+
 
   // 目標をクリップボードへコピーする機能
   const copyPlanButton = document.querySelector('.js-copy-plan');
