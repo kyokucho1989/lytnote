@@ -12,7 +12,7 @@
         <div class="col-8 col-md-10">
           <div class="row">
             <div class="col-12">
-            <div class="d-none share-plan" share-plan-id="<%= plan.id %>">目標:<%= plan.name %> ジャンル: <%= get_genre_name(plan.genre_id)%> 締め切り:<%= l plan.deadline, format: :short  %></div>
+            <div class="d-none share-plan" share-plan-id="<%= plan.id %>">【<%= get_genre_name(plan.genre_id)%>】<%= plan.name %>  締め切り <%= l plan.deadline, format: :share  %></div>
               <%= plan.name %>
               <span class="badge pt-2 pb-2 <%= status_color(plan.status) %>">
               <%= plan.status %>

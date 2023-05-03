@@ -4,6 +4,7 @@ ja:
       long: "%Y/%m/%d %H:%M:%S"
       default: "%Y/%m/%d"
       short: "%m/%d"
+      share: "%-m月/%-d日"
 
   activerecord:
     models:

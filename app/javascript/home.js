@@ -197,7 +197,7 @@ $(document).on("page:load turbolinks:load", function() {
         copyPlanButton.innerHTML = `<i class="far fa-clipboard mr-1"></i>COPY`;
       }, 1000);
       copyTextArray = document.querySelectorAll('.share-plan');
-      copyText = "";
+      copyText = "目標\n";
       copyTextArray.forEach((item) =>{
         copyText += item.textContent + '\n';
       });
