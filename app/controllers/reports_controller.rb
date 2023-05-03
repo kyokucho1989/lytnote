@@ -59,7 +59,7 @@ class ReportsController < ApplicationController
     formatted_para = report_params
     formatted_para[:report_items_attributes] = para
     genres_set = get_genre_nameset
-
+binding.pry
     share_content = Report.convert_content_shared(formatted_para, genres_set)
     formatted_para[:report_items_attributes].values.map{
       |a| a.delete("genre_name")
