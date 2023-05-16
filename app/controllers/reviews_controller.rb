@@ -70,7 +70,6 @@ class ReviewsController < ApplicationController
       raise ActiveRecord::Rollback if !all_valid
     end
 
-    binding.pry
     if all_valid
       plan_keys.each_with_index do |id, i|
         @plan = Plan.find(id)
@@ -84,7 +83,6 @@ class ReviewsController < ApplicationController
     share_content = Review.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
     @review.content_for_share = share_content
     all_valid &= @review.save
-    binding.pry
     if !all_valid
       flash.now[:alert] = "投稿に失敗しました"
       @plans = Plan.where(id: plan_keys)
