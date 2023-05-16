@@ -3,9 +3,9 @@ module Component
     if id.nil? || id == 0
       ""
     else
-      genre = @select_genre.find{|array| array[:id] == id }
-      genre.name 
-    end   
+      genre = @select_genre.find { |array| array[:id] == id }
+      genre.name
+    end
   end
 
   def get_genre_nameset

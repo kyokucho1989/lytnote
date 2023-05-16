@@ -30,9 +30,7 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-
 # gem 'bootstrap', '4.5.3'
-
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
@@ -81,7 +79,6 @@ group :development, :test do
   gem 'pry-byebug' # 追加
   gem 'rspec-rails'
   gem 'factory_bot_rails'
-
 end
 gem 'faker'
 
@@ -96,7 +93,7 @@ gem 'kaminari-i18n'
 gem 'cocoon'
 
 # サーバー環境に追加する　
-gem 'net-ssh' , '>= 6.1.0'
+gem 'net-ssh', '>= 6.1.0'
 
 # エラー対応のため　develop以外でも入るようにする
 gem 'listen', '~> 3.2'

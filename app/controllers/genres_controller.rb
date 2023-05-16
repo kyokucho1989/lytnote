@@ -11,9 +11,7 @@ class GenresController < ApplicationController
 
   def edit
     @genre = Genre.find(params[:id])
-    unless @genre.user_id == current_user.id
-      redirect_to action: 'index'
-    end
+    redirect_to action: 'index' unless @genre.user_id == current_user.id
   end
 
   def update
@@ -42,11 +40,11 @@ class GenresController < ApplicationController
   def destroy
     genre = Genre.find(params[:id])
 
-    if genre.destroy
-      flash[:notice] = "ジャンルを削除しました"
-    else
-      flash[:notice] = genre.errors.full_messages.first
-    end
+    flash[:notice] = if genre.destroy
+                       "ジャンルを削除しました"
+                     else
+                       genre.errors.full_messages.first
+                     end
     redirect_to action: 'index'
   end
 

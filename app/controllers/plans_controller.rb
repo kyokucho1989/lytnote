@@ -12,16 +12,16 @@ class PlansController < ApplicationController
       @copy_button_toggle = false
       if params[:status].present?
         if params[:status] == "進行中"
-          filterd_plans = plans_nonorder.where(status:"進行中")
-          @copy_button_toggle = true 
+          filterd_plans = plans_nonorder.where(status: "進行中")
+          @copy_button_toggle = true
         elsif params[:status] == "中止/完了"
-          filterd_plans = plans_nonorder.where(status:"中止").or(plans_nonorder.where(status:"完了"))
+          filterd_plans = plans_nonorder.where(status: "中止").or(plans_nonorder.where(status: "完了"))
         else
           filterd_plans = plans_nonorder
         end
       else
-        filterd_plans = plans_nonorder.where(status:"進行中")
-        @copy_button_toggle = true 
+        filterd_plans = plans_nonorder.where(status: "進行中")
+        @copy_button_toggle = true
         # filterd_plans = plans_nonorder
       end
 
@@ -47,13 +47,9 @@ class PlansController < ApplicationController
   end
 
   def create
-    
     genre_name = params[:plan][:genreset]
-    @genre_new = Genre.find_by(name:genre_name,user_id: current_user)
-    if @genre_new.nil?
-      @genre_new = Genre.new("name"=> genre_name, "user_id" => current_user.id)
-      
-    end
+    @genre_new = Genre.find_by(name: genre_name, user_id: current_user)
+    @genre_new = Genre.new("name" => genre_name, "user_id" => current_user.id) if @genre_new.nil?
     @genre_new.save
     @plan = Plan.new(plan_params)
     @plan.user_id = current_user.id
@@ -72,14 +68,13 @@ class PlansController < ApplicationController
   def edit
     @plan = Plan.find(params[:id])
     @select_genre = Genre.where(user_id: current_user)
-    
+
     @genres = Genre.includes(:user).where(user_id: current_user.id)
-    if @plan.genre_id.nil?
-      @genre = Genre.new
-    else
-      @genre = Genre.find(@plan.genre_id)
-    end
-   
+    @genre = if @plan.genre_id.nil?
+               Genre.new
+             else
+               Genre.find(@plan.genre_id)
+             end
   end
 
   def update
@@ -87,62 +82,55 @@ class PlansController < ApplicationController
     genre_name = params[:plan][:genreset]
 
     # ジャンル名前がブランクかどうか
-      # ブランクじゃない 
-        # Genrename検索
-        # ジャンルがすでにあるか
-          #　ジャンルがなければ新規作成
-          # ジャンル名前についてバリデーション確認
-           # エラーなら　エラー発生
-        # すでにあればジャンルはそれ
+    # ブランクじゃない
+    # Genrename検索
+    # ジャンルがすでにあるか
+    # 　ジャンルがなければ新規作成
+    # ジャンル名前についてバリデーション確認
+    # エラーなら　エラー発生
+    # すでにあればジャンルはそれ
 
-      # ブランク
-         # Genre id = nil
+    # ブランク
+    # Genre id = nil
 
-    # アップデート 
+    # アップデート
 
-    if !genre_name.blank?
+    if genre_name.present?
 
-      @genre_new = Genre.find_by(name:genre_name,user_id: current_user)
-      if @genre_new.nil?
-        @genre_new = Genre.new("name"=> genre_name, "user_id" => current_user.id)    
-      end
+      @genre_new = Genre.find_by(name: genre_name, user_id: current_user)
+      @genre_new = Genre.new("name" => genre_name, "user_id" => current_user.id) if @genre_new.nil?
 
-
-      if !@genre_new.save
+      unless @genre_new.save
         flash.now[:alert] = "修正に失敗しました"
         @select_genre = Genre.where(user_id: current_user)
         @genres = Genre.includes(:user).where(user_id: current_user.id)
-        if @plan.genre_id.nil?
-          @genre = Genre.new
-        else
-          @genre = Genre.find(@plan.genre_id)
-        end
+        @genre = if @plan.genre_id.nil?
+                   Genre.new
+                 else
+                   Genre.find(@plan.genre_id)
+                 end
         render :edit
       end
     end
     if @plan.update(plan_params)
-      if !@genre_new.nil?
-        @plan.update({"genre_id" => @genre_new.id})
-      end
+      @plan.update({ "genre_id" => @genre_new.id }) unless @genre_new.nil?
       flash[:notice] = "目標を修正しました"
       redirect_to action: 'index'
     else
       flash.now[:alert] = "修正に失敗しました"
-      @select_genre = Genre.where(user_id: current_user)    
+      @select_genre = Genre.where(user_id: current_user)
       render :edit
     end
-
-    
   end
 
   def destroy
     plan = Plan.find(params[:id])
     plan.destroy
-    if plan.errors.any?
-      flash[:notice] = plan.errors.full_messages.first
-    else
-      flash[:notice] = "目標を削除しました"
-    end
+    flash[:notice] = if plan.errors.any?
+                       plan.errors.full_messages.first
+                     else
+                       "目標を削除しました"
+                     end
     redirect_to action: 'index'
   end
 
