@@ -1,14 +1,14 @@
 class ReportsController < ApplicationController
   before_action :authenticate_user!
   include Component
-  
+
   def index
-    @reports= Report.includes(:report_items).where(user_id: current_user.id).page(params[:page]).order(reported_on: :desc)
+    @reports = Report.includes(:report_items).where(user_id: current_user.id).page(params[:page]).order(reported_on: :desc)
     @genres_set = get_genre_nameset
     reported_days_original = @reports.map(&:reported_on)
-    reported_days = reported_days_original.map{
-      |days| days.strftime("%F")
-    }
+    reported_days = reported_days_original.map do |days|
+      days.strftime("%F")
+    end
     @reported_days = reported_days.to_json
   end
 
@@ -22,7 +22,7 @@ class ReportsController < ApplicationController
     @genres_set = get_genre_nameset
     year = filter_params[:year].to_i
     month = filter_params[:month].to_i
-    target_month = Date.new(year,month)
+    target_month = Date.new(year, month)
     target_day = target_month.end_of_month
     @reports = get_filterd_report.where('reported_on < ?', target_day)
     respond_to do |format| # リクエスト形式によって処理を切り分ける
@@ -42,9 +42,9 @@ class ReportsController < ApplicationController
         report[:genre_id] = nil
         break
       end
-      @genre_new = Genre.find_by(name:genre_name,user_id: current_user)
+      @genre_new = Genre.find_by(name: genre_name, user_id: current_user)
       if @genre_new.nil?
-        @genre_new = Genre.new("name"=> genre_name, "user_id" => current_user.id)
+        @genre_new = Genre.new("name" => genre_name, "user_id" => current_user.id)
         @genre_new.save
       end
       report[:genre_id] = @genre_new.id
@@ -55,14 +55,14 @@ class ReportsController < ApplicationController
     para.reject! { |_key, value| value[:content] == "" }
     para[first_key] = first_value unless para.key?("content")
 
-    para.values.map {|a| a.delete("genreset") }
+    para.values.map { |a| a.delete("genreset") }
     formatted_para = report_params
     formatted_para[:report_items_attributes] = para
     genres_set = get_genre_nameset
     share_content = Report.convert_content_shared(formatted_para, genres_set)
-    formatted_para[:report_items_attributes].values.map{
-      |a| a.delete("genre_name")
-    }
+    formatted_para[:report_items_attributes].values.map do |a|
+      a.delete("genre_name")
+    end
     @report = Report.new(formatted_para)
     @report.user_id = current_user.id
     @report.content_for_share = share_content
@@ -77,9 +77,9 @@ class ReportsController < ApplicationController
   end
 
   def get_genre_id(genre_name)
-    genre = Genre.find_by(name:genre_name,user_id: current_user)
+    genre = Genre.find_by(name: genre_name, user_id: current_user)
     if genre.nil?
-      genre = Genre.new("name"=> genre_name, "user_id" => current_user.id)
+      genre = Genre.new("name" => genre_name, "user_id" => current_user.id)
       genre.save
     end
     genre.id
@@ -147,6 +147,7 @@ class ReportsController < ApplicationController
   end
 
   helper_method :get_genre_name
+
   private
 
   def report_params
@@ -158,10 +159,11 @@ class ReportsController < ApplicationController
   end
 
   def report_genre_params
-    params.require(:report).permit(:content, :reported_on, report_items_attributes: [:content, :genre_id, :genreset, :genre_name ,:work_hours, :content_for_share, :id])
+    params.require(:report).permit(:content, :reported_on,
+                                   report_items_attributes: [:content, :genre_id, :genreset, :genre_name, :work_hours, :content_for_share, :id])
   end
 
   def get_filterd_report
     @reports ||= Report.includes(:report_items).where(user_id: current_user.id).page(params[:page]).order(reported_on: :desc)
-  end 
+  end
 end

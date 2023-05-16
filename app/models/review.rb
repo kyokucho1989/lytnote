@@ -9,9 +9,7 @@ class Review < ApplicationRecord
   def cannot_set_over_2_times_per_week
     query = user.reviews.where(reviewed_on: reviewed_on.beginning_of_week..reviewed_on.end_of_week)
     query = query.where.not(id: id) if persisted?
-    if query.exists?
-      errors.add(:reviewed_on, ":振り返りは週に1回までです") 
-    end
+    errors.add(:reviewed_on, ":振り返りは週に1回までです") if query.exists?
   end
 
   def self.convert_content_shared(before_plan_state, after_plan_state, review_params, genres_set)
@@ -21,12 +19,12 @@ class Review < ApplicationRecord
     formatted_items = ""
     (0...before_plan_state.size).each do |i|
       genre_id = before_plan_state[i].genre_id
-      if genre_id.to_s.empty?
-        genre_name = item[:genre_id].to_s
-      else
-        genre_name = genres_set.assoc(genre_id).last
-      end
-      
+      genre_name = if genre_id.to_s.empty?
+                     item[:genre_id].to_s
+                   else
+                     genres_set.assoc(genre_id).last
+                   end
+
       name = before_plan_state[i].name
       before_state = before_plan_state[i].status
       before_deadline = before_plan_state[i].deadline.strftime("%m/%d")
