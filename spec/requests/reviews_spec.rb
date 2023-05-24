@@ -83,7 +83,7 @@ RSpec.describe "Reviews", type: :request do
     it "任意のレコードを更新できる" do
       params[:review]["plans"] = { @plan.id => @plan.slice(:user_id, :deadline, :status) }
       expect { subject }.to change { Review.find(review.id).content }.from(review.content).to(params[:review][:content]) &
-      not_change { Review.find(review.id).created_at }
+                            not_change { Review.find(review.id).created_at }
       expect(response).to have_http_status(200)
     end
   end
