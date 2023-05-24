@@ -53,7 +53,7 @@ RSpec.describe "Plans", type: :request do
     let(:plan) { create(:plan, user: @user, genre_id: @genre.id) }
     it "任意のレコードを更新できる" do
       expect { subject }.to change { Plan.find(plan.id).name }.from(plan.name).to(params[:plan][:name]) &
-      not_change { Plan.find(plan.id).created_at }
+                            not_change { Plan.find(plan.id).created_at }
       expect(response).to have_http_status(200)
     end
   end
@@ -86,7 +86,7 @@ RSpec.describe "Plans", type: :request do
     it "任意のレコードを更新できる" do
       # binding.pry
       expect { subject }.to change { Plan.find(plan.id).name }.from(plan.name).to(params[:plan][:name]) &
-      not_change { Plan.find(plan.id).created_at }
+                            not_change { Plan.find(plan.id).created_at }
       expect(response).to have_http_status(200)
     end
   end
