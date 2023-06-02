@@ -84,7 +84,7 @@ RSpec.describe "Reports", type: :request do
     it "任意のレコードを更新できる" do
       params[:report]["report_items_attributes"] = { 0 => report_item }
       expect { subject }.to change { Report.find(report.id).content }.from(report.content).to(params[:report][:content]) &
-      not_change { Report.find(report.id).created_at }
+                            not_change { Report.find(report.id).created_at }
       expect(response).to have_http_status(200)
     end
   end

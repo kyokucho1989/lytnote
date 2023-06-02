@@ -12,9 +12,7 @@ class Plan < ApplicationRecord
   PROGRESS_MAX_COUNT = 3
   def progress_total_count_cannot_set_exceeded_limit
     count_in_progress = user.plans.where(status: "進行中").count
-    if count_in_progress > PROGRESS_MAX_COUNT
-      errors.add(:status, ":「進行中」の目標の数は、3個までです") 
-    end
+    errors.add(:status, ":「進行中」の目標の数は、3個までです") if count_in_progress > PROGRESS_MAX_COUNT
   end
 
   def deadline_cannot_set_in_past
@@ -22,8 +20,6 @@ class Plan < ApplicationRecord
   end
 
   def cannot_edit_on_complete
-    if status == "完了" && (deadline_changed? || name_changed?)
-      errors.add(:deadline, ":完了状態で締め切りは変更できません") 
-    end
+    errors.add(:deadline, ":完了状態で締め切りは変更できません") if status == "完了" && (deadline_changed? || name_changed?)
   end
 end

@@ -5,5 +5,4 @@ class Users::SessionsController < Devise::SessionsController
     # トップページへリダイレクト
     redirect_to plans_path, notice: "ゲストユーザーとしてログインしました。"
   end
-
 end

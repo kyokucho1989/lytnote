@@ -53,7 +53,7 @@ RSpec.describe "Genres", type: :request do
     it "任意のレコードを更新できる" do
       # binding.pry
       expect { subject }.to change { Genre.find(genre.id).name }.from(genre.name).to(params[:genre][:name]) &
-      not_change { Genre.find(genre.id).created_at }
+                            not_change { Genre.find(genre.id).created_at }
       expect(response).to have_http_status(200)
     end
   end

@@ -7,7 +7,7 @@ class Report < ApplicationRecord
   validates :content_for_share, length: { maximum: 200 }
   # validate :report_items_donot_have_one_also
   # def report_items_donot_have_one_also
-  #   errors.add(:report_items, "やったことは少なくてもひとつ必要です") if report_items.size < 1 
+  #   errors.add(:report_items, "やったことは少なくてもひとつ必要です") if report_items.size < 1
   # end
 
   def self.convert_content_shared(formatted_para, genres_set)
