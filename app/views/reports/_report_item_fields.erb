@@ -1,6 +1,6 @@
 <div class="form-row nested-fields mb-4">
     <div class="my-2 col-6 col-md-3">
-			<%= f.text_field :genre_name ,{:class => 'form-control form-control-sm w-100' ,:list => 'datalistOptions3', :id => 'exampleDataList3' , :value => get_genre_name(f.object.genre_id) ,:placeholder => "ジャンル"} %>
+			<%= f.text_field :genre_name ,{:class => 'form-control' ,:list => 'datalistOptions3', :id => 'exampleDataList3' , :value => get_genre_name(f.object.genre_id) ,:placeholder => "ジャンル"} %>
 			<datalist id="datalistOptions3">
 			<% @select_genre.each do |genre| %>
 				<option value= <%= genre.name %> >
@@ -8,7 +8,7 @@
 			</datalist>
     </div>
 		<div class="my-2 col-11 col-md-8">
-    	<%= f.text_field :content,{class: "form-control form-control-sm w-100" ,:placeholder => "やったことを記載"} %>
+    	<%= f.text_field :content,{class: "form-control" ,:placeholder => "やったことを記載"} %>
 		</div>
     <div class="col-1 col-md-1 d-flex justify-content-center align-items-center">
 			<%= link_to_remove_association "", f  ,\
