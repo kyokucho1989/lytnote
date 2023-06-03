@@ -10,7 +10,6 @@ $(document).on("page:load turbolinks:load", function() {
     if (size == max_field_items) {
       event.preventDefault();
     }
-    console.log(size);
   })
   .on('cocoon:after-insert', function() {
     $("a.remove_fields").show();
@@ -39,7 +38,7 @@ $(document).on("page:load turbolinks:load", function() {
   $(select_field).change(function(){
     let state = this.value;
     let state_id = this.id;
-    console.log(this);
+    // console.log(this);
     $.ajax({
       type: 'GET', // リクエストのタイプ
       url: '/reviews/change_state', // リクエストを送信するURL
@@ -62,7 +61,7 @@ $(document).on("page:load turbolinks:load", function() {
   $(select_plan_field).change(function(){
     let state = this.value;
     let state_id = this.id;
-    console.log(this);
+    // console.log(this);
     $.ajax({
       type: 'GET', // リクエストのタイプ
       url: '/plan', // リクエストを送信するURL
@@ -108,7 +107,7 @@ $(document).on("page:load turbolinks:load", function() {
       },
       onChangeMonthYear: function(year, month, inst) {
         // ここに、カレンダーの月が変更されたときに実行する処理を記述します
-        console.log("The month has changed to " + month + "-" + year);
+        // console.log("The month has changed to " + month + "-" + year);
         $.ajax({
           type: 'GET', // リクエストのタイプ
           url: '/reports/filter_report', // リクエストを送信するURL
@@ -134,7 +133,7 @@ $(document).on("page:load turbolinks:load", function() {
       },
       onChangeMonthYear: function(year, month, inst) {
         // ここに、カレンダーの月が変更されたときに実行する処理を記述します
-        console.log("The month has changed to " + month + "-" + year);
+        // console.log("The month has changed to " + month + "-" + year);
         $.ajax({
           type: 'GET', // リクエストのタイプ
           url: '/reviews/filter_review', // リクエストを送信するURL
