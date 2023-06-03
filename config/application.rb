@@ -15,6 +15,7 @@ module DailyReportApp
     # タイムゾーン変更
     config.i18n.default_locale = :ja
     config.time_zone = 'Asia/Tokyo'
+    config.active_record.default_timezone = :local
     # ここまで
 
     # デフォルトのロケールを日本（ja）に設定
