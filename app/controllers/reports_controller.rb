@@ -3,6 +3,7 @@ class ReportsController < ApplicationController
   include Component
 
   def index
+    @active_menu = "reports"
     @reports = Report.includes(:report_items).where(user_id: current_user.id).page(params[:page]).order(reported_on: :desc)
     @genres_set = get_genre_nameset
     reported_days_original = @reports.map(&:reported_on)

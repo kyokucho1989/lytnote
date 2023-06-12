@@ -214,6 +214,29 @@ html .ui-button.ui-state-disabled:active {
 .reported-days  {
   background-color: #FFBC42;
 }
+
 @import "bootstrap/scss/bootstrap"; 
 @import "**/*";
+
+
+
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: row;
+  }
+
+}
+
+  .nav-link2 {
+    color: rgba(0, 0, 0, 0.5);
+    display: block;
+    padding: 0.5rem 1rem;
+  }
+  .nav-link2:hover{
+    color: #182736;
+    text-decoration-line:none;
+  }
+
+
+
 

@@ -29,52 +29,49 @@
   
   <%= render "layouts/flash" %>
 
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
-  <!-- <%= link_to "aa", plans_path ,class: "navbar-brand"%> -->
-  <div id="logo">
-  <%= link_to image_tag('/logo.png', class:"img-logo"), plans_path %>
-  </div>
+  <nav class="navbar navbar-expand-sm navbar-light bg-light gnav">
+    <div id="logo">
+    <%= link_to image_tag('/logo.png', class:"img-logo"), plans_path %>
+    </div>
+    <div class="navbar" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <% if user_signed_in? %>
+          <li class="nav-item <%= 'active' if @active_menu == 'reports' %>">
+            <%= link_to "日報", reports_path ,class: "nav-link2"%>
+          </li>
+          <li class="nav-item <%= 'active' if @active_menu == 'plans' %>">
+            <%= link_to "目標", plans_path ,class: "nav-link2"%>
+          </li>
+          <li class="nav-item <%= 'active' if @active_menu == 'reviews' %>">
+            <%= link_to "振り返り", reviews_path ,class: "nav-link2"%>
+          </li>
 
-  <div class="navbar-expand-sm" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <% if user_signed_in? %>
-        <li class="nav-item">
-          <%= link_to "日報", reports_path ,class: "nav-link"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "目標", plans_path ,class: "nav-link"%>
-        </li>
-
-        <li class="nav-item">
-          <%= link_to "振り返り", reviews_path ,class: "nav-link"%>
-        </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            設定
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <%= link_to "ジャンル設定", genres_path, class:"dropdown-item" %>
-            <%= link_to "アカウント編集", edit_user_registration_path, class:"dropdown-item" %>
-            <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } , class:"dropdown-item"%>
-            <%= "【ログイン中のアドレス】#{current_user.email}" %>
-          </div>
-        </li>
-      <% else %>
-      <%# 非ログイン時 %>
-        <li class="nav-item">
-          <%= link_to "新規登録", new_user_registration_path ,class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "ログイン", new_user_session_path ,class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, method: :post ,class: "nav-link" %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</nav>
+          <li class="nav-item dropdown">
+            <a class="nav-link2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              設定
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <%= link_to "ジャンル設定", genres_path, class:"dropdown-item" %>
+              <%= link_to "アカウント編集", edit_user_registration_path, class:"dropdown-item" %>
+              <%= link_to "ログアウト", destroy_user_session_path, method: :delete, data: { confirm: "ログアウトしますか？" } , class:"dropdown-item"%>
+              <%= "【ログイン中のアドレス】#{current_user.email}" %>
+            </div>
+          </li>
+        <% else %>
+        <%# 非ログイン時 %>
+          <li class="nav-item">
+            <%= link_to "新規登録", new_user_registration_path ,class: "nav-link2" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログイン", new_user_session_path ,class: "nav-link2" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, method: :post ,class: "nav-link2" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
   <%= yield %>
 
   <footer class="mb-0 p-5 bg-dark text-white ">
