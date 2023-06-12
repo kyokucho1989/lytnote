@@ -3,6 +3,7 @@ class PlansController < ApplicationController
   include Component
 
   def index
+    @active_menu = "plans"
     if user_signed_in?
       plans_nonorder = Plan.includes(:review_items).where(user_id: current_user.id).page(params[:page])
 
