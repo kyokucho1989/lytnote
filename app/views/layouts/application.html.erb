@@ -30,10 +30,10 @@
   <%= render "layouts/flash" %>
 
   <nav class="navbar d-flex flex-column flex-md-row navbar-expand-sm navbar-light bg-light gnav">
-    <div id="logo" class = "col">
+    <div id="logo" class = "col-auto">
     <%= link_to image_tag('/logo.png', class:"img-logo"), plans_path %>
     </div>
-    <div class="navbar col-auto" id="navbarNavDropdown">
+    <div class="navbar col-auto ml-md-auto" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <% if user_signed_in? %>
           <li class="nav-item <%= 'active' if @active_menu == 'reports' %>">
