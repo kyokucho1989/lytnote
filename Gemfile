@@ -97,3 +97,5 @@ gem 'net-ssh', '>= 6.1.0'
 
 # エラー対応のため　develop以外でも入るようにする
 gem 'listen', '~> 3.2'
+
+gem "dockerfile-rails", ">= 1.7", group: :development
